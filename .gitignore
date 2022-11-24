@@ -4,4 +4,4 @@ backend/package-lock.json
 backend/.env
 .DS_Store
 !backend/uploads/.gitkeep
-
+backend/uploads/*
