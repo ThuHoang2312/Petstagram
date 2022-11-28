@@ -4,7 +4,7 @@ const promisePool = pool.promise()
 
 const getAllphotosByUser = async (res) => {
   try {
-    const [rows] = await promisePool.query('')
+    const [rows] = await promisePool.query('SELECT * FROM photos')
     return rows
   } catch (e) {
     res.status(500).send(e.message)
@@ -14,7 +14,10 @@ const getAllphotosByUser = async (res) => {
 
 const getPhotoById = async (photoId, res) => {
   try {
-    const [rows] = await promisePool.query('', [photoId])
+    const [rows] = await promisePool.query(
+      'SELECT * FROM photos WHERE photo_id = ?',
+      [photoId]
+    )
     return rows[0]
   } catch (e) {
     res.status(404).send(e.message)
@@ -24,8 +27,13 @@ const getPhotoById = async (photoId, res) => {
 
 const addPhoto = async (photo, res) => {
   try {
-    const sql = ''
-    const values = []
+    const sql = 'INSERT INTO photos VALUE (0, ?, ?, ?, ?)'
+    const values = [
+      photo.filename,
+      photo.description,
+      photo.create_at,
+      photo.user_id
+    ]
     const [result] = await promisePool.query(sql, values)
     return result.insertId
   } catch (e) {
@@ -49,20 +57,24 @@ const deletePhotosById = async (photoId, owner, role, res) => {
   }
 }
 
-const updatePhotoById = async (photo, owner, role, res) => {
+const updateDescriptionById = async (photo, res) => {
   try {
-    if (role == 0) {
-      const sql = ""
-      const values = []
+    const sql = 'UPDATE photos SET description = ? WHERE photo_id = ?'
+    const values = [photo.description, photo.photo_id]
+    const [rows] = await promisePool.query(sql, values)
+    return rows
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+    console.error('error', e.message)
+  }
+}
 
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    } else {
-      const sql = ""
-      const values = []
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    }
+const updateDescriptionAndPhotoById = async (photo, res) => {
+  try {
+    const sql = 'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ?'
+    const values = [photo.description, photo.filename, photo.photo_id]
+    const [rows] = await promisePool.query(sql, values)
+    return rows
   } catch (e) {
     res.status(500).json({ error: e.message })
     console.error('error', e.message)
@@ -74,5 +86,6 @@ module.exports = {
   getPhotoById,
   addPhoto,
   deletePhotosById,
-  updatePhotoById
+  updateDescriptionById,
+  updateDescriptionAndPhotoById
 }

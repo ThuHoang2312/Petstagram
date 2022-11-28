@@ -3,7 +3,7 @@ const photoModel = require("../models/photoModel")
 const { validationResult } = require("express-validator")
 
 const getAllphotosByUser = async (req, res) => {
-  const photos = await photoModel.getAllPhotos(res)
+  const photos = await photoModel.getAllphotosByUser(res)
   res.json(photos)
 }
 
@@ -16,20 +16,40 @@ const getPhotoById = async (req, res) => {
   }
 }
 
-const editPhoto = async (req, res) => {
+const editPhotoAndDescription = async (req, res) => {
+  console.log('editPhotoAndDescription')
   const errors = validationResult(req)
-  console.log("validation errors", errors)
   if (errors.isEmpty()) {
     const photo = req.body
-    if (req.params.catId) {
-      photo.id = req.params.catId
+    photo.description = req.body.description
+    photo.filename = req.file.filename
+    if (req.params.photoId) {
+      photo.photo_id = req.params.photoId
     }
-    const result = await photoModel.updatePhotoById(photo, req.user.user_id, req.user.role, res)
+    const result = await photoModel.updateDescriptionAndPhotoById(photo, res)
     if (result.affectedRows > 0) {
-      res.json({ message: "photo modified: " + photo.id })
+      res.json({ message: "photo modified: " + photo.photo_id })
     }
   } else {
-    res.status(401).json({ message: "cat modify failed" })
+    res.status(401).json({ message: "photo modify failed" })
+  }
+}
+
+const editDescription = async (req, res) => {
+  console.log('edit desc')
+  const errors = validationResult(req)
+  if (errors.isEmpty()) {
+    const photo = req.body
+    photo.description = req.body.description
+    if (req.params.photoId) {
+      photo.photo_id = req.params.photoId
+    }
+    const result = await photoModel.updateDescriptionById(photo, res)
+    if (result.affectedRows > 0) {
+      res.json({ message: "photo modified: " + photo.photo_id })
+    }
+  } else {
+    res.status(401).json({ message: "photo modify failed" })
   }
 }
 
@@ -41,11 +61,12 @@ const uploadPhoto = async (req, res) => {
     res.status(400).json({ message: "file missing or invalid" })
   } else if (errors.isEmpty()) {
     const photo = req.body
-    photo.owner = req.user.user_id
+    // photo.user_id = req.user.user_id
     photo.filename = req.file.filename
+    photo.create_at = new Date()
     console.log("create a new post: ", photo)
     const photoId = await photoModel.addPhoto(photo, res)
-    res.status(201).json({ message: "cat created", photoId })
+    res.status(201).json({ message: "post created", photoId })
   } else {
     res
       .status(400)
@@ -71,8 +92,9 @@ const deletePhoto = async (req, res) => {
 module.exports = {
   getAllphotosByUser,
   getPhotoById,
-  editPhoto,
+  editDescription,
   uploadPhoto,
-  deletePhoto
+  deletePhoto,
+  editPhotoAndDescription
 }
 

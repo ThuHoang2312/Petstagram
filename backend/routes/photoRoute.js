@@ -18,8 +18,8 @@ const upload = multer({ dest: 'uploads/', fileFilter })
 
 router.get('/', photoController.getAllphotosByUser)
 router.get('/:photoId', photoController.getPhotoById)
-router.post(
-  '/',
-  upload.single('photo'),
-  photoController.uploadPhoto
-)
+router.post('/', upload.single('photo'), photoController.uploadPhoto)
+router.put('/:photoId', photoController.editDescription)
+router.put('/:photoId', upload.single('photo'), photoController.editPhotoAndDescription)
+
+module.exports = router
