@@ -1,9 +1,15 @@
+'use strict'
 const mysql = require('mysql2')
-const config = require('../config/config')
+require('dotenv').config()
 
 const pool = mysql.createPool({
-  host: config.HOST,
-  user: config.USER,
-})
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 module.exports = pool
