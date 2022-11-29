@@ -24,11 +24,11 @@ const editPhotoAndDescription = async (req, res) => {
     photo.description = req.body.description
     photo.filename = req.file.filename
     if (req.params.photoId) {
-      photo.photo_id = req.params.photoId
+      photo.photoId = req.params.photoId
     }
     const result = await photoModel.updateDescriptionAndPhotoById(photo, res)
     if (result.affectedRows > 0) {
-      res.json({ message: "photo modified: " + photo.photo_id })
+      res.json({ message: "photo modified: " + photo.photoId })
     }
   } else {
     res.status(401).json({ message: "photo modify failed" })
@@ -42,11 +42,11 @@ const editDescription = async (req, res) => {
     const photo = req.body
     photo.description = req.body.description
     if (req.params.photoId) {
-      photo.photo_id = req.params.photoId
+      photo.photoId = req.params.photoId
     }
     const result = await photoModel.updateDescriptionById(photo, res)
     if (result.affectedRows > 0) {
-      res.json({ message: "photo modified: " + photo.photo_id })
+      res.json({ message: "photo modified: " + photo.photoId })
     }
   } else {
     res.status(401).json({ message: "photo modify failed" })
@@ -63,7 +63,7 @@ const uploadPhoto = async (req, res) => {
     const photo = req.body
     // photo.user_id = req.user.user_id
     photo.filename = req.file.filename
-    photo.create_at = new Date()
+    photo.createdAt = new Date()
     console.log("create a new post: ", photo)
     const photoId = await photoModel.addPhoto(photo, res)
     res.status(201).json({ message: "post created", photoId })
