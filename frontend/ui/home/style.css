@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
+
+/* ----------GENERAL STYLING---------- */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  /* font-size: 10px; */
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #283618;
+}
+
+.catchphrase {
+  font-size: 5.2rem;
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1.6rem 3.2rem;
+  border-radius: 9px;
+
+  /* Only necessary for .btn */
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+
+  transition: all 0.3s;
+  margin-right: 1rem;
+}
+
+.btn--full:link,
+.btn--full:visited {
+  background-color: #bc6c25;
+  color: #fefae0;
+}
+
+.btn--full:hover,
+.btn--full:active {
+  background-color: #a96121;
+}
+
+.btn--outline:link,
+.btn--outline:visited {
+  background-color: #fff;
+  color: #283618;
+}
+
+.btn--outline:hover,
+.btn--outline:active {
+  background-color: #f8f0e9;
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+/* ----------HEADER---------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f0e9;
+
+  height: 9.6rem;
+  padding: 0 4.8rem;
+}
+
+.logo {
+  height: 3.6rem;
+}
+
+/* ------Navigation------ */
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  display: inline-block;
+  color: #283618;
+  font-size: 1.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #a96121;
+}
+
+.main-nav-link.sign-up:link,
+.main-nav-link.sign-up:visited {
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  background-color: #bc6c25;
+  color: #f8f0e9;
+}
+
+.main-nav-link.sign-up:hover,
+.main-nav-link.sign-up:active {
+  background-color: #a96121;
+}
+
+/* ----------INTRO SECTION---------- */
+
+.section-intro {
+  background-color: #f8f0e9;
+  padding: 4.8rem 0 9.6rem 0;
+}
+
+.intro {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9.6rem;
+  align-items: center;
+}
+
+.intro-description {
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 4.8rem;
+}
+
+.intro-img {
+  width: 100%;
+}
+
+.customers {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 8rem;
+}
+
+.customer-imgs {
+  display: flex;
+}
+
+.customer-imgs img {
+  height: 4.8rem;
+  width: 4.8rem;
+  border-radius: 50%;
+  margin-right: -1.6rem;
+  border: 3px solid #283618;
+}
+
+.customer-imgs img:last-child {
+  margin: 0;
+}
+
+.customer-text {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.customer-text span {
+  color: #a96121;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+/* ----------EXPLAIN SECTION---------- */
+
+.section-explain {
+  padding: 9.6rem 0;
+}
+
+.container {
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  gap: 7.4rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.subheading {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #bc6c25;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.75px;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  font-weight: 700;
+  color: #283618;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 9.6rem;
+}
+
+.step-text {
+  border: 2px solid #283618;
+  border-radius: 9px;
+  padding: ;
+}
+
+.step-number {
+  font-size: 7.4rem;
+  font-weight: 600;
+  color: #ebd3be;
+  margin-bottom: 1.2rem;
+}
+
+.step-text h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 2.4rem;
+}
+
+.step-description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
