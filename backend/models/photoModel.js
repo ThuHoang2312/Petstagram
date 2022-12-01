@@ -3,7 +3,7 @@ const pool = require('../database/db')
 const promisePool = pool.promise()
 
 // Get all photos by a specific user
-const getAllphotosByUser = async (res) => {
+const getAllPhotosByUser = async (res) => {
   try {
     const sql =
       'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id'
@@ -142,7 +142,7 @@ const getPhotoByFollower = async (userId, followeeId, res) => {
 }
 
 module.exports = {
-  getAllphotosByUser,
+  getAllPhotosByUser,
   getPhotoById,
   addPhoto,
   deletePhotosById,

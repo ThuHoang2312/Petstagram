@@ -15,7 +15,14 @@ const removeLike = async (req, res) => {
   }
 }
 
+const isPhotoLikedByUser = async (req, res) => {
+  const photoId = req.params.photoId
+  const result = await likeModel.getLikeStatusByPhotoId(req.user.user_id, photoId, res)
+  console.log(result)
+}
+
 module.exports = {
   addLike,
-  removeLike
+  removeLike,
+  isPhotoLikedByUser
 }

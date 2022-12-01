@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator")
 const { getCoordinates } = require("../utils/image")
 
 const getAllphotosByUser = async (req, res) => {
-  const photos = await photoModel.getAllphotosByUser(res)
+  const photos = await photoModel.getAllPhotosByUser(res)
   res.json(photos)
 }
 

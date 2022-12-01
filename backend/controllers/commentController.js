@@ -1,56 +1,71 @@
-"use strict"
-const commentModel = require("../models/commentModel")
-const { validationResult } = require("express-validator")
+'use strict'
+const commentModel = require('../models/commentModel')
+const { validationResult } = require('express-validator')
 
 const uploadComment = async (req, res) => {
   const errors = validationResult(req)
-  console.log("validation errors", errors)
+  console.log('validation errors', errors)
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
-    console.log("create a new comment: ", comment)
+    console.log('create a new comment: ', comment)
     const result = await commentModel.addComment(comment, photoId, res)
-    res.status(201).json({ message: "post created", result })
+    res.status(201).json({ message: 'post created', result })
   } else {
     res
       .status(400)
-      .json({ message: "post creation failed", errors: errors.array() })
+      .json({ message: 'post creation failed', errors: errors.array() })
   }
 }
 
 const modifyComment = async (req, res) => {
   const errors = validationResult(req)
-  console.log("validation errors", errors)
+  console.log('validation errors', errors)
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
-    const result = await commentModel.editComment(comment, req.user, photoId, res)
+    const result = await commentModel.editComment(
+      comment,
+      req.user,
+      photoId,
+      res
+    )
     if (result.affectedRows > 0) {
-      res.json({ message: "Comment modified" })
+      res.json({ message: 'Comment modified' })
     }
   } else {
-    res.status(401).json({ message: "user modify failed" })
+    res.status(401).json({ message: 'user modify failed' })
   }
 }
 
 const removeComment = async (req, res) => {
   const errors = validationResult(req)
-  console.log("validation errors", errors)
+  console.log('validation errors', errors)
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
-    const result = await commentModel.deleteComment(comment, req.user, photoId, res)
+    const result = await commentModel.deleteComment(
+      comment,
+      req.user,
+      photoId,
+      res
+    )
     if (result.affectedRows > 0) {
-      res.json({ message: "Comment modified" })
+      res.json({ message: 'Comment modified' })
     }
   } else {
-    res.status(401).json({ message: "user modify failed" })
+    res.status(401).json({ message: 'user modify failed' })
   }
+}
+
+const getAllCommentsByPhotoId = async (req, res) => {
+  const cats = await commentModel.getAllCommentsByPhoto(req.params.photoId, res)
+  res.json(cats)
 }
 
 module.export = {
   uploadComment,
   modifyComment,
-  removeComment
+  removeComment,
+  getAllCommentsByPhotoId
 }
-

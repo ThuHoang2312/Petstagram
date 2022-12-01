@@ -68,8 +68,21 @@ const editComment = async (comment, user, photoId, res) => {
   }
 }
 
+const getAllCommentsByPhoto = async (photoId, res) => {
+  try {
+    const sql =
+      'SELECT * FROM comments where photo_id = ?'
+    const [rows] = await promisePool.query(sql, [photoId])
+    return rows
+  } catch (e) {
+    res.status(500).send(e.message)
+    console.error('error', e.message)
+  }
+}
+
 module.exports = {
   addComment,
   deleteComment,
-  editComment
+  editComment,
+  getAllCommentsByPhoto
 }

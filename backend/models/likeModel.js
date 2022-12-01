@@ -28,7 +28,20 @@ const removeLike = async (userId, photoId, res) => {
   }
 }
 
+const getLikeStatusByPhotoId = async (userId, photoId, res) => {
+  try {
+    const sql = 'SELECT * FROM likes WHERE user_id = ? and photo_id = ?'
+    const value = [userId, photoId]
+    const [rows] = await promisePool.query(sql, value)
+    return rows
+  } catch (e) {
+    res.status(404).send(e.message)
+    console.error('error', e.message)
+  }
+}
+
 module.exports = {
   addLike,
-  removeLike
+  removeLike,
+  getLikeStatusByPhotoId
 }
