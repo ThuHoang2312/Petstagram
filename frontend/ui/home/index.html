@@ -7,19 +7,23 @@
 
     <link rel="stylesheet" href="./style.css" />
 
+    <script defer src="script.js"></script>
+
     <title>Petstagram</title>
   </head>
   <body>
-    <header class="header">
-      <img
-        src="../../assets/logo-dark.png"
-        alt="Petstagram logo"
-        class="logo"
-      />
+    <header class="header sticky" >
+      <a href="#">
+        <img
+          src="../../assets/logo-dark.png"
+          alt="Petstagram logo"
+          class="logo"
+        />
+      </a>
       <nav class="main-nav">
         <ul class="main-nav-list">
-          <li><a href="#" class="main-nav-link">Sign in</a></li>
-          <li><a href="#" class="main-nav-link sign-up">Sign up</a></li>
+          <li><a href="../login/login.html" class="main-nav-link">Sign in</a></li>
+          <li><a href="../signup/signup.html" class="main-nav-link sign-up">Sign up</a></li>
         </ul>
       </nav>
     </header>
@@ -33,10 +37,10 @@
               The only website where pets' owners can keep and sharing their
               memories with their peers
             </p>
-            <a href="#" class="btn btn--full margin-right-sm"
+            <a href="../signup/signup.html" class="btn btn--full margin-right-sm"
               >Start your journey</a
             >
-            <a href="#" class="btn btn--outline">Learn more &darr;</a>
+            <a href="#how" class="btn btn--outline">Learn more &darr;</a>
             <div class="customers">
               <div class="customer-imgs">
                 <img src="../../assets/avatar1.png" alt="Customer photo" />
@@ -51,7 +55,7 @@
               </p>
             </div>
           </div>
-          <div class="hero-img-box">
+          <div class="intro-img-box">
             <img
               src="../../assets/front.jpg"
               class="intro-img"
@@ -61,7 +65,7 @@
         </div>
       </section>
 
-      <section class="section-explain">
+      <section class="section-explain" id ="how">
         <div class="container">
           <span class="subheading">How it works</span>
           <h2 class="heading-secondary">Your journey in 3 simple steps</h2>
@@ -89,5 +93,25 @@
         </div>
       </section>
     </main>
+
+    <footer class="footer">
+        <div class="copyright-col">
+          <p class="copyright">
+            Copyright &copy; <span class="year">2022</span> by Petstagram. All rights reserved.
+          </p>
+        </div>
+        <div class="address-col">
+          <p class="footer-heading">Contact us</p>
+          <address class="contacts">
+            <p>Karaportti 2, 02610 Espoo</p>
+            <p>
+              <a href="mailto:customerservice@petstagram.com">
+                customerservice@petstagram.com
+              </a>
+            </p>
+          </address>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

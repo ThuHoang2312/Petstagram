@@ -66,15 +66,28 @@ body {
   box-shadow: inset 0 0 0 3px #fff;
 }
 
-/* ----------HEADER---------- */
-.header {
+.header,
+.footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #f8f0e9;
-
   height: 9.6rem;
   padding: 0 4.8rem;
+}
+
+/* ----------HEADER---------- */
+.sticky {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(255, 255, 255, 0.97);
+  z-index: 999;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
 }
 
 .logo {
@@ -122,6 +135,7 @@ body {
 .section-intro {
   background-color: #f8f0e9;
   padding: 4.8rem 0 9.6rem 0;
+  margin-top: 8rem;
 }
 
 .intro {
@@ -192,7 +206,7 @@ body {
 
 .grid {
   display: grid;
-  gap: 7.4rem;
+  column-gap: 5rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -212,13 +226,13 @@ body {
   color: #283618;
   line-height: 1.2;
   letter-spacing: -0.5px;
-  margin-bottom: 9.6rem;
+  margin-bottom: 8.4rem;
 }
 
 .step-text {
-  border: 2px solid #283618;
-  border-radius: 9px;
-  padding: ;
+  border: 0.5rem solid #dda15e;
+  border-radius: 15px;
+  padding: 2rem;
 }
 
 .step-number {
@@ -239,4 +253,93 @@ body {
 .step-description {
   font-size: 1.6rem;
   line-height: 1.6;
+}
+
+/* ----------FOOTER---------- */
+
+.copyright,
+.copyright span {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.footer-heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.contacts {
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.contacts a {
+  font-size: 1rem;
+  font-style: normal;
+  color: #283618;
+}
+
+/* ----------Below 1300px (smaller desktop)---------- */
+@media (max-width: 84em) {
+  .intro {
+    max-width: 120rem;
+  }
+
+  .catchphrase {
+    font-size: 4rem;
+  }
+}
+
+/* ----------Below 960px (tablets)---------- */
+@media (max-width: 60em) {
+  html {
+    font-size: 50%;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    padding: 0 8rem;
+    gap: 6.4rem;
+  }
+
+  .intro-text-box,
+  .intro-img-box {
+    text-align: center;
+  }
+
+  .customers {
+    justify-content: center;
+    margin-top: 3.2rem;
+  }
+
+  .intro-img {
+    width: 70%;
+  }
+}
+
+/* ----------Below 550px (phones )---------- */
+@media (max-width: 34em) {
+  .grid {
+    row-gap: 4.8rem;
+    grid-template-columns: 1fr;
+  }
+
+  .customers {
+    flex-direction: column;
+  }
+
+  .intro-img {
+    display: none;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: baseline;
+    height: 10.8rem;
+    padding: 2rem;
+    gap: 1rem;
+  }
 }
