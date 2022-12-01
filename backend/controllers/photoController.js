@@ -27,7 +27,7 @@ const editPhotoAndDescription = async (req, res) => {
     if (req.params.photoId) {
       photo.photoId = req.params.photoId
     }
-    const result = await photoModel.updateDescriptionAndPhotoById(photo, res)
+    const result = await photoModel.updateDescriptionAndPhotoById(photo, req.user, res)
     if (result.affectedRows > 0) {
       res.json({ message: "photo modified: " + photo.photoId })
     }
@@ -45,7 +45,7 @@ const editDescription = async (req, res) => {
     if (req.params.photoId) {
       photo.photoId = req.params.photoId
     }
-    const result = await photoModel.updateDescriptionById(photo, res)
+    const result = await photoModel.updateDescriptionById(photo, req.user, res)
     if (result.affectedRows > 0) {
       res.json({ message: "photo modified: " + photo.photoId })
     }
@@ -79,8 +79,7 @@ const uploadPhoto = async (req, res) => {
 const deletePhoto = async (req, res) => {
   const result = await photoModel.deletePhotosById(
     req.params.photoId,
-    req.user.user_id,
-    req.user.role,
+    req.user,
     res
   )
   console.log("photo deleted", result)
@@ -90,6 +89,7 @@ const deletePhoto = async (req, res) => {
     res.status(401).json({ message: "photo delete failed" })
   }
 }
+
 
 module.exports = {
   getAllphotosByUser,

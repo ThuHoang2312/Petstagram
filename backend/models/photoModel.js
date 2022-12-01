@@ -48,9 +48,9 @@ const addPhoto = async (photo, res) => {
 }
 
 // Delete 1 photo by id
-const deletePhotosById = async (photoId, owner, role, res) => {
+const deletePhotosById = async (photoId, user, res) => {
   try {
-    if (role == 0) {
+    if (user.role == 0) {
       const value = [photoId]
       // Delete comments and likes that belongs to the photo (has photo_id as foreign key)
       const deleteComment = 'DELETE FROM comments WHERE photo_id = ?'
@@ -62,7 +62,7 @@ const deletePhotosById = async (photoId, owner, role, res) => {
       const [rows] = await promisePool.query(deletePhoto, value)
       return rows
     } else {
-      const value = [photoId, owner]
+      const value = [photoId, user.user_id]
       const deleteComment =
         'DELETE FROM comments WHERE photo_id = ? and user_id = ?'
       await promisePool.query(deleteComment, value)
@@ -90,7 +90,7 @@ const updateDescriptionById = async (photo, user, res) => {
     } else {
       const sql =
         'UPDATE photos SET description = ? WHERE photo_id = ? and user_id = ?'
-      const values = [photo.description, photo.photoId, user.userId]
+      const values = [photo.description, photo.photoId, user.user_id]
       const [rows] = await promisePool.query(sql, values)
       return rows
     }
@@ -116,7 +116,7 @@ const updateDescriptionAndPhotoById = async (photo, user, res) => {
         photo.description,
         photo.filename,
         photo.photoId,
-        user.userId
+        user.user_id
       ]
       const [rows] = await promisePool.query(sql, values)
       return rows
@@ -141,98 +141,6 @@ const getPhotoByFollower = async (userId, followeeId, res) => {
   }
 }
 
-// Add new comment to photo
-const addComment = async (comment, res) => {
-  try {
-    const sql = 'INSERT INTO comments VALUE (0, ?, ?, ?, ?)'
-    const values = [
-      comment.commentText,
-      comment.createdAt,
-      comment.photoId,
-      comment.userId
-    ]
-    const [result] = await promisePool.query(sql, values)
-    return result.insertId
-  } catch (e) {
-    res.status(500).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
-// Delete comment
-const deleteComment = async (comment, user, res) => {
-  try {
-    if (user.role == 0) {
-      const sql = 'DELETE FROM comments WHERE id = ? and photo_id = ?'
-      const value = [comment.id, comment.photoId]
-      const [rows] = await promisePool.query(sql, value)
-      return rows
-    } else {
-      const sql =
-        'DELETE FROM comments WHERE id = ? and user_id = ? and photo_id = ?'
-      const value = [comment.id, user.userId, comment.photoId]
-      const [rows] = await promisePool.query(sql, value)
-      return rows
-    }
-  } catch (e) {
-    res.status(404).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
-// Modify comment
-const editComment = async (comment, user, res) => {
-  try {
-    if (user.role == 0) {
-      const sql =
-        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ?'
-      const values = [comment.commentText, comment.id, comment.photoId]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    } else {
-      const sql =
-        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ? and user_id = ?'
-      const values = [
-        comment.commentText,
-        comment.id,
-        comment.photoId,
-        user.userId
-      ]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-    console.error('error', e.message)
-  }
-}
-
-// Add like to photo
-const addLike = async (like, res) => {
-  try {
-    const sql = 'INSERT INTO likes VALUE (?, ?)'
-    const values = [like.userId, like.photoId]
-    const [result] = await promisePool.query(sql, values)
-    return result.insertId
-  } catch (e) {
-    res.status(500).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
-// Remove like from photo
-const removeLike = async (photoId, userId, role, res) => {
-  try {
-    const sql = 'DELETE FROM likes WHERE user_id = ? and photo_id = ?'
-    const value = [userId, photoId]
-    const [rows] = await promisePool.query(sql, value)
-    return rows
-  } catch (e) {
-    res.status(404).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
 module.exports = {
   getAllphotosByUser,
   getPhotoById,
@@ -240,10 +148,5 @@ module.exports = {
   deletePhotosById,
   updateDescriptionById,
   updateDescriptionAndPhotoById,
-  getPhotoByFollower,
-  addComment,
-  addLike,
-  removeLike,
-  deleteComment,
-  editComment
+  getPhotoByFollower
 }
