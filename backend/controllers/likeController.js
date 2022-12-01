@@ -1,0 +1,21 @@
+"use strict"
+const likeModel = require("../models/likeModel")
+
+const addLike = async (req, res) => {
+    const photoId = req.params.photoId
+    await likeModel.addLike(req.user.user_id, photoId, res)
+    res.status(201).json({ message: "Like added"})
+}
+
+const removeLike = async (req, res) => {
+  const photoId = req.params.photoId
+  const result = await likeModel.removeLike(req.user.user_id, photoId, res)
+  if (result.affectedRows > 0) {
+    res.json({ message: "Like removed" })
+  }
+}
+
+module.exports = {
+  addLike,
+  removeLike
+}

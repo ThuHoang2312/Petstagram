@@ -3,10 +3,10 @@ const pool = require('../database/db')
 const promisePool = pool.promise()
 
 // Add like to photo
-const addLike = async (like, res) => {
+const addLike = async (userId, photoId, res) => {
   try {
     const sql = 'INSERT INTO likes VALUE (?, ?)'
-    const values = [like.userId, like.photoId]
+    const values = [userId, photoId]
     const [result] = await promisePool.query(sql, values)
     return result.insertId
   } catch (e) {
@@ -16,7 +16,7 @@ const addLike = async (like, res) => {
 }
 
 // Remove like from photo
-const removeLike = async (photoId, userId, role, res) => {
+const removeLike = async (userId, photoId, res) => {
   try {
     const sql = 'DELETE FROM likes WHERE user_id = ? and photo_id = ?'
     const value = [userId, photoId]
