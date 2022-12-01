@@ -8,36 +8,47 @@
     <link rel="stylesheet" href="./signup.css" />
     <script src="./signup.js"></script>
   </head>
-  <div class="wrapper">
-    <body>
+  <body>
+    <header class="header" >
+      <a href="#">
+        <img
+          src="../../assets/logo-dark.png"
+          alt="Petstagram logo"
+          class="logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a href="../login/login.html" class="main-nav-link">Sign in</a></li>
+          <li><a href="../signup/signup.html" class="main-nav-link home">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
       <div class="container">
-        <div class="box1">
-          <h1 class="catch-phrase">Memories are for you to keep and share</h1>
+        <div class="img-box">
           <img src="../../assets/signin-page.png" alt="sign in-image" />
         </div>
 
-        <div class="box2">
-          <h2>Sign up</h2>
+        <div class="form-box">
+          <h1>Sign up</h1>
           <p class="signup-p">Join the community.</p>
-          <form
-            id="signup-form"
-            action="http://localhost:3000/auth/register"
-            method="post"
-          >
+          <form id="signup-form" method="post">
             <section>
-              <label for="name">Full Name</label> <br />
+              <label class="label-form" for="name">Full Name</label> <br />
               <input class="form" type="text" name="name" required />
             </section>
             <section>
-              <label for="username">Username</label> <br />
+              <label class="label-form" for="username">Username</label> <br />
               <input class="form" type="text" name="username" required />
             </section>
             <section>
-              <label for="email">Email</label> <br />
+              <label class="label-form" for="email">Email</label> <br />
               <input class="form" type="email" name="email" required />
             </section>
             <section>
-              <label for="password">Password</label> <br />
+              <label class="label-form" for="password">Password</label> <br />
               <input
                 class="form"
                 type="password"
@@ -46,10 +57,19 @@
                 required
               />
             </section>
-            <button class="button">Sign up</button>
+            <button class="btn">Sign up</button>
           </form>
         </div>
       </div>
-    </body>
-  </div>
+    </div>
+  </main>
+
+    <footer class="footer">
+      <div class="copyright-col">
+        <p class="copyright">
+          Copyright &copy; <span class="year">2022</span> by Petstagram. All rights reserved.
+        </p>
+      </div>
+  </footer>
+  </body>
 </html>
