@@ -6,43 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./login.css" />
     <script src="./login.js"></script>
-    <title>Login Page</title>
+    <title>Petstagram &mdash; Login</title>
   </head>
-    <div class="wrapper">
-      <body>
-        <div class="container">
-          <div class="box1">
-            <h1 class = "catch-phrase">Memories are for you to keep and share</h1>
-            <img src="../../assets/signin-page.png" alt="sign in-image"/>
-          </div>
-          <div class="box2">
-            
-            <h2>Sign in</h2>
-            
-            <form
-              id="login-form"
-              action="http://localhost:3000/auth/login"
-              method="post"
-            >
-              <section>
-                <label for="email">Email</label> <br />
-                <input id="email" type="email" name="email" required />
-              </section>
-  
-              <section>
-                <label for="password">Password</label> <br />
-                <input id="password" type="password" name="password" required />
-                <br />
-                <a class="forgot-password" href="">Forgot password?</a>
-              </section>
-              <button class="button">Log in</button>
-            </form>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img
+          src="../../assets/logo-dark.png"
+          alt="Petstagram logo"
+          class="logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li>
+            <a href="../home/index.html" class="main-nav-link home">Home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-            <p class="login-p">
-              Don't have an account? 
-              <a class="sign-up" href="../signup/signup.html">Sign up</a>
-            </p>
-            
-          </div>
-        </div>        
+    <main>
+      <div class="container">
+        <div class="img-box">
+          <img src="../../assets/signin-page.png" alt="sign in-image" />
+        </div>
+
+        <div class="form-box">
+          <h1>Sign in</h1>
+
+          <form id="login-form" method="post">
+            <section>
+              <label class="label-form" for="email">Email</label> <br />
+              <input
+                class="form"
+                id="email"
+                type="email"
+                name="email"
+                required
+              />
+            </section>
+
+            <section>
+              <label class="label-form" for="password">Password</label> <br />
+              <input
+                class="form"
+                id="password"
+                type="password"
+                name="password"
+                required
+              />
+              <br />
+              <p>
+                Forgot password?<a
+                  class="forgot-password"
+                  href="mailto:customerservice@petstagram.com"
+                  >Click here</a
+                >
+              </p>
+            </section>
+            <button class="button">Log in</button>
+          </form>
+
+          <p class="login-p">
+            Don't have an account?
+            <a class="sign-up" href="../signup/signup.html">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="copyright">
+        Copyright &copy; <span class="year">2022</span> by Petstagram. All
+        rights reserved.
+      </p>
+    </footer>
+  </body>
 </html>
