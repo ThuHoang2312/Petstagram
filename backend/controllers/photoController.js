@@ -1,6 +1,7 @@
 "use strict"
 const photoModel = require("../models/photoModel")
 const { validationResult } = require("express-validator")
+const { getCoordinates } = require("../utils/image")
 
 const getAllphotosByUser = async (req, res) => {
   const photos = await photoModel.getAllphotosByUser(res)
@@ -61,7 +62,8 @@ const uploadPhoto = async (req, res) => {
     res.status(400).json({ message: "file missing or invalid" })
   } else if (errors.isEmpty()) {
     const photo = req.body
-    // photo.user_id = req.user.user_id
+    // photo.userId = req.user.userId
+    photo.coords = JSON.stringify(await getCoordinates(req.file.path))
     photo.filename = req.file.filename
     photo.createdAt = new Date()
     console.log("create a new post: ", photo)
