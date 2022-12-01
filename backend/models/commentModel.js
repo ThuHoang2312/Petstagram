@@ -3,13 +3,13 @@ const pool = require('../database/db')
 const promisePool = pool.promise()
 
 // Add new comment to photo
-const addComment = async (comment, res) => {
+const addComment = async (comment, photoId, res) => {
   try {
     const sql = 'INSERT INTO comments VALUE (0, ?, ?, ?, ?)'
     const values = [
       comment.commentText,
       comment.createdAt,
-      comment.photoId,
+      photoId,
       comment.userId
     ]
     const [result] = await promisePool.query(sql, values)
@@ -21,17 +21,17 @@ const addComment = async (comment, res) => {
 }
 
 // Delete comment
-const deleteComment = async (comment, user, res) => {
+const deleteComment = async (comment, user, photoId, res) => {
   try {
     if (user.role == 0) {
       const sql = 'DELETE FROM comments WHERE id = ? and photo_id = ?'
-      const value = [comment.id, comment.photoId]
+      const value = [comment.id, photoId]
       const [rows] = await promisePool.query(sql, value)
       return rows
     } else {
       const sql =
         'DELETE FROM comments WHERE id = ? and user_id = ? and photo_id = ?'
-      const value = [comment.id, user.user_id, comment.photoId]
+      const value = [comment.id, user.user_id, photoId]
       const [rows] = await promisePool.query(sql, value)
       return rows
     }
@@ -42,12 +42,12 @@ const deleteComment = async (comment, user, res) => {
 }
 
 // Modify comment
-const editComment = async (comment, user, res) => {
+const editComment = async (comment, user, photoId, res) => {
   try {
     if (user.role == 0) {
       const sql =
         'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ?'
-      const values = [comment.commentText, comment.id, comment.photoId]
+      const values = [comment.commentText, comment.id, photoId]
       const [rows] = await promisePool.query(sql, values)
       return rows
     } else {
@@ -56,7 +56,7 @@ const editComment = async (comment, user, res) => {
       const values = [
         comment.commentText,
         comment.id,
-        comment.photoId,
+        photoId,
         user.user_id
       ]
       const [rows] = await promisePool.query(sql, values)
