@@ -2,9 +2,12 @@
 const pool = require('../database/db')
 const promisePool = pool.promise()
 
+// Get all photos by a specific user
 const getAllphotosByUser = async (res) => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM photos')
+    const sql =
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id'
+    const [rows] = await promisePool.query(sql)
     return rows
   } catch (e) {
     res.status(500).send(e.message)
@@ -12,12 +15,12 @@ const getAllphotosByUser = async (res) => {
   }
 }
 
+// Get 1 photo by the photo id
 const getPhotoById = async (photoId, res) => {
   try {
-    const [rows] = await promisePool.query(
-      'SELECT * FROM photos WHERE photo_id = ?',
-      [photoId]
-    )
+    const sql =
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE photo_id = ?'
+    const [rows] = await promisePool.query(sql, [photoId])
     return rows[0]
   } catch (e) {
     res.status(404).send(e.message)
@@ -25,14 +28,16 @@ const getPhotoById = async (photoId, res) => {
   }
 }
 
+// Add new photo
 const addPhoto = async (photo, res) => {
   try {
-    const sql = 'INSERT INTO photos VALUE (0, ?, ?, ?, ?)'
+    const sql = 'INSERT INTO photos VALUE (0, ?, ?, ?, ?,?)'
     const values = [
       photo.filename,
       photo.description,
       photo.createAt,
-      photo.userId
+      photo.userId,
+      photo.coords
     ]
     const [result] = await promisePool.query(sql, values)
     return result.insertId
@@ -42,13 +47,30 @@ const addPhoto = async (photo, res) => {
   }
 }
 
+// Delete 1 photo by id
 const deletePhotosById = async (photoId, owner, role, res) => {
   try {
     if (role == 0) {
-      const [rows] = await promisePool.query('', [photoId])
+      const value = [photoId]
+      // Delete comments and likes that belongs to the photo (has photo_id as foreign key)
+      const deleteComment = 'DELETE FROM comments WHERE photo_id = ?'
+      await promisePool.query(deleteComment, value)
+      const removeLike = 'DELETE FROM likes WHERE photo_id = ?'
+      await promisePool.query(removeLike, value)
+      // Delete photo
+      const deletePhoto = 'DELETE FROM photos WHERE photo_id = ?'
+      const [rows] = await promisePool.query(deletePhoto, value)
       return rows
     } else {
-      const [rows] = await promisePool.query('', [photoId, owner])
+      const value = [photoId, owner]
+      const deleteComment =
+        'DELETE FROM comments WHERE photo_id = ? and user_id = ?'
+      await promisePool.query(deleteComment, value)
+      const removeLike = 'DELETE FROM likes WHERE photo_id = ? and user_id = ?'
+      await promisePool.query(removeLike, value)
+      const deletePhoto =
+        'DELETE FROM photos WHERE photo_id = ? and user_id = ?'
+      const [rows] = await promisePool.query(deletePhoto, value)
       return rows
     }
   } catch (e) {
@@ -57,31 +79,55 @@ const deletePhotosById = async (photoId, owner, role, res) => {
   }
 }
 
-const updateDescriptionById = async (photo, res) => {
+// Modify photo description
+const updateDescriptionById = async (photo, user, res) => {
   try {
-    const sql = 'UPDATE photos SET description = ? WHERE photo_id = ?'
-    const values = [photo.description, photo.photoId]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    if (user.role == 0) {
+      const sql = 'UPDATE photos SET description = ? WHERE photo_id = ?'
+      const values = [photo.description, photo.photoId]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    } else {
+      const sql =
+        'UPDATE photos SET description = ? WHERE photo_id = ? and user_id = ?'
+      const values = [photo.description, photo.photoId, user.userId]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    }
   } catch (e) {
     res.status(500).json({ error: e.message })
     console.error('error', e.message)
   }
 }
 
-const updateDescriptionAndPhotoById = async (photo, res) => {
+// Modify photo description and photo
+const updateDescriptionAndPhotoById = async (photo, user, res) => {
   try {
-    const sql =
-      'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ?'
-    const values = [photo.description, photo.filename, photo.photoId]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    if (user.role == 0) {
+      const sql =
+        'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ?'
+      const values = [photo.description, photo.filename, photo.photoId]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    } else {
+      const sql =
+        'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ? and user_id = ?'
+      const values = [
+        photo.description,
+        photo.filename,
+        photo.photoId,
+        user.userId
+      ]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    }
   } catch (e) {
     res.status(500).json({ error: e.message })
     console.error('error', e.message)
   }
 }
 
+// Get photo by user's follower
 const getPhotoByFollower = async (userId, followeeId, res) => {
   try {
     const [rows] = await promisePool.query(
@@ -95,6 +141,7 @@ const getPhotoByFollower = async (userId, followeeId, res) => {
   }
 }
 
+// Add new comment to photo
 const addComment = async (comment, res) => {
   try {
     const sql = 'INSERT INTO comments VALUE (0, ?, ?, ?, ?)'
@@ -112,31 +159,55 @@ const addComment = async (comment, res) => {
   }
 }
 
-const deleteComment = async (photoId, userId, role, res) => {
+// Delete comment
+const deleteComment = async (comment, user, res) => {
   try {
-    const sql = 'DELETE FROM comments WHERE id = ? and user_id = ?'
-    const value = [photoId, userId]
-    const [rows] = await promisePool.query(sql, value)
-    return rows
+    if (user.role == 0) {
+      const sql = 'DELETE FROM comments WHERE id = ? and photo_id = ?'
+      const value = [comment.id, comment.photoId]
+      const [rows] = await promisePool.query(sql, value)
+      return rows
+    } else {
+      const sql =
+        'DELETE FROM comments WHERE id = ? and user_id = ? and photo_id = ?'
+      const value = [comment.id, user.userId, comment.photoId]
+      const [rows] = await promisePool.query(sql, value)
+      return rows
+    }
   } catch (e) {
     res.status(404).send(e.message)
     console.error('error', e.message)
   }
 }
 
-const editComment = async (comment, photoId, userId, res) => {
+// Modify comment
+const editComment = async (comment, user, res) => {
   try {
-    const sql =
-      'UPDATE comments SET comment_text = ? WHERE photo_id = ? and user_id = ?'
-    const values = [comment.commentText, photoId, userId]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    if (user.role == 0) {
+      const sql =
+        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ?'
+      const values = [comment.commentText, comment.id, comment.photoId]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    } else {
+      const sql =
+        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ? and user_id = ?'
+      const values = [
+        comment.commentText,
+        comment.id,
+        comment.photoId,
+        user.userId
+      ]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    }
   } catch (e) {
     res.status(500).json({ error: e.message })
     console.error('error', e.message)
   }
 }
 
+// Add like to photo
 const addLike = async (like, res) => {
   try {
     const sql = 'INSERT INTO likes VALUE (?, ?)'
@@ -149,6 +220,7 @@ const addLike = async (like, res) => {
   }
 }
 
+// Remove like from photo
 const removeLike = async (photoId, userId, role, res) => {
   try {
     const sql = 'DELETE FROM likes WHERE user_id = ? and photo_id = ?'
@@ -175,4 +247,3 @@ module.exports = {
   deleteComment,
   editComment
 }
-
