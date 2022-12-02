@@ -25,6 +25,20 @@ const getUserById = async (res, userId) => {
   }
 }
 
+// Get email as a parameter when logging in and get the user data with the specific email
+const getUserLogin = async (email) => {
+  //console.log("user email: ", email, "from getUserLogin()")
+  try {
+    const [rows] = await promisePool.execute(
+      "SELECT * FROM users WHERE email = ?;",
+      email)
+    return rows
+  } catch (e) {
+    console.error("error", e.message)
+    res.status(500).send(e.message)
+  }
+}
+
 // Create a new user
 const addUser = async (user, res) => {
   try {
@@ -45,19 +59,20 @@ const updateUserById = async (user, res) => {
   try {
     console.log('Modified user: ', user)
     const sql = "UPDATE users SET username = ?, email = ?, password = ?, avatar = ?, description = ?, role = ? " +
-                "WHERE user_id = ?"
+      "WHERE user_id = ?"
     const values = [user.username, user.email, user.password, user.avatar, user.description, user.role, user.id]
     const [rows] = await promisePool.query(sql, values)
     return rows
   } catch (e) {
     console.error("error while updating a specific user:", e.message)
-    res.status(500).json({"error": e.message})
+    res.status(500).json({ "error": e.message })
   }
 }
 
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserLogin,
   addUser,
   updateUserById
 }
