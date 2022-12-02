@@ -14,7 +14,7 @@ app.use(express.static("uploads"))
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use("/", photoRouter)
-app.use("/comment", commentRouter )
+app.use("/comment", commentRouter)
 app.use("/like", likeRouter)
 
 app.listen(config.PORT, () => console.log(`Example app listening on port ${config.PORT}!`))

@@ -8,13 +8,14 @@ const uploadComment = async (req, res) => {
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
+    comment.createdAt = new Date()
     console.log('create a new comment: ', comment)
-    const result = await commentModel.addComment(comment, photoId, res)
-    res.status(201).json({ message: 'post created', result })
+    const result = await commentModel.addComment(comment, req.user.user_id, photoId, res)
+    res.status(201).json({ message: 'comment created', result })
   } else {
     res
       .status(400)
-      .json({ message: 'post creation failed', errors: errors.array() })
+      .json({ message: 'comment creation failed', errors: errors.array() })
   }
 }
 
@@ -34,7 +35,7 @@ const modifyComment = async (req, res) => {
       res.json({ message: 'Comment modified' })
     }
   } else {
-    res.status(401).json({ message: 'user modify failed' })
+    res.status(401).json({ message: 'comment modify failed' })
   }
 }
 
@@ -54,7 +55,7 @@ const removeComment = async (req, res) => {
       res.json({ message: 'Comment modified' })
     }
   } else {
-    res.status(401).json({ message: 'user modify failed' })
+    res.status(401).json({ message: 'comment delete failed' })
   }
 }
 
@@ -63,9 +64,11 @@ const getAllCommentsByPhotoId = async (req, res) => {
   res.json(cats)
 }
 
-module.export = {
+module.exports = {
   uploadComment,
   modifyComment,
   removeComment,
   getAllCommentsByPhotoId
 }
+
+

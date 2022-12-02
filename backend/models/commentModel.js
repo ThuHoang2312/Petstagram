@@ -3,14 +3,14 @@ const pool = require('../database/db')
 const promisePool = pool.promise()
 
 // Add new comment to photo
-const addComment = async (comment, photoId, res) => {
+const addComment = async (comment, userId, photoId, res) => {
   try {
     const sql = 'INSERT INTO comments VALUE (0, ?, ?, ?, ?)'
     const values = [
       comment.commentText,
       comment.createdAt,
       photoId,
-      comment.userId
+      userId
     ]
     const [result] = await promisePool.query(sql, values)
     return result.insertId
