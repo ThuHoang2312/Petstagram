@@ -68,6 +68,7 @@ const editComment = async (comment, user, photoId, res) => {
   }
 }
 
+// Get all comments belong in a photo
 const getAllCommentsByPhoto = async (photoId, res) => {
   try {
     const sql =

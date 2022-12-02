@@ -28,6 +28,7 @@ const removeLike = async (userId, photoId, res) => {
   }
 }
 
+
 const getLikeStatusByPhotoId = async (userId, photoId, res) => {
   try {
     const sql = 'SELECT * FROM likes WHERE user_id = ? and photo_id = ?'

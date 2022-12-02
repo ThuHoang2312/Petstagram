@@ -9,6 +9,7 @@ const getAllphotosByUser = async (req, res) => {
   res.json(photos)
 }
 
+// Get photo by photo id
 const getPhotoById = async (req, res) => {
   const photo = await photoModel.getPhotoById(req.params.photoId, res)
   if (photo) {
@@ -18,6 +19,7 @@ const getPhotoById = async (req, res) => {
   }
 }
 
+// Modify both photo and description
 const editPhotoAndDescription = async (req, res) => {
   console.log('editPhotoAndDescription')
   const errors = validationResult(req)
@@ -41,6 +43,7 @@ const editPhotoAndDescription = async (req, res) => {
   }
 }
 
+// Modify description
 const editDescription = async (req, res) => {
   console.log('edit desc')
   const errors = validationResult(req)
@@ -59,6 +62,7 @@ const editDescription = async (req, res) => {
   }
 }
 
+// Create new photo
 const uploadPhoto = async (req, res) => {
   const errors = validationResult(req)
   console.log('validation errors', errors)
@@ -67,7 +71,7 @@ const uploadPhoto = async (req, res) => {
     res.status(400).json({ message: 'file missing or invalid' })
   } else if (errors.isEmpty()) {
     const photo = req.body
-    // photo.userId = req.user.userId
+    photo.userId = req.user.user_id
     photo.coords = JSON.stringify(await getCoordinates(req.file.path))
     photo.filename = req.file.filename
     photo.createdAt = new Date()
@@ -81,6 +85,7 @@ const uploadPhoto = async (req, res) => {
   }
 }
 
+// Delete a photo
 const deletePhoto = async (req, res) => {
   const result = await photoModel.deletePhotosById(
     req.params.photoId,
@@ -95,6 +100,7 @@ const deletePhoto = async (req, res) => {
   }
 }
 
+// Get photos by user's followers
 const getPhotoByUserFollower = async (req, res) => {
   const photo = await photoModel.getPhotoByFollower(req.params.userId, res)
   if (photo) {

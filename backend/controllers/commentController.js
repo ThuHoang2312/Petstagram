@@ -2,12 +2,14 @@
 const commentModel = require('../models/commentModel')
 const { validationResult } = require('express-validator')
 
+// Upload comment into a photo
 const uploadComment = async (req, res) => {
   const errors = validationResult(req)
   console.log('validation errors', errors)
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
+    // Get date and time when the user create the comment
     comment.createdAt = new Date()
     console.log('create a new comment: ', comment)
     const result = await commentModel.addComment(comment, req.user.user_id, photoId, res)
@@ -19,6 +21,7 @@ const uploadComment = async (req, res) => {
   }
 }
 
+// Modify an existing comment
 const modifyComment = async (req, res) => {
   const errors = validationResult(req)
   console.log('validation errors', errors)
@@ -39,6 +42,7 @@ const modifyComment = async (req, res) => {
   }
 }
 
+// Delete an existing comment
 const removeComment = async (req, res) => {
   const errors = validationResult(req)
   console.log('validation errors', errors)
@@ -59,6 +63,7 @@ const removeComment = async (req, res) => {
   }
 }
 
+// Get all comments of a photo
 const getAllCommentsByPhotoId = async (req, res) => {
   const cats = await commentModel.getAllCommentsByPhoto(req.params.photoId, res)
   res.json(cats)
