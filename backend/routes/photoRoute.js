@@ -17,7 +17,8 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ dest: 'uploads/', fileFilter })
 
 router
-  .get('/', photoController.getAllphotosByUser)
+  .get('/:userId', photoController.getPhotoByUserFollower)
+  .get('/:userId', photoController.getAllphotosByUser)
   .get('/:photoId', photoController.getPhotoById)
   .post('/', upload.single('photo'), photoController.uploadPhoto)
   .put('/:photoId', photoController.editDescription)

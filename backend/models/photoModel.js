@@ -3,11 +3,11 @@ const pool = require('../database/db')
 const promisePool = pool.promise()
 
 // Get all photos by a specific user
-const getAllPhotosByUser = async (res) => {
+const getAllPhotosByUser = async (userId, res) => {
   try {
     const sql =
-      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id'
-    const [rows] = await promisePool.query(sql)
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE user_id = ?'
+    const [rows] = await promisePool.query(sql, [userId])
     return rows
   } catch (e) {
     res.status(500).send(e.message)
@@ -128,13 +128,13 @@ const updateDescriptionAndPhotoById = async (photo, user, res) => {
 }
 
 // Get photo by user's follower
-const getPhotoByFollower = async (userId, followeeId, res) => {
+const getPhotoByFollower = async (userId, res) => {
   try {
     const [rows] = await promisePool.query(
       'SELECT photo_id, filename, description, created_at, user_id FROM photos, follows WHERE user_id = follower_id and followee_id = ?',
-      [userId, followeeId]
+      [userId]
     )
-    return rows[0]
+    return rows
   } catch (e) {
     res.status(404).send(e.message)
     console.error('error', e.message)
