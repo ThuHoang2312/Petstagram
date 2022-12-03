@@ -10,10 +10,12 @@
      href="../../assets/favicon.png"
      type="image/x-icon"
    />
-
+    <!-- STYLESHEET -->
     <link rel="stylesheet" href="./signup.css" />
 
+    <!-- SCRIPT -->
     <script defer src="./signup.js"></script>
+    <script defer src="../login/serialize.js"></script>
 
     <title>Petstagram &mdash; Sign Up</title>
   </head>
@@ -29,7 +31,7 @@
       <nav class="main-nav">
         <ul class="main-nav-list">
           <li><a href="../login/login.html" class="main-nav-link">Sign in</a></li>
-          <li><a href="../signup/signup.html" class="main-nav-link home">Home</a></li>
+          <li><a href="../home/index.html" class="main-nav-link home">Home</a></li>
         </ul>
       </nav>
     </header>
@@ -44,10 +46,7 @@
           <h1>Sign up</h1>
           <p class="signup-p">Join the community.</p>
           <form id="signup-form" method="post">
-            <section>
-              <label class="label-form" for="name">Full Name</label> <br />
-              <input class="form" type="text" name="name" required />
-            </section>
+            
             <section>
               <label class="label-form" for="username">Username</label> <br />
               <input class="form" type="text" name="username" required />
