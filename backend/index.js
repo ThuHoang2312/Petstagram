@@ -8,6 +8,8 @@ const passport = require('./utils/passport')
 const userRouter = require('./routes/userRoutes')
 const port = config.PORT
 
+app.use(express.static("uploads"))
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
