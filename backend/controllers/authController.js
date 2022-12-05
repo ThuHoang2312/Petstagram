@@ -1,7 +1,7 @@
 "use strict"
 const passport = require('passport')
 const bcrypt = require('bcrypt')
-const userModel = require('../models/userModel')
+const { addUser, getUserLogin, getAllUsers } = require('../models/userModel')
 const { validationResult } = require('express-validator')
 
 const login = (req, res) => {
@@ -31,6 +31,9 @@ const register = async (req, res) => {
     // default user role
     newUser.role = 1
   }
+  //console.log(req.body.email)
+  // When registering, check if an email and/or username is already in use.
+  // Display the message on screen for the user
   const errors = validationResult(req)
   console.log('validation errors: ' + errors)
   if (errors.isEmpty()) {
@@ -38,10 +41,22 @@ const register = async (req, res) => {
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(newUser.password, salt)
     newUser.password = passwordHash
-    const result = await userModel.addUser(newUser, res)
+    const result = await addUser(newUser, res)
     res.status(201).json({ message: "user created", userId: result })
   } else {
-    res.status(400).json({ message: "user creation failed", errors: errors.array() })
+    const user = await getAllUsers()
+    console.log("req.body", req.body);
+    for (let i = 1; i <= user.length; i++) {
+      if (user[i - 1].username === req.body.username && user[i - 1].email === req.body.email) {
+        res.status(400).json({ message: "Email and username already in use" })
+      }
+      if (user[i - 1].username === req.body.username) {
+        res.status(400).json({ message: "username already in use" })
+      }
+      if (user[i - 1].email === req.body.email) {
+        res.status(400).json({ message: "Email already in use" })
+      }
+    }
   }
 }
 

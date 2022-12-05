@@ -32,7 +32,7 @@ const getUserLogin = async (email) => {
     const [rows] = await promisePool.execute(
       "SELECT * FROM users WHERE email = ?;",
       email)
-    return rows
+    return rows[0]
   } catch (e) {
     console.error("error", e.message)
     res.status(500).send(e.message)
@@ -50,7 +50,7 @@ const addUser = async (user, res) => {
   } catch (e) {
     console.log("user data:", user)
     console.error("error adding a new user:", e.message)
-    res.status(500).send(e.message)
+    res.status(500).json({ "message": e.message })
   }
 }
 
