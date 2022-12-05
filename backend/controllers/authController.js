@@ -1,8 +1,10 @@
 "use strict"
+const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
-const { addUser, getUserLogin, getAllUsers } = require('../models/userModel')
+const { addUser, getAllUsers } = require('../models/userModel')
 const { validationResult } = require('express-validator')
+const config = require('../config/config')
 
 const login = (req, res) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
@@ -18,8 +20,9 @@ const login = (req, res) => {
         res.send(err)
       }
       // generate a signed son web token with the contents of user object and return it in the response
-      delete user.password
-      return res.json({user})
+      const token = jwt.sign(user, config.KEY)
+      console.log("token:", token, "user:", user)
+      return res.json({user, token})
     })
   })(req, res)
 }
@@ -42,6 +45,7 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(newUser.password, salt)
     newUser.password = passwordHash
     const result = await addUser(newUser, res)
+    //console.log("resulttest", result)
     res.status(201).json({ message: "user created", userId: result })
   } else {
     const user = await getAllUsers()

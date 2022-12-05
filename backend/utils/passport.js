@@ -1,8 +1,12 @@
 "use strict"
 const passport = require("passport")
 const Strategy = require("passport-local").Strategy
+const passportJWT = require("passport-jwt");
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require('bcrypt')
 const { getUserLogin } = require("../models/userModel")
+const config = require('../config/config')
 
 // Log in with the email and password from local storage
 passport.use(
@@ -27,6 +31,17 @@ passport.use(
       return done(err)
     }
   })
+)
+
+passport.use(new JWTStrategy({
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: config.KEY,
+  },
+    function (jwtPayload, done) {
+      console.log(jwtPayload)
+      return done(null, jwtPayload)
+    }
+  )
 )
 
 module.exports = passport

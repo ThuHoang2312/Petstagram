@@ -9,8 +9,11 @@ const getUsers = async (req, res) => {
 
 // Uses the data from userModel to display a user
 const getUser = async (req, res) => {
-  const user = await userModel.getUserById(res, req.params.userId)
-  console.log('user ID:', req.params.userId, user)
+  //console.log("test", req.params);
+  // placeholder, userId will be gotten from the jwt.
+  const user = await userModel.getUserById(res, 1)
+  //console.log("user", user);
+  //console.log('user ID:', req.params.userId, user)
   if (user) {
     res.json(user)
   } else {

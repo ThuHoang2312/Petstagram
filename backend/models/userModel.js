@@ -32,7 +32,8 @@ const getUserLogin = async (email) => {
     const [rows] = await promisePool.execute(
       "SELECT * FROM users WHERE email = ?;",
       email)
-      console.log(rows[0]);
+      //console.log(rows[0]);
+      //console.log("rows test", rows)
     return rows
   } catch (e) {
     console.error("error", e.message)
@@ -46,7 +47,7 @@ const addUser = async (user, res) => {
     const sql = "INSERT INTO users (user_id, username, email, password, role) VALUES (NULL, ?, ?, ?, ?)"
     const values = [user.username, user.email, user.password, user.role]
     const [result] = await promisePool.query(sql, values)
-    console.log(result)
+    //console.log("addUser(), result", result, "insertit", result.insertId)
     return result.insertId
   } catch (e) {
     console.log("user data:", user)
