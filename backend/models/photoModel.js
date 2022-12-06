@@ -28,6 +28,19 @@ const getPhotoById = async (photoId, res) => {
   }
 }
 
+// Get 5 photos randomly
+const getPhotoRandomly = async (res) => {
+  try {
+    const sql =
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id ORDER BY RAND()'
+    const [rows] = await promisePool.query(sql)
+    return rows
+  } catch (e) {
+    res.status(404).send(e.message)
+    console.error('error', e.message)
+  }
+}
+
 // Add new photo
 const addPhoto = async (photo, res) => {
   try {
@@ -148,5 +161,6 @@ module.exports = {
   deletePhotosById,
   updateDescriptionById,
   updateDescriptionAndPhotoById,
-  getPhotoByFollower
+  getPhotoByFollower,
+  getPhotoRandomly
 }

@@ -17,11 +17,12 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ dest: 'uploads/', fileFilter })
 
 router
-  .get('/:userId', photoController.getPhotoByUserFollower)
-  .get('/:userId', photoController.getAllphotosByUser)
-  .get('/:photoId', photoController.getPhotoById)
-  .post('/', upload.single('photo'), photoController.uploadPhoto)
-  .put('/:photoId', photoController.editDescription)
+  .get('', photoController.getPhotoByUserFollower)
+  .get('/explore', photoController.getPhotosRandom)
+  .get('/user/:userId', photoController.getAllphotosByUser) //this one should be in user route
+  .get('/photo/:photoId', photoController.getPhotoById)
+  .post('', upload.single('photo'), photoController.uploadPhoto)
+  .put('/photo/:photoId', photoController.editDescription)
   .put(
     '/:photoId',
     upload.single('photo'),

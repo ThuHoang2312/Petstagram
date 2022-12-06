@@ -2,11 +2,19 @@
 const searchModel = require('../models/searchModel')
 
 // Get data for searching
-const getDataForSearch = async (req, res) => {
+const getUsernameForSearch = async (req, res) => {
   const searchQuery = req.query.query //need to change according to frontend
-  const data = await searchModel.getDataForSearch(searchQuery, res)
+  const data = await searchModel.getUsernameDataForSearch(searchQuery, res)
   res.json(data)
 }
+
+const getTagForSearch = async (req, res) => {
+  const searchQuery = req.query.query //need to change according to frontend
+  const data = await searchModel.getTagDataForSearch(searchQuery, res)
+  res.json(data)
+}
+
 module.exports = {
-  getDataForSearch
+  getUsernameForSearch,
+  getTagForSearch
 }

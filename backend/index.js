@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.static("uploads"))
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.use("/", photoRouter)
+app.use("/homepage", photoRouter)
 app.use("/comment", commentRouter)
 app.use("/like", likeRouter)
 app.use("/search", searchRouter)

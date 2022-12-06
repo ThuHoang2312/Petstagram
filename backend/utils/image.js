@@ -1,5 +1,6 @@
 'use strict'
 const ExifImage = require('exif').ExifImage
+const sharp = require("sharp")
 
 const getCoordinates = (imgFile) => {
   // imgFile = full path to uploaded image
@@ -41,6 +42,14 @@ const gpsToDecimal = (gpsData, hem) => {
   return hem === 'S' || hem === 'W' ? (d *= -1) : d
 }
 
+const makeThumbnail = async (file, thumbname) => {
+  await sharp(file)
+    .resize(300, 300)
+    .png()
+    .toFile("./thumbnails/" + thumbname)
+}
+
 module.exports = {
-  getCoordinates
+  getCoordinates,
+  makeThumbnail
 }
