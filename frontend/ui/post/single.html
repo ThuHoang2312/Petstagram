@@ -38,10 +38,8 @@
           />
         </div>
 
-
         <div class="user-profile">
-          <p>Username</p>
-          <img src="../../assets/avatar2.png" alt="" />
+          
         </div>
       </div>
     </header>
@@ -52,23 +50,23 @@
           <div class="left-col">
             <ul>
               <li>
-                <a href="#" class="nav-items active">
+                <a href="../front/index.html" class="nav-items active">
                   <i class="bx bx-home-alt-2"></i>
                   <span>Home</span>
                 </a>
               </li>
-              <!-- <li>
-                <a href="../" class="nav-items">
-                  <i class="bx bx-compass"></i>
-                  <span>Explore</span>
-                </a>
-              </li> -->
               <li>
                 <a href="../search/search.html" class="nav-items">
                   <i class="bx bx-search-alt-2"></i>
                   <span>Search</span>
                 </a>
               </li>
+              <!-- <li>
+                <a href="../explore/index.html" class="nav-items">
+                  <i class="bx bx-compass"></i>
+                  <span>Explore</span>
+                </a>
+              </li> -->
               <li>
                 <a href="../profile/profile.html" class="nav-items">
                   <i class="bx bx-user-circle"></i>
@@ -76,7 +74,7 @@
                 </a>
               </li>
               <!-- <li>
-                <a href="" class="nav-items">
+                <a href="../save/index.html" class="nav-items">
                   <i class="bx bx-bookmarks"></i>
                   <span>Saved</span>
                 </a>
@@ -99,36 +97,68 @@
 
         <section class="main-content">
           <div class="middle-col">
-            <div class="post" id="post">
-              <div class="info">
+            <div id="image-content">
+              <div id="image">
                 
-                <div class="user">
-                  
-                  <div class="profile-pic">
-                    <img src="../../assets/avatar1.png" alt="user's avatar" />
-                  </div>
-                  <p class="username">Username</p>
-                </div>
-                <button class="btn-delete">Delete</button>
               </div>
-              <img
-                src="../../assets/alexander-grey.jpg"
-                alt="user's post"
-                class="post-img"
-              />
-              <div class="post-content">
-                <div class="reaction-wrapper">
-                  <i class="bx bx-heart id="like-icon"></i>
-                  <!-- <i class="bx bx-bookmarks"></i> -->
-                </div>
-                <div class="post-reaction">
-                  <p class="like-count">1,000 likes</p>
-                </div>
-
-                <p class="post-time">2 minutes ago</p>
+              <div id="info">
+    
               </div>
             </div>
-            
+            <div id="reaction-content">
+              <div id="reaction">
+                <div class="likeReaction">
+                  <i class="bx bx-heart" id="likeIcon"></i>
+                  <span id="likeCount">5 likes</span>
+                </div>
+                <!-- <i class="far fa-bookmark" id="save"></i> -->
+                <div id="edit">
+                  <i class="bx bx-edit"></i>
+                  <span id="edit-button">Edit</span>
+                </div>
+                <div id="delete">
+                  <i class="bx bx-trash"></i>
+                  <span id="delete-button">Delete</span>
+                </div>
+              </div>
+              <div id="comment">
+                <i class="bx bx-user-circle" id="avatar"></i>
+                <input
+                  id="comment-input"
+                  type="text"
+                  placeholder="Leave a comment..."
+                  name="comment"
+                  required
+                />
+              </div>
+              <div class="allComments"></div>
+            </div>
+
+            <div class="overlay">
+              <i class='bx bx-x-circle closeIcon' ></i>
+              <form class="update-post">
+                <label class="imageLabel" for="imagePosting">
+                  <i class="bx bx-cloud-upload"></i>
+                  <input
+                    type="file"
+                    required
+                    name="image"
+                    accept="image/*"
+                    id="imagePosting"
+                  />
+                  <p id="uploadImage">No Image chosen</p> </label
+                ><br />
+                <label for="description">Description:</label>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  required
+                /><br />
+                
+                <button type="submit">Update</button>
+              </form>
+            </div>
           </div>
         </section>
 
@@ -136,10 +166,7 @@
           <div class="right-col">
             <div class="suggestion">Trending Account</div>
             <div class="profile-card">
-              <div class="profile-pic">
                 <img src="../../assets/avatar2.png" alt="" />
-              </div>
-              <div>
                 <p class="username">username</p>
               </div>
             </div>
