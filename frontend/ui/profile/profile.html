@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!-- BOXICONS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- TITLE -->
+    <title>Petstagram &mdash; Profile</title>
+  </head>
+  <body>
+    <header class="header sticky">
+      <div class="wrapper">
+        <div class="logo-box">
+          <img
+            src="../../assets/logo-dark.png"
+            alt="Petstagram logo"
+            class="logo-img"
+          />
+        </div>
+
+        <div class="user-profile">
+          <p>Username</p>
+          <img src="../../assets/avatar2.png" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-wrapper">
+        <section class="sidebar">
+          <div class="left-col">
+            <ul>
+              <li>
+                <a href="../front/index.html" class="nav-items">
+                  <i class="bx bx-home-alt-2"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="" class="nav-items">
+                  <i class="bx bx-compass"></i>
+                  <span>Explore</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../search/search.html" class="nav-items">
+                  <i class="bx bx-search-alt-2"></i>
+                  <span>Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="../profile/profile.html" class="nav-items active">
+                  <i class="bx bx-user-circle"></i>
+                  <span>Profile</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="" class="nav-items">
+                  <i class="bx bx-bookmarks"></i>
+                  <span>Saved</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../setting/setting.html" class="nav-items">
+                  <i class="bx bx-cog"></i>
+                  <span>Setting</span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="nav-items" id="logout">
+                  <i class="bx bx-log-out-circle"></i>
+                  <span>Log out</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="main-content">
+          <div class="middle-col">
+            <div class="user-info">
+              <div class="add">
+                <span>Add</span>
+                <i class="bx bx-image-add"></i>
+              </div>
+              <div class="overlay">
+                <i class="bx bx-x closeIcon"></i>
+                <div class="overlay-container">
+                  <form
+                    class="overlay-image"
+                    id="post-image"
+                    enctype="multipart/form-data"
+                  >
+                    <label class="imageLabel" for="imagePosting">
+                      <i class="bx bx-image-add"></i>
+                      <input
+                        type="file"
+                        required
+                        name="image"
+                        accept="image/*"
+                        id="imagePosting"
+                      />
+                      <p id="uploadImage">No Image chosen</p>
+                    </label>
+                    <div class="formContent">
+                      <label for="description">Description:</label>
+                      <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        required
+                      /><br />
+                      <button type="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <hr class="line" />
+            <div class="photo-lib"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!---------- SCRIPT -->
+    <script src="../login/serialize.js"></script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
