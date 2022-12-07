@@ -27,7 +27,7 @@ if (token && user) {
 
 /*--------Overlay form handler--------*/
 
-const generalBtn = document.querySelector(".setting-item general");
+const generalBtn = document.querySelector(".general");
 const passwordBtn = document.querySelector(".setting-item password");
 const deleteBtn = document.querySelector(".setting-item delete");
 
