@@ -2,7 +2,13 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const {getUsers, getUser, modifyUser, follow, checkToken} = require('../controllers/userController')
+const {
+  getUsers,
+  getUser,
+  modifyUser,
+  follow,
+  checkToken
+} = require('../controllers/userController')
 
 const fileFilter = (req, file, cb) => {
   const acceptedTypes = ['image/jpeg', 'image/png']
@@ -13,10 +19,11 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
-const upload = multer({dest: 'uploads/', fileFilter})
+const upload = multer({ dest: 'uploads/', fileFilter })
 
 // Routes for accessing the user data
-router.get('/', getUsers)
+router
+  .get('/', getUsers)
   .get('/token', checkToken)
   .get('/:userId', getUser)
   .post('/follow/:userId', follow)

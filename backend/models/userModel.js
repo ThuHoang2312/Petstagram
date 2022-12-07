@@ -27,17 +27,14 @@ const getUserById = async (res, userId) => {
 
 // Get email as a parameter when logging in and get the user data with the specific email
 const getUserLogin = async (email) => {
-  //console.log("user email: ", email, "from getUserLogin()")
   try {
+    console.log("user email: ", email)
     const [rows] = await promisePool.execute(
       "SELECT * FROM users WHERE email = ?;",
       email)
-      //console.log(rows[0]);
-      //console.log("rows test", rows)
     return rows
   } catch (e) {
-    console.error("error", e.message)
-    res.status(500).send(e.message)
+    console.log("error", e.message)
   }
 }
 

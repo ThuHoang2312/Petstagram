@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
@@ -7,12 +7,11 @@ const { validationResult } = require('express-validator')
 const config = require('../config/config')
 
 const login = (req, res) => {
-  passport.authenticate('local', { session: false }, (err, user, info) => {
-    //console.log("this is the user: ", user)
+  passport.authenticate('local', { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',
-        user: user,
+        user: user
       })
     }
     req.login(user, { session: false }, (err) => {
@@ -21,14 +20,14 @@ const login = (req, res) => {
       }
       // generate a signed son web token with the contents of user object and return it in the response
       const token = jwt.sign(user, config.KEY)
-      console.log("token:", token, "user:", user)
-      return res.json({user, token})
+      console.log('token:', token, 'user:', user)
+      return res.json({ user, token })
     })
   })(req, res)
 }
 
 const register = async (req, res) => {
-  console.log("Creating a new user: ", req.body)
+  console.log('Creating a new user: ', req.body)
   const newUser = req.body
   if (!newUser.role) {
     // default user role
@@ -46,19 +45,22 @@ const register = async (req, res) => {
     newUser.password = passwordHash
     const result = await addUser(newUser, res)
     //console.log("resulttest", result)
-    res.status(201).json({ message: "user created", userId: result })
+    res.status(201).json({ message: 'user created', userId: result })
   } else {
     const user = await getAllUsers()
-    console.log("req.body", req.body);
+    console.log('req.body', req.body)
     for (let i = 1; i <= user.length; i++) {
-      if (user[i - 1].username === req.body.username && user[i - 1].email === req.body.email) {
-        res.status(400).json({ message: "Email and username already in use" })
+      if (
+        user[i - 1].username === req.body.username &&
+        user[i - 1].email === req.body.email
+      ) {
+        res.status(400).json({ message: 'Email and username already in use' })
       }
       if (user[i - 1].username === req.body.username) {
-        res.status(400).json({ message: "username already in use" })
+        res.status(400).json({ message: 'username already in use' })
       }
       if (user[i - 1].email === req.body.email) {
-        res.status(400).json({ message: "Email already in use" })
+        res.status(400).json({ message: 'Email already in use' })
       }
     }
   }
@@ -66,7 +68,7 @@ const register = async (req, res) => {
 
 const logout = (req, res) => {
   console.log('some user logged out')
-  res.json({message: 'logged out'})
+  res.json({ message: 'logged out' })
 }
 
 module.exports = {
