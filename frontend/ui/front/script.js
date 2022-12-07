@@ -1,6 +1,7 @@
 "use strict";
 
-import { url } from "../config.js";
+//import { url } from "../config.js";
+const url = "http://localhost:3000";
 import logOut from "../logout.js";
 
 // get user data
@@ -18,9 +19,9 @@ const loginUserId = loginUser.user_id;
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = createElement("p");
+  const p = document.createElement("p");
   p.innerHTML = user.username;
-  const img = createElement("img");
+  const img = document.createElement("img");
   img.src = url + "/" + user.avatar;
   img.alt = user.username;
   userInfo.appendChild(img);
@@ -254,7 +255,8 @@ const getTrend = async () => {
 getTrend();
 
 /*-- Log out --*/
-const logout = document.querySelector("#logout");
+const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
+  console.log("click logout");
   logOut();
 });
