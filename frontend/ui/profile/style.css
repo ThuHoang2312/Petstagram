@@ -201,19 +201,45 @@ body {
   border-radius: 50%;
 }
 
-.add {
-  width: 50%;
+.user-follow {
   display: flex;
-  justify-content: right;
-  align-items: center;
-  margin-left: 3rem;
+  justify-content: space-between;
+}
+
+.btn-follow {
+  max-height: 2rem;
+
+  color: #283618;
+
+  background-color: #e4c4a8;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-follow span {
+  font-size: 1.2rem;
+  font-weight: 500;
   padding: 1rem;
+}
+
+.add {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   cursor: pointer;
-  font-size: 2.4rem;
   background: #ab6909;
-  border-radius: 50%;
-  aspect-ratio: 1/1;
   color: #f8f0e9;
+  border-radius: 5px;
+  max-width: 7rem;
+  padding: 0 1rem;
+  height: 3rem;
+  margin: 3rem;
+}
+
+.add span,
+.add i {
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 .add span {

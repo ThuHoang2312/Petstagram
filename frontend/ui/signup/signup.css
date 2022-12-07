@@ -108,7 +108,8 @@ h1 {
   padding: 10px 0 10px 5px;
   border-radius: 9px;
   border: 2px solid #bc6c25;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
 }
 
 .btn {
@@ -118,6 +119,7 @@ h1 {
   border-radius: 9px;
   font-size: 1.8rem;
   transition: all 0.3s ease;
+  border: none;
 }
 
 .btn:hover,

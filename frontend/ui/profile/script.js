@@ -9,10 +9,10 @@ const user = sessionStorage.getItem("user");
 // get user data from session storage
 const logInUser = JSON.parse(user);
 
-//if user does not login yet, redirect back to login page
-if (!token && !user) {
-  location.href = "../login/login.html";
-}
+// //if user does not login yet, redirect back to login page
+// if (!token && !user) {
+//   location.href = "../login/login.html";
+// }
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
@@ -36,9 +36,10 @@ if (token && user) {
 const getQParam = (param) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
+  console.log(urlParams.get(param));
   return urlParams.get(param);
 };
-const userId = getQParam("id");
+const userId = getQParam("user_id");
 
 //get user and display user
 const getUserById = async (id) => {
@@ -49,7 +50,7 @@ const getUserById = async (id) => {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    const response = await fetch(url + `/user/${userId}`, fetchOptions);
+    const response = await fetch(url + "/user/" + id, fetchOptions);
     const users = await response.json();
     profileDisplay(users);
   } catch (e) {
@@ -58,7 +59,7 @@ const getUserById = async (id) => {
 };
 getUserById(userId);
 
-//Display user's info on profile
+//Display user's info on profile section
 const profile = document.querySelector(".user-info");
 const profileDisplay = (users) => {
   users.forEach((user) => {
@@ -70,18 +71,59 @@ const profileDisplay = (users) => {
 
     const userDetail = document.createElement("div");
     userDetail.className = "user-detail";
+    const userFollow = document.createElement("div");
+    userFollow.className = "user-follow";
     const h2 = document.createElement("h2");
     h2.innerHTML = user.username;
+    userFollow.appendChild(h2);
+    if (!(logInUser.user_id === user.user_id)) {
+      const button = document.createElement("button");
+      button.className = "btn-follow";
+      const span = document.createElement("span");
+      span.innerHTML = "Follow";
+
+      button.appendChild(span);
+      userFollow.appendChild(button);
+    }
     const description = document.createElement("p");
     p.innerHTML = user.description;
 
     avatar.appendChild(img);
-    userDetail.appendChild(h2);
     userDetail.appendChild(description);
     profile.appendChild(avatar);
     profile.appendChild(userDetail);
   });
 };
+
+//Toggle for follow account
+
+const followBtn = document.querySelector("btn-follow");
+followBtn.addEventListener("click", async (event) => {
+  event.preventDefault();
+  const fetchOptions =
+    followBtn.className === "btn-follow"
+      ? {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      : {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        };
+
+  try {
+    const response = await fetch(url + "/follow/user/" + userId, fetchOptions);
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+//Update UI for follow button
+function updateFollow();
 
 //Upload photo when it is the login user's profile page
 
@@ -151,15 +193,15 @@ getPhotosByUser(userId);
 const photoList = document.querySelector("#photo-lib");
 const createCard = (photos) => {
   photos.forEach((photo) => {
-    const photo = document.createElement("div");
-    photo.className = "single-image";
+    const image = document.createElement("div");
+    image.className = "single-image";
     const img = document.createElement("img");
     img.src = url + "/thumbnails" + photo.filename;
     img.alt = item.text;
-    photo.appendChild(img);
-    photoList.appendChild(photo);
+    image.appendChild(img);
+    photoList.appendChild(image);
 
-    photo.addEventListener("click", () => {
+    image.addEventListener("click", () => {
       location.href = `../post/single.html?id=${photo.photo_id}`;
     });
   });
