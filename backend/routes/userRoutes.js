@@ -19,7 +19,7 @@ const upload = multer({dest: 'uploads/', fileFilter})
 router.get('/', getUsers)
   .get('/token', checkToken)
   .get('/:userId', getUser)
-  .post('/follow', follow)
+  .post('/follow/:userId', follow)
   .put('/:userId', upload.single('avatar'), modifyUser)
 
 module.exports = router

@@ -1,8 +1,9 @@
 "use strict";
 
-import { url } from "../config.js";
+//import { url } from "../config.js";
 import logOut from "../logout.js";
 
+const url = "http://localhost:3000"
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
 
@@ -18,9 +19,9 @@ if (!token && !user) {
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = createElement("p");
+  const p = document.createElement("p");
   p.innerHTML = user.username;
-  const img = createElement("img");
+  const img = document.createElement("img");
   img.src = url + "/" + user.avatar;
   img.alt = user.username;
   userInfo.appendChild(img);
@@ -151,22 +152,22 @@ getPhotosByUser(userId);
 const photoList = document.querySelector("#photo-lib");
 const createCard = (photos) => {
   photos.forEach((photo) => {
-    const photo = document.createElement("div");
-    photo.className = "single-image";
+    const image = document.createElement("div");
+    image.className = "single-image";
     const img = document.createElement("img");
     img.src = url + "/thumbnails" + photo.filename;
     img.alt = item.text;
-    photo.appendChild(img);
-    photoList.appendChild(photo);
+    image.appendChild(img);
+    photoList.appendChild(image);
 
-    photo.addEventListener("click", () => {
+    image.addEventListener("click", () => {
       location.href = `../post/single.html?id=${photo.photo_id}`;
     });
   });
 };
 
 /*---------Log out------------*/
-const logout = document.getElementById("#logout");
+const logout = document.querySelector("#logout");
 logout.addEventListener("click", () => {
   logOut();
 });

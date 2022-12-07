@@ -9,13 +9,13 @@ const getUsers = async (req, res) => {
 
 // Uses the data from userModel to display a user
 const getUser = async (req, res) => {
-  //console.log("test", req.params);
+  //console.log("test", req.params.userId);
   // placeholder, userId will be gotten from the jwt.
   const user = await userModel.getUserById(res, 1)
   if (user) {
     res.json(user)
   } else {
-    res.status(404).json({ 'message': 'user with the given id does not exist' })
+    res.status(404).json({'message': 'user with the given id does not exist'})
   }
 }
 
@@ -36,7 +36,7 @@ const modifyUser = async (req, res) => {
 const follow = async (req, res) => {
   // TODO: get the username for the person you want to follow from their profile
   console.log("test", req.user);
-  const followedName = "TuomasH" // get the username of the person you want to follow
+  const followedName = req.params.user_id // get the username of the person you want to follow
   const followerId = req.user.user_id
 
   const result = await userModel.startFollowing(followerId, followedName)

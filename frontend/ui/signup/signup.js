@@ -18,12 +18,17 @@ signupForm.addEventListener("submit", async (evt) => {
   const response = await fetch(url + "/auth/register", fetchOptions);
   const json = await response.json();
 
-  if (json.token && json.user) {
+  /*if (json.token && json.user) {
     // save token
     sessionStorage.setItem("token", json.token);
     sessionStorage.setItem("user", JSON.stringify(json.user));
     location.href = "../front/index.html";
     return;
+  }*/
+
+  if (json) {
+    location.href = "../login/login.html"
+    return
   }
 
   //alert the errors from validation
