@@ -1,7 +1,9 @@
-"use strict";
+// For checking if user is logged in or not
 import { url } from "../config.js";
 
 (async () => {
+  "use strict";
+
   // check sessionStorage
   if (!sessionStorage.getItem("token") || !sessionStorage.getItem("user")) {
     location.href = "../login/login.html";
