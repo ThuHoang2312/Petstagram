@@ -26,8 +26,7 @@ if (token && user) {
 }
 
 /*--------Overlay form handler--------*/
-
-const generalBtn = document.querySelector(".setting-item general");
+const generalBtn = document.querySelector(".general");
 const passwordBtn = document.querySelector(".setting-item password");
 const deleteBtn = document.querySelector(".setting-item delete");
 
@@ -197,7 +196,7 @@ const handleDeleteForm = async () => {
 
 /*--------handle logout button clicked--------*/
 
-const logOutButton = document.getElementById("logout");
-logOutButton.addEventListener("click", () => {
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", () => {
   logOut();
 });

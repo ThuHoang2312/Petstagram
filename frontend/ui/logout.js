@@ -1,8 +1,6 @@
-"use strict";
-//import { url } from "config.js";
-
 export default async function logOut() {
-  const url = "http://localhost:3000"
+  "use strict";
+  const url = "http://localhost:3000";
   try {
     const response = await fetch(url + "/auth/logout");
     const json = await response.json();

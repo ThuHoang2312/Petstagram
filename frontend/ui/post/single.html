@@ -21,8 +21,6 @@
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="./style.css" />
 
-    <!-- SCRIPT -->
-    <script defer src="./script.js"></script>
 
     <!-- TITLE -->
     <title>Petstagram &mdash; Home</title>
@@ -109,7 +107,7 @@
               <div id="reaction">
                 <div class="likeReaction">
                   <i class="bx bx-heart" id="likeIcon"></i>
-                  <span id="likeCount">5 likes</span>
+                  <span id="likeCount"></span>
                 </div>
                 <!-- <i class="far fa-bookmark" id="save"></i> -->
                 <div id="edit">
@@ -166,13 +164,17 @@
           <div class="right-col">
             <div class="suggestion">Trending Account</div>
             <div class="profile-card">
-                <img src="../../assets/avatar2.png" alt="" />
-                <p class="username">username</p>
+                
               </div>
             </div>
           </div>
         </section>
       </div>
     </main>
+
+    <!-- SCRIPT -->
+    <script src="../login/serialize.js"></script>
+    <script type="module" src="script.js"></script>
+    
   </body>
 </html>
