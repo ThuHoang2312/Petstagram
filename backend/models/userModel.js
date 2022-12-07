@@ -56,6 +56,29 @@ const addUser = async (user, res) => {
   }
 }
 
+const startFollowing = async (followerId, followedUsername) => {
+  try {
+    //console.log("follow params:", followerId, followedUsername)
+    const [confirmation] = await promisePool.query("SELECT user_id FROM users WHERE username = ?;", followedUsername)
+    if (followerId && confirmation != "[]") {
+      const [getFollowedId] = await promisePool.query("SELECT user_id FROM users WHERE username = ?;", followedUsername)
+      //console.log("following test: ", getFollowedId[0].user_id)
+      const followedId = getFollowedId[0].user_id
+
+      console.log(":D", followedId, followedId)
+      const insertFollows = "INSERT INTO follows (follower_id, followee_id) VALUES (?, ?)"
+      const values = [followerId, followedId]
+      const [result] = await promisePool.query(insertFollows, values)
+      console.log("followerResulttest:", result)
+      return result
+    } else {
+      console.log("doesn't work")
+    }
+  } catch (e) {
+    console.error("error", e.message)
+  }
+}
+
 // Modifying a specific user
 const updateUserById = async (user, res) => {
   try {
@@ -76,5 +99,6 @@ module.exports = {
   getUserById,
   getUserLogin,
   addUser,
+  startFollowing,
   updateUserById
 }

@@ -38,7 +38,7 @@ passport.use(new JWTStrategy({
   secretOrKey: config.KEY,
   },
     function (jwtPayload, done) {
-      console.log(jwtPayload)
+      console.log("payload:", jwtPayload)
       return done(null, jwtPayload)
     }
   )
