@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!-- BOXICONS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- SCRIPT -->
+    <script defer src="./script.js"></script>
+
+    <!-- TITLE -->
+    <title>Petstagram &mdash; Search</title>
+  </head>
+  <body>
+    <header class="header sticky">
+      <div class="wrapper">
+        <div class="logo-box">
+          <img
+            src="../../assets/logo-dark.png"
+            alt="Petstagram logo"
+            class="logo-img"
+          />
+        </div>
+
+        <div class="user-profile">
+          <p>Username</p>
+          <img src="../../assets/avatar2.png" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-wrapper">
+        <section class="sidebar">
+          <div class="left-col">
+            <ul class="side-nav">
+              <li>
+                <a href="../front/index.html" class="nav-items">
+                  <i class="bx bx-home-alt-2"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="../explore/explore.html" class="nav-items">
+                  <i class="bx bx-compass"></i>
+                  <span>Explore</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../search/search.html" class="nav-items active">
+                  <i class="bx bx-search-alt-2"></i>
+                  <span>Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="../profile/profile.html" class="nav-items">
+                  <i class="bx bx-user-circle"></i>
+                  <span>Profile</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="../save/save.html" class="nav-items">
+                  <i class="bx bx-bookmarks"></i>
+                  <span>Saved</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../setting/setting.html" class="nav-items">
+                  <i class="bx bx-cog"></i>
+                  <span>Setting</span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="nav-items" id="logout">
+                  <i class="bx bx-log-out-circle"></i>
+                  <span>Log out</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="main-content">
+          <div class="middle-col">
+            <form id="search_form">
+              <select id="search_selector">
+                <option value="user">User</option>
+                <option value="tag">Tag</option>
+              </select>
+              <input
+                id="query"
+                type="text"
+                name="q"
+                placeholder="Search.."
+                required
+              />
+              <button id="search_button" type="submit">Search</button>
+            </form>
+
+            <!--Container for the photos-->
+            <div class="list_search" id="search_list">
+              <!-- js creates activity image list here -->
+            </div>
+          </div>
+        </section>
+
+        <section class="trending">
+          <div class="right-col">
+            <div class="suggestion">Trending Account</div>
+            <div class="profile-card">
+              <div class="profile-pic">
+                <img src="../../assets/avatar2.png" alt="" />
+              </div>
+              <div>
+                <p class="username">username</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
