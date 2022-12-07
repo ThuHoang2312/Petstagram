@@ -1,53 +1,44 @@
-'use strict'
-const passport = require('passport')
-const Strategy = require('passport-local').Strategy
-const passportJWT = require('passport-jwt')
-const JWTStrategy = passportJWT.Strategy
-const ExtractJWT = passportJWT.ExtractJwt
+"use strict"
+const passport = require("passport")
+const Strategy = require("passport-local").Strategy
+const passportJWT = require("passport-jwt");
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require('bcrypt')
-const { getUserLogin } = require('../models/userModel')
+const { getUserLogin } = require("../models/userModel")
 const config = require('../config/config')
 
 // Log in with the email and password from local storage
 passport.use(
-  new Strategy(
-    { usernameField: 'email', passwordField: 'password' },
-    async (email, password, done) => {
-      console.log(`input ${email} ${password}`)
-      const loginEmail = [email]
-      console.log('start login', loginEmail)
-      //console.log("passport loginEmail:", loginEmail)
-      try {
-        console.log('start to try login')
-        const [user] = await getUserLogin(loginEmail)
-        //console.log("Local strategy", user) // result is binary row
-        // if no users were found with the given email return error
-        if (user === undefined) {
-          return done(null, false, { message: 'Incorrect email.' })
-        }
-        // Compare passwords, if the passwords match, return true and log in the user
-        const passwordOK = await bcrypt.compare(password, user.password)
-        if (!passwordOK) {
-          return done(null, false, { message: 'Incorrect password.' })
-        }
-        // use spread syntax to create shallow copy to get rid of binary row type
-        return done(null, { ...user }, { message: 'Logged In Successfully' })
-      } catch (err) {
-        console.log('error', err.message)
-        return done(err)
+  new Strategy(async (email, password, done) => {
+    const loginEmail = [email]
+    //console.log("passport loginEmail:", loginEmail)
+    try {
+      const [user] = await getUserLogin(loginEmail)
+      //console.log("Local strategy", user) // result is binary row
+      // if no users were found with the given email return error
+      if (user === undefined) {
+        return done(null, false, { message: "Incorrect email." })
       }
+      // Compare passwords, if the passwords match, return true and log in the user
+      const passwordOK = await bcrypt.compare(password, user.password)
+      if (!passwordOK) {
+        return done(null, false, { message: "Incorrect password." })
+      }
+      // use spread syntax to create shallow copy to get rid of binary row type
+      return done(null, { ...user }, { message: "Logged In Successfully" })
+    } catch (err) {
+      return done(err)
     }
-  )
+  })
 )
 
-passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.KEY
-    },
+passport.use(new JWTStrategy({
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: config.KEY,
+  },
     function (jwtPayload, done) {
-      console.log('payload:', jwtPayload)
+      console.log("payload:", jwtPayload)
       return done(null, jwtPayload)
     }
   )
