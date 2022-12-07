@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!-- BOXICONS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- SCRIPT -->
+    <script defer src="./script.js"></script>
+
+    <!-- TITLE -->
+    <title>Petstagram &mdash; Home</title>
+  </head>
+  <body>
+
+    <section class="sidebar-section">
+
+      <!-- LOGO  -->
+        <div class="nav-logo">
+          <img
+            src="../../assets/logo-light.png"
+            alt="Petstagram Logo"
+            class="logo"
+          />
+          <p>Petstagram</p>
+        </div>
+
+        <!-- SIDEBAR  -->
+        <div class="nav-list">
+          <ul>
+            <li>
+              <a href="" class="nav-items active">
+                <i class="bx bx-home-alt-2"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="nav-items">
+                <i class="bx bx-compass"></i>
+                <span>Explore</span></a
+              >
+            </li>
+            <li>
+              <a href="" class="nav-items"
+                ><i class="bx bx-user-circle"></i> <span>My profile</span></a
+              >
+            </li>
+            <li><a href="" class="nav-items"><i class='bx bx-bookmark' ></i><span> Bookmark</span></a></li>
+            <li>
+              <a href="" class="nav-items"
+                ><i class="bx bx-cog"></i><span> Setting</span></a
+              >
+            </li>
+            <li>
+              <a href="" class="nav-items"
+                ><i class="bx bx-log-out"></i><span> Log out</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <main>
+
+      <!-- TOP BAR SECTION -->
+      <div class="top-bar">
+        <div class="search">
+          <i class='bx bx-search-alt-2' ></i>
+          <input type="search" name="search-bar" id="search-bar"/>
+        </div>
+
+        <div class="profile-content">
+          <div class="profile-details">
+            <img src="../../assets/avatar.jpg" alt="user's avatar" class="profile-avatar">
+          </div>
+        </div>
+      </div>
+
+      <!-- FEED CONTENT -->
+      <div id="feed-content"></div>
+        <p id="not-found"></p>
+        <div id="feeds"></div>
+      </div>
+  
+    </main>
+    <section class="trending-section">
+
+    </section>
+  </body>
+</html>

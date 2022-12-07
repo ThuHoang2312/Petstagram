@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <!-- FAVICON -->
+     <link
+     rel="shortcut icon"
+     href="../../assets/favicon.png"
+     type="image/x-icon"
+   />
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./signup.css" />
+
+    <!-- SCRIPT -->
+    <script defer src="./signup.js"></script>
+    <script defer src="../login/serialize.js"></script>
+
+    <title>Petstagram &mdash; Sign Up</title>
+  </head>
+  <body>
+    <header class="header" >
+      <a href="#">
+        <img
+          src="../../assets/logo-dark.png"
+          alt="Petstagram logo"
+          class="logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a href="../login/login.html" class="main-nav-link">Sign in</a></li>
+          <li><a href="../home/index.html" class="main-nav-link home">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="img-box">
+          <img src="../../assets/signin-page.png" alt="sign in-image" />
+        </div>
+
+        <div class="form-box">
+          <h1>Sign up</h1>
+          <p class="signup-p">Join the community.</p>
+          <form id="signup-form" method="post">
+            
+            <section>
+              <label class="label-form" for="username">Username</label> <br />
+              <input class="form" type="text" name="username" required />
+            </section>
+            <section>
+              <label class="label-form" for="email">Email</label> <br />
+              <input class="form" type="email" name="email" required />
+            </section>
+            <section>
+              <label class="label-form" for="password">Password</label> <br />
+              <input
+                class="form"
+                type="password"
+                name="password"
+                minlength="8"
+                required
+              />
+            </section>
+            <button class="btn">Sign up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <footer class="footer">
+      <div class="copyright-col">
+        <p class="copyright">
+          Copyright &copy; <span class="year">2022</span> by Petstagram. All rights reserved.
+        </p>
+      </div>
+  </footer>
+  </body>
+</html>

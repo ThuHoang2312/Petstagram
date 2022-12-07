@@ -1,0 +1,385 @@
+/* ==============FONT IMPORT Inter ==============*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
+
+/* -------------------------------- */
+/* ----------GENERAL---------- */
+/* -------------------------------- */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* font-size: 10px; */
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+  text-decoration: none;
+  list-style: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+body {
+  width: 100%;
+  background: #f8f0e9;
+  position: relative;
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  /* max-width: 130rem; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f0e9;
+  height: 9.6rem;
+  padding: 0 4.8rem;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 9.6rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(255, 255, 255, 0.97);
+  z-index: 999;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+}
+
+.main {
+  width: 100%;
+  /* max-width: 130rem; */
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 9.6rem;
+}
+
+/* -------------------------------- */
+/* ----------TOPBAR---------- */
+/* -------------------------------- */
+
+.wrapper {
+  width: 100%;
+  /* max-width: 130rem; */
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5rem;
+}
+
+.logo-box {
+  height: 80%;
+  aspect-ratio: 1/1;
+  margin: 1rem;
+}
+
+.logo-box #menu-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  color: #bc6c25;
+  font-size: 5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logo-img {
+  height: 100%;
+}
+
+.user-profile {
+  height: 100%;
+  aspect-ratio: 1/1;
+  position: relative;
+  background-size: cover;
+  margin: 0 5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.user-profile p {
+  font-size: 1.4rem;
+  margin-right: 2rem;
+}
+
+.user-profile img {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid #bc6c25;
+  border-radius: 50%;
+}
+
+/* -------------------------------- */
+/* ----------MAIN---------- */
+/* -------------------------------- */
+.main-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-gap: 3rem;
+  margin-top: 9.6rem;
+}
+/* ----------SIDEBAR---------- */
+.left-col {
+  position: fixed;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-col .nav-items {
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 5rem;
+  font-size: 2rem;
+  color: #283618;
+  font-weight: 700;
+  padding-left: 4rem;
+  transition: all 0.3s ease;
+}
+
+.left-col .nav-items i {
+  margin-right: 1rem;
+}
+
+.left-col .nav-items:hover {
+  padding-left: 5rem;
+}
+
+.left-col .nav-items.active {
+  color: #bc6c25;
+}
+
+/* ----------FEEDS---------- */
+.middle-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.setting-menu {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  background-image: none;
+  left: 10%;
+  margin-bottom: 5%;
+}
+
+.setting-menu-list {
+  list-style: none;
+  font-size: 2rem;
+  font-weight: 500;
+  padding-top: 1rem;
+  width: 100%;
+  margin-bottom: 5%;
+  display: flex;
+}
+
+.setting-menu-list li {
+  border: 2px solid #f8f0e9;
+  background: #d09866;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.setting-menu-list i {
+  font-size: 1.4rem;
+  margin-left: 2rem;
+  float: right;
+}
+
+.imageLabel {
+  flex: 1.2;
+  cursor: pointer;
+  border: 2px solid #d5b07a;
+  border-style: dashed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #d5b07a;
+  font-size: 1.4rem;
+}
+
+form label {
+  font-size: 1.2rem;
+}
+
+#username,
+#description,
+#email,
+#updateDescription,
+#password {
+  border: 1px solid #ab6909;
+  border-radius: 5px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.updateOverlay {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 60%;
+  flex-direction: row;
+  z-index: 1;
+  border: 2px solid #bc6c25;
+  background: #f2e2d3;
+  display: none;
+}
+
+.passwordOverlay {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 60%;
+  flex-direction: row;
+  z-index: 1;
+  border: 2px solid #bc6c25;
+  background: #f2e2d3;
+  display: none;
+}
+
+.deleteOverlay {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 60%;
+  flex-direction: row;
+  z-index: 1;
+  border: 2px solid #bc6c25;
+  background: #f2e2d3;
+  display: none;
+}
+
+.updateOverlay i,
+.passwordOverlay i,
+.deleteOverlay i {
+  align-self: flex-end;
+  margin: 2%;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+#edit,
+#update,
+#delete {
+  display: none;
+}
+
+.updateOverlay h4,
+.passwordOverlay h4,
+.deleteOverlay h4 {
+  color: #283618;
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.4rem;
+}
+
+.updateOverlay form,
+.passwordOverlay form,
+.deleteOverlay form {
+  padding: 10%;
+}
+
+#username,
+#email,
+#updateDescription,
+#password {
+  margin-top: 2px;
+  margin-bottom: 2rem;
+}
+
+.updateOverlay button,
+.passwordOverlay button,
+.deleteOverlay button,
+.overlay-image button {
+  width: 50%;
+  background: #d5b07a;
+  border: none;
+  padding: 8px;
+  font-size: 1.6rem;
+  margin: 0 auto;
+  cursor: pointer;
+  color: #f8f0e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.overlay-image button {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.overlay-open {
+  display: flex;
+}
+/* ----------Below 1200px (small desktop and laptop)---------- */
+@media (max-width: 75em) {
+  html {
+    font-size: 60%;
+  }
+}
+
+/* ----------Below 960px (tablets)---------- */
+@media (max-width: 60em) {
+  .main-wrapper .middle-col {
+    width: 100%;
+  }
+
+  #query {
+    width: 50%;
+  }
+
+  .main-wrapper .right-col {
+    display: none;
+  }
+}
+
+/* ----------Below 550px (phones )---------- */
+@media (max-width: 34em) {
+  .main-wrapper {
+    display: flex;
+  }
+
+  .header {
+    height: 7rem;
+  }
+
+  .left-col {
+    width: 1rem;
+  }
+
+  .middle-col {
+    margin-left: 1rem;
+  }
+
+  .setting-menu-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-items i {
+    font-size: 2rem;
+  }
+
+  .nav-items span {
+    display: none;
+    border: #bc6c25;
+  }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/favicon.png"
+      type="image/x-icon"
+    />
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./login.css" />
+
+    <!-- SCRIPT -->
+    <script defer src="./login.js"></script>
+    <script src="./serialize.js"></script>
+
+    <title>Petstagram &mdash; Login</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="#">
+        <img
+          src="../../assets/logo-dark.png"
+          alt="Petstagram logo"
+          class="logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li>
+            <a href="../home/index.html" class="main-nav-link home">Home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="img-box">
+          <img src="../../assets/signin-page.png" alt="sign in-image" />
+        </div>
+
+        <div class="form-box">
+          <h1>Sign in</h1>
+
+          <form id="login-form" method="post">
+            <section>
+              <label class="label-form" for="username">Username</label> <br />
+              <input
+                class="form"
+                id="username"
+                type="text"
+                name="username"
+                required
+              />
+            </section>
+
+            <section>
+              <label class="label-form" for="password">Password</label> <br />
+              <input
+                class="form"
+                id="password"
+                type="password"
+                name="password"
+                required
+              />
+              <br />
+              <p>
+                Forgot password?<a
+                  class="forgot-password"
+                  href="mailto:customerservice@petstagram.com"
+                  >Click here</a
+                >
+              </p>
+            </section>
+            <button class="button">Log in</button>
+          </form>
+
+          <p class="login-p">
+            Don't have an account?
+            <a class="sign-up" href="../signup/signup.html">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="copyright">
+        Copyright &copy; <span class="year">2022</span> by Petstagram. All
+        rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
