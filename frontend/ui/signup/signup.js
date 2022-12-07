@@ -18,10 +18,7 @@ signupForm.addEventListener("submit", async (evt) => {
   const response = await fetch(url + "/auth/register", fetchOptions);
   const json = await response.json();
 
-  if (json.token && json.user) {
-    // save token
-    sessionStorage.setItem("token", json.token);
-    sessionStorage.setItem("user", JSON.stringify(json.user));
+  if (json) {
     location.href = "../front/index.html";
     return;
   }
