@@ -197,7 +197,7 @@ const handleDeleteForm = async () => {
 
 /*--------handle logout button clicked--------*/
 
-const logOutButton = document.getElementById("logout");
-logOutButton.addEventListener("click", () => {
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", () => {
   logOut();
 });

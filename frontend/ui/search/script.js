@@ -172,8 +172,8 @@ closeMenu.addEventListener("click", () => {
   navLink.classList.remove("open");
 });
 
-//logout function
-const logOutButton = document.getElementById("logout");
-logOutButton.addEventListener("click", () => {
+/*-- Log out --*/
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", () => {
   logOut();
 });

@@ -165,8 +165,8 @@ const createCard = (photos) => {
   });
 };
 
-/*---------Log out------------*/
-const logout = document.getElementById("#logout");
+/*-- Log out --*/
+const logout = document.querySelector("#logout");
 logout.addEventListener("click", () => {
   logOut();
 });
