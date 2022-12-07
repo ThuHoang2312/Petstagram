@@ -28,79 +28,124 @@
     <title>Petstagram &mdash; Home</title>
   </head>
   <body>
-
-    <section class="sidebar-section">
-
-      <!-- LOGO  -->
-        <div class="nav-logo">
+    <header class="header sticky">
+      <div class="wrapper">
+        <div class="logo-box">
           <img
-            src="../../assets/logo-light.png"
-            alt="Petstagram Logo"
-            class="logo"
+            src="../../assets/logo-dark.png"
+            alt="Petstagram logo"
+            class="logo-img"
           />
-          <p>Petstagram</p>
         </div>
 
-        <!-- SIDEBAR  -->
-        <div class="nav-list">
-          <ul>
-            <li>
-              <a href="" class="nav-items active">
-                <i class="bx bx-home-alt-2"></i>
-                <span>Home</span>
-              </a>
-            </li>
-            <li>
-              <a href="" class="nav-items">
-                <i class="bx bx-compass"></i>
-                <span>Explore</span></a
-              >
-            </li>
-            <li>
-              <a href="" class="nav-items"
-                ><i class="bx bx-user-circle"></i> <span>My profile</span></a
-              >
-            </li>
-            <li><a href="" class="nav-items"><i class='bx bx-bookmark' ></i><span> Bookmark</span></a></li>
-            <li>
-              <a href="" class="nav-items"
-                ><i class="bx bx-cog"></i><span> Setting</span></a
-              >
-            </li>
-            <li>
-              <a href="" class="nav-items"
-                ><i class="bx bx-log-out"></i><span> Log out</span></a
-              >
-            </li>
-          </ul>
+
+        <div class="user-profile">
+          <p>Username</p>
+          <img src="../../assets/avatar2.png" alt="" />
         </div>
       </div>
-    </section>
+    </header>
+
     <main>
-
-      <!-- TOP BAR SECTION -->
-      <div class="top-bar">
-        <div class="search">
-          <i class='bx bx-search-alt-2' ></i>
-          <input type="search" name="search-bar" id="search-bar"/>
-        </div>
-
-        <div class="profile-content">
-          <div class="profile-details">
-            <img src="../../assets/avatar.jpg" alt="user's avatar" class="profile-avatar">
+      <div class="main-wrapper">
+        <section class="sidebar">
+          <div class="left-col">
+            <ul>
+              <li>
+                <a href="#" class="nav-items active">
+                  <i class="bx bx-home-alt-2"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="../" class="nav-items">
+                  <i class="bx bx-compass"></i>
+                  <span>Explore</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../search/search.html" class="nav-items">
+                  <i class="bx bx-search-alt-2"></i>
+                  <span>Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="../profile/profile.html" class="nav-items">
+                  <i class="bx bx-user-circle"></i>
+                  <span>Profile</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="" class="nav-items">
+                  <i class="bx bx-bookmarks"></i>
+                  <span>Saved</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../setting/setting.html" class="nav-items">
+                  <i class="bx bx-cog"></i>
+                  <span>Setting</span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="nav-items" id="logout">
+                  <i class="bx bx-log-out-circle"></i>
+                  <span>Log out</span>
+                </a>
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <!-- FEED CONTENT -->
-      <div id="feed-content"></div>
-        <p id="not-found"></p>
-        <div id="feeds"></div>
+        <section class="main-content">
+          <div class="middle-col">
+            <div class="post" id="post">
+              <div class="info">
+                
+                <div class="user">
+                  
+                  <div class="profile-pic">
+                    <img src="../../assets/avatar1.png" alt="user's avatar" />
+                  </div>
+                  <p class="username">Username</p>
+                </div>
+                <button class="btn-delete">Delete</button>
+              </div>
+              <img
+                src="../../assets/alexander-grey.jpg"
+                alt="user's post"
+                class="post-img"
+              />
+              <div class="post-content">
+                <div class="reaction-wrapper">
+                  <i class="bx bx-heart id="like-icon"></i>
+                  <!-- <i class="bx bx-bookmarks"></i> -->
+                </div>
+                <div class="post-reaction">
+                  <p class="like-count">1,000 likes</p>
+                </div>
+
+                <p class="post-time">2 minutes ago</p>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+
+        <section class="trending">
+          <div class="right-col">
+            <div class="suggestion">Trending Account</div>
+            <div class="profile-card">
+              <div class="profile-pic">
+                <img src="../../assets/avatar2.png" alt="" />
+              </div>
+              <div>
+                <p class="username">username</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-  
     </main>
-    <section class="trending-section">
-
-    </section>
   </body>
 </html>
