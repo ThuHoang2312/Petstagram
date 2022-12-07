@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!-- BOXICONS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- SCRIPT -->
+    <script src="../login/serialize.js"></script>
+    <script defer src="script.js"></script>
+
+    <!-- TITLE -->
+    <title>Petstagram &mdash; Setting</title>
+  </head>
+  <body>
+    <header class="header sticky">
+      <div class="wrapper">
+        <div class="logo-box">
+          <img
+            src="../../assets/logo-dark.png"
+            alt="Petstagram logo"
+            class="logo-img"
+          />
+        </div>
+
+        <div class="user-profile">
+          <p>Username</p>
+          <img src="../../assets/avatar2.png" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-wrapper">
+        <section class="sidebar">
+          <div class="left-col">
+            <ul class="side-nav">
+              <li>
+                <a href="../front/index.html" class="nav-items">
+                  <i class="bx bx-home-alt-2"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="../explore/explore.html" class="nav-items">
+                  <i class="bx bx-compass"></i>
+                  <span>Explore</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../search/search.html" class="nav-items">
+                  <i class="bx bx-search-alt-2"></i>
+                  <span>Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="../profile/profile.html" class="nav-items">
+                  <i class="bx bx-user-circle"></i>
+                  <span>Profile</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="../save/save.html" class="nav-items">
+                  <i class="bx bx-bookmarks"></i>
+                  <span>Saved</span>
+                </a>
+              </li> -->
+              <li>
+                <a href="../setting/setting.html" class="nav-items active">
+                  <i class="bx bx-cog"></i>
+                  <span>Setting</span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="nav-items" id="logout">
+                  <i class="bx bx-log-out-circle"></i>
+                  <span>Log out</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="main-content">
+          <div class="middle-col">
+            <div class="setting-menu">
+              <ul class="setting-menu-list">
+                <li class="setting-item general" id="general">
+                  General
+                  <span class="arrow">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </span>
+                </li>
+                <li class="setting-item password">
+                  Password
+                  <span class="arrow">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </span>
+                </li>
+                <li class="setting-item delete">
+                  Delete account
+                  <span class="arrow">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="updateOverlay">
+                <i class="bx bx-window-close" id="edit"></i>
+                <h4>Update Profile</h4>
+                <form class="update-info" id="updateInfoForm">
+                  <label for="username">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="user_name"
+                    autocomplete="name"
+                  /><br />
+                  <label class="imageLabel" for="imagePosting">
+                    <i class="bx bx-cloud-upload"></i>
+                    <input
+                      type="file"
+                      required
+                      name="image"
+                      accept="image/*"
+                      id="imagePosting"
+                    />
+                    <p id="uploadImage">No Image chosen</p> </label
+                  ><br />
+                  <label for="description">Description</label>
+                  <input
+                    type="text"
+                    id="updateDescription"
+                    name="updateDescription"
+                  />
+                  <button class="update" type="submit">Update</button>
+                </form>
+              </div>
+
+              <div class="passwordOverlay">
+                <i class="bx bx-window-close" id="update"></i>
+                <h4>Change password</h4>
+                <form class="update-info" id="updatePasswordForm">
+                  <label for="current-password">Current password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="current_password"
+                    required
+                  /><br />
+                  <label for="new-password">New password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="new_password"
+                    required
+                  /><br />
+                  <label for="checked-password">Re-type new password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="checked_password"
+                    required
+                  /><br />
+                  <button class="update" type="submit">Update</button>
+                </form>
+              </div>
+
+              
+              <div class = "deleteOverlay">
+                <i class="bx bx-window-close" id="delete"></i>
+                <h4>Delete account</h4>
+                <form class="delete-info" id="deleteForm">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                  /><br />
+                  
+                  <button class="delete" type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../login/serialize.js"></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
