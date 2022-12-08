@@ -6,6 +6,7 @@ const { getCoordinates, makeThumbnail } = require('../utils/image')
 // Get all photos by a specific user
 const getAllphotosByUser = async (req, res) => {
   const photos = await photoModel.getAllPhotosByUser(req.params.userId, res)
+  console.log(photos)
   res.json(photos)
 }
 
@@ -116,7 +117,6 @@ const getPhotoByUserFollower = async (req, res) => {
   console.log('req.user', req.user)
   const photo = await photoModel.getPhotoByFollower(req.user.user_id, res)
   if (photo.length < 1) {
-    const err = htt
     res.json(photo)
   } else {
     res.sendStatus(404)

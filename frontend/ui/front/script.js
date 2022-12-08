@@ -46,7 +46,7 @@ const getFollowingPhotos = async () => {
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + "/front/explore", fetchOptions);
+    const response = await fetch(url + "/photo/explore", fetchOptions);
   //   if(response.json().length == 0){
   //     response = await fetch(url + "/front/explore", fetchOptions)
   // }

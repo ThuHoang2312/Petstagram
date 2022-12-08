@@ -173,7 +173,10 @@ postPhoto.addEventListener("submit", async (evt) => {
     body: data,
   };
 
-  await fetch(url + "/photo/user", fetchOptions);
+  const response = await fetch(url + "/photo", fetchOptions);
+  console.log(response)
+  const json = await response.json();
+  alert(json.message);
 });
 
 /*---------Display the photo upload by user------------*/
