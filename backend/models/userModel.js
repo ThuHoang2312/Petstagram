@@ -53,23 +53,17 @@ const addUser = async (user, res) => {
   }
 }
 
-const startFollowing = async (followerId, followedUsername) => {
+const startFollowing = async (followerId, followedId) => {
   try {
-    //console.log("follow params:", followerId, followedUsername)
-    const [confirmation] = await promisePool.query("SELECT user_id FROM users WHERE username = ?;", followedUsername)
-    if (followerId && confirmation != "[]") {
-      const [getFollowedId] = await promisePool.query("SELECT user_id FROM users WHERE username = ?;", followedUsername)
-      //console.log("following test: ", getFollowedId[0].user_id)
-      const followedId = getFollowedId[0].user_id
-
-      console.log(":D", followedId, followedId)
+    const [checkFollowedId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followedId)
+    const [checkFollowerId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followerId)
+    if (checkFollowedId[0] && checkFollowerId[0]) {
       const insertFollows = "INSERT INTO follows (follower_id, followee_id) VALUES (?, ?)"
       const values = [followerId, followedId]
       const [result] = await promisePool.query(insertFollows, values)
-      console.log("followerResulttest:", result)
       return result
     } else {
-      console.log("doesn't work")
+      console.log("user id incorrect")
     }
   } catch (e) {
     console.error("error", e.message)

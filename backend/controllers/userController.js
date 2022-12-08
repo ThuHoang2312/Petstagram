@@ -34,14 +34,12 @@ const modifyUser = async (req, res) => {
 }
 
 const follow = async (req, res) => {
-  // TODO: get the username for the person you want to follow from their profile
-  console.log("test", req.user);
-  const followedName = req.params.user_id // get the username of the person you want to follow
-  const followerId = req.user.user_id
+  const followedId = req.params.userId // get the id of the person you want to follow from parameters
+  const followerId = req.user.user_id // get your id from the token
 
-  const result = await userModel.startFollowing(followerId, followedName)
+  const result = await userModel.startFollowing(followerId, followedId)
   if (result) {
-    res.json({ followerId: followerId, followedName: followedName })
+    res.json({ follower_id: followerId, followee_id: followedId })
   } else {
     res.status(404).json({ "message": "couldn't follow" })
   }
