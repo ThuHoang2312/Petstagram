@@ -6,3 +6,5 @@ backend/.env
 !backend/uploads/.gitkeep
 backend/uploads/*
 .vscode/
+!backend/thumbnails/.gitkeep
+backend/thumbnails/*
