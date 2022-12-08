@@ -19,6 +19,7 @@ const login = (req, res) => {
         res.send(err)
       }
       // generate a signed son web token with the contents of user object and return it in the response
+      delete user.password
       const token = jwt.sign(user, config.KEY)
       console.log('token:', token, 'user:', user)
       return res.json({ user, token })
@@ -36,9 +37,30 @@ const register = async (req, res) => {
   //console.log(req.body.email)
   // When registering, check if an email and/or username is already in use.
   // Display the message on screen for the user
+  const user = await getAllUsers()
+  let validation = true
+  for (let i = 1; i <= user.length; i++) {
+    for (let u = 1; u <= user.length; u++) {
+      if (
+        user[i - 1].username === req.body.username &&
+        user[u - 1].email === req.body.email
+      ) {
+        res.status(400).json({ message: 'Email and username already in use' })
+        validation = false
+      }
+    }
+    if (user[i - 1].email === req.body.email && validation) {
+      res.status(400).json({ message: 'Email already in use' })
+      validation = false
+    }
+    if (user[i - 1].username === req.body.username && validation) {
+      res.status(400).json({ message: 'Username already in use' })
+      validation = false
+    }
+  }
   const errors = validationResult(req)
   console.log('validation errors: ' + errors)
-  if (errors.isEmpty()) {
+  if (errors.isEmpty() && validation) {
     // Encrypt the password when registering a new user before adding it to the database
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(newUser.password, salt)
@@ -47,22 +69,7 @@ const register = async (req, res) => {
     //console.log("resulttest", result)
     res.status(201).json({ message: 'user created', userId: result })
   } else {
-    const user = await getAllUsers()
     console.log('req.body', req.body)
-    for (let i = 1; i <= user.length; i++) {
-      if (
-        user[i - 1].username === req.body.username &&
-        user[i - 1].email === req.body.email
-      ) {
-        res.status(400).json({ message: 'Email and username already in use' })
-      }
-      if (user[i - 1].username === req.body.username) {
-        res.status(400).json({ message: 'username already in use' })
-      }
-      if (user[i - 1].email === req.body.email) {
-        res.status(400).json({ message: 'Email already in use' })
-      }
-    }
   }
 }
 
