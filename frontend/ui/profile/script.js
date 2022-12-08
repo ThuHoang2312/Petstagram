@@ -207,7 +207,8 @@ getPhotosByUser(userId);
 
 //Display photo uploaded by user
 
-const photoList = document.querySelector("#photo-lib");
+const photoList = document.querySelector(".photo-lib");
+
 const createCard = (images) => {
   if (images.length == 0) {
     const h2 = document.createElement("h2");
@@ -215,14 +216,15 @@ const createCard = (images) => {
     photoList.appendChild(h2);
   } else {
     images.forEach((image) => {
-      console.log("image for Each", image);
       const singleImage = document.createElement("div");
       singleImage.className = "single-image";
 
       const img = document.createElement("img");
       img.src = url + "/thumbnails/" + image.filename;
       img.alt = image.description;
+
       singleImage.appendChild(img);
+
       photoList.appendChild(singleImage);
 
       singleImage.addEventListener("click", () => {
