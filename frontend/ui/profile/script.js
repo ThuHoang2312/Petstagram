@@ -61,14 +61,16 @@ if (getQParam("user_id") == null) {
     };
     const response = await fetch(url + `/user/${userId}`, fetchOptions);
     const user = await response.json();
-    console.log(user);
-    // const profileUser = sessionStorage.setItem("user", JSON.stringify(user));
+    console.log("getUser(): ", user);
+    sessionStorage.setItem("user", JSON.stringify(user));
     // console.log(profileUser);
 
     //Display user's profile
     const profile = document.querySelector(".user-info");
+    console.log(profile);
     const avatar = document.createElement("div");
     avatar.className = "avatar";
+
     const img = document.createElement("img");
     if (user.avatar == null) {
       img.src = "../../assets/avatar.jpg";
@@ -76,25 +78,34 @@ if (getQParam("user_id") == null) {
       img.src = url + "/thumbnails" + user.avatar;
     }
     img.alt = user.username;
+
+    console.log(avatar);
+
     const userDetail = document.createElement("div");
     userDetail.className = "user-detail";
+    console.log(userDetail);
+
     const userFollow = document.createElement("div");
     userFollow.className = "user-follow";
+
     const h2 = document.createElement("h2");
     h2.innerHTML = user.username;
     userFollow.appendChild(h2);
-    if (!(logInUser.user_id === user.user_id)) {
-      const button = document.createElement("button");
-      button.className = "btn-follow";
-      const span = document.createElement("span");
-      span.innerHTML = "Follow";
 
-      button.appendChild(span);
-      userFollow.appendChild(button);
+    const button = document.createElement("button");
+    button.className = "btn-follow";
+    const span = document.createElement("span");
+    span.innerHTML = "Follow";
+    button.appendChild(span);
+    userFollow.appendChild(button);
+    if (logInUser.user_id == user.user_id) {
+      button.style.display = "none";
+    } else {
+      button.style.display = "flex";
     }
     const description = document.createElement("p");
     if (user.description == null) {
-      description.innerHTML = "";
+      description.innerHTML = "No description available";
     } else {
       description.innerHTML = user.description;
     }
@@ -102,6 +113,7 @@ if (getQParam("user_id") == null) {
     avatar.appendChild(img);
     userDetail.appendChild(description);
     profile.appendChild(avatar);
+    profile.appendChild(userFollow);
     profile.appendChild(userDetail);
   } catch (e) {
     console.log(e.message);
