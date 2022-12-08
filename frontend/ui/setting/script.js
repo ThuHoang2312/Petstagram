@@ -1,27 +1,33 @@
 "use strict";
 
-import { url } from "../config.js";
+//import { url } from "../config.js";
+const url = "http://localhost:3000";
 import logOut from "../logout.js";
 
 //Get data from session storage
 const token = sessionStorage.getItem("token");
-const logInUser = sessionStorage.getItem("user");
-const logInUserId = logInUser.user_id;
+const user = sessionStorage.getItem("user");
+const loginUser = JSON.parse(user);
+const loginUserId = loginUser.user_id;
 
 /*--------Display logIn user avatar and username-------*/
 
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = createElement("p");
-  p.innerHTML = logInUser.username;
-  const img = createElement("img");
-  img.src = url + "/" + logInUser.avatar;
-  img.alt = logInUser.username;
+  const p = document.createElement("p");
+  p.innerHTML = loginUser.username;
+  const img = document.createElement("img");
+  if (loginUser.avatar == null) {
+    img.src = "../../assets/avatar.jpg";
+  } else {
+    img.src = url + "/" + loginUser.avatar;
+  }
+  img.alt = loginUser.username;
   userInfo.appendChild(img);
   userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${logInUserId}`;
+    location.href = `profile.html?id=${loginUserId}`;
   });
 }
 

@@ -20,10 +20,14 @@ const loginUserId = loginUser.user_id;
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
   const p = document.createElement("p");
-  p.innerHTML = user.username;
+  p.innerHTML = loginUser.username;
   const img = document.createElement("img");
-  img.src = url + "/" + user.avatar;
-  img.alt = user.username;
+  if (loginUser.avatar == null) {
+    img.src = "../../assets/avatar.jpg";
+  } else {
+    img.src = url + "/" + user.avatar;
+  }
+  img.alt = loginUser.username;
   userInfo.appendChild(img);
   userInfo.appendChild(p);
 

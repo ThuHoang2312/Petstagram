@@ -1,10 +1,12 @@
 "use strict";
 
-import { url } from "../config.js";
+//import { url } from "../config.js";
+const url = "http://localhost:3000";
 import logOut from "../logout.js";
 
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
+const loginUser = JSON.parse(user);
 
 const query = document.querySelector("#query");
 const option = document.querySelector("#search_selector");
@@ -18,16 +20,20 @@ let getUserByUsername;
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = createElement("p");
-  p.innerHTML = user.username;
-  const img = createElement("img");
-  img.src = url + "/" + user.avatar;
-  img.alt = user.username;
+  const p = document.createElement("p");
+  p.innerHTML = loginUser.username;
+  const img = document.createElement("img");
+  if (loginUser.avatar == null) {
+    img.src = "../../assets/avatar.jpg";
+  } else {
+    img.src = url + "/" + user.avatar;
+  }
+  img.alt = loginUser.username;
   userInfo.appendChild(img);
   userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${user.user_id}`;
+    location.href = `profile.html?id=${loginUser.user_id}`;
   });
 }
 

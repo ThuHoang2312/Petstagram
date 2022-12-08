@@ -1,9 +1,8 @@
 "use strict";
-
 //import { url } from "../config.js";
 import logOut from "../logout.js";
 
-const url = "http://localhost:3000"
+const url = "http://localhost:3000";
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
 
@@ -20,10 +19,14 @@ const logInUser = JSON.parse(user);
 const userInfo = document.querySelector(".user-profile");
 if (token && user) {
   const p = document.createElement("p");
-  p.innerHTML = user.username;
+  p.innerHTML = logInUser.username;
   const img = document.createElement("img");
-  img.src = url + "/" + user.avatar;
-  img.alt = user.username;
+  if (logInUser.avatar == null) {
+    img.src = "../../assets/avatar.jpg";
+  } else {
+    img.src = url + "/" + logInUser.avatar;
+  }
+  img.alt = logInUser.username;
   userInfo.appendChild(img);
   userInfo.appendChild(p);
 
@@ -124,7 +127,7 @@ followBtn.addEventListener("click", async (event) => {
 });
 
 //Update UI for follow button
-function updateFollow();
+//function updateFollow();
 
 //Upload photo when it is the login user's profile page
 
@@ -207,7 +210,6 @@ const createCard = (photos) => {
     });
   });
 };
-
 
 /*---------Log out------------*/
 
