@@ -1,12 +1,11 @@
 'use strict'
 const ExifImage = require('exif').ExifImage
-const sharp = require("sharp")
+const sharp = require('sharp')
 
 const getCoordinates = (imgFile) => {
   // imgFile = full path to uploaded image
   return new Promise((resolve, reject) => {
     try {
-      // TODO: Use node-exif to get longitude and latitude from imgFile
       // coordinates below should be an array of GPS coordinates in decimal format: [longitude, latitude]
       new ExifImage({ image: imgFile }, (error, exifData) => {
         let coordinates
@@ -46,7 +45,7 @@ const makeThumbnail = async (file, thumbname) => {
   await sharp(file)
     .resize(300, 300)
     .png()
-    .toFile("./thumbnails/" + thumbname)
+    .toFile('./thumbnails/' + thumbname)
 }
 
 module.exports = {

@@ -14,6 +14,7 @@ const searchRouter = require('./routes/searchRoute')
 app.use(express.json()) // for parsing application/json
 app.use(cors())
 app.use(express.static('uploads'))
+app.use('/thumbnails', express.static('thumbnails'))
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use('/auth', authRouter)

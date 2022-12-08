@@ -11,8 +11,8 @@ const logInUser = JSON.parse(loginUser);
 let userId;
 
 //if user does not login yet, redirect back to login page
-if (!token && !user) {
-  location.href = "../login/login.html";
+if (!token && !loginUser) {
+  location.href = "../home/index.html";
 }
 
 /*-- Display username and avatar of log In user--*/
@@ -62,7 +62,8 @@ if (getQParam("user_id") == null) {
     const response = await fetch(url + `/user/${userId}`, fetchOptions);
     const user = await response.json();
     console.log(user);
-    sessionStorage.setItem("user", JSON.stringify(user));
+    // const profileUser = sessionStorage.setItem("user", JSON.stringify(user));
+    // console.log(profileUser);
 
     //Display user's profile
     const profile = document.querySelector(".user-info");
@@ -75,7 +76,6 @@ if (getQParam("user_id") == null) {
       img.src = url + "/thumbnails" + user.avatar;
     }
     img.alt = user.username;
-
     const userDetail = document.createElement("div");
     userDetail.className = "user-detail";
     const userFollow = document.createElement("div");
@@ -93,7 +93,11 @@ if (getQParam("user_id") == null) {
       userFollow.appendChild(button);
     }
     const description = document.createElement("p");
-    description.innerHTML = user.description;
+    if (user.description == null) {
+      description.innerHTML = "";
+    } else {
+      description.innerHTML = user.description;
+    }
 
     avatar.appendChild(img);
     userDetail.appendChild(description);
@@ -174,7 +178,7 @@ postPhoto.addEventListener("submit", async (evt) => {
   };
 
   const response = await fetch(url + "/photo", fetchOptions);
-  console.log(response)
+  console.log(response);
   const json = await response.json();
   alert(json.message);
 });
@@ -182,7 +186,7 @@ postPhoto.addEventListener("submit", async (evt) => {
 /*---------Display the photo upload by user------------*/
 
 //get photo by user id
-const photoList = document.querySelector("#photo-lib");
+//const photoList = document.querySelector("#photo-lib");
 const getPhotosByUser = async (id) => {
   try {
     const fetchOptions = {
@@ -194,37 +198,38 @@ const getPhotosByUser = async (id) => {
     const response = await fetch(url + "/photo/user/" + id, fetchOptions);
     const images = await response.json();
     console.log(images);
-    if (images.length == 0) {
-      const p = document.createElement("p");
-      p.innerHTML = " No photo uploaded";
-      photoList.appendChild(p);
-    } else {
-      createLibrary(photos);
-    }
+    createCard(images);
   } catch (e) {
     console.log(e.message);
   }
 };
-
 getPhotosByUser(userId);
 
 //Display photo uploaded by user
 
-// const photoList = document.querySelector("#photo-lib");
-const createCard = (photos) => {
-  photos.forEach((photo) => {
-    const image = document.createElement("div");
-    image.className = "single-image";
-    const img = document.createElement("img");
-    img.src = url + "/thumbnails" + photo.filename;
-    img.alt = item.text;
-    image.appendChild(img);
-    photoList.appendChild(image);
+const photoList = document.querySelector("#photo-lib");
+const createCard = (images) => {
+  if (images.length == 0) {
+    const h2 = document.createElement("h2");
+    h2.innerHTML = "No photo available";
+    photoList.appendChild(h2);
+  } else {
+    images.forEach((image) => {
+      console.log("image for Each", image);
+      const singleImage = document.createElement("div");
+      singleImage.className = "single-image";
 
-    image.addEventListener("click", () => {
-      location.href = `../post/single.html?id=${photo.photo_id}`;
+      const img = document.createElement("img");
+      img.src = url + "/thumbnails/" + image.filename;
+      img.alt = image.description;
+      singleImage.appendChild(img);
+      photoList.appendChild(singleImage);
+
+      singleImage.addEventListener("click", () => {
+        location.href = `../post/single.html?id=${image.photo_id}`;
+      });
     });
-  });
+  }
 };
 
 /*---------Log out------------*/

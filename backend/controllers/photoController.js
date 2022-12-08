@@ -86,7 +86,6 @@ const uploadPhoto = async (req, res) => {
     photo.userId = req.user.user_id
     photo.coords = JSON.stringify(await getCoordinates(req.file.path))
     photo.filename = req.file.filename
-    photo.createdAt = new Date()
     console.log('create a new post: ', photo)
     const photoId = await photoModel.addPhoto(photo, res)
     res.status(201).json({ message: 'post created', photoId })
