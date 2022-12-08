@@ -111,7 +111,7 @@ form.addEventListener("submit", async (evt) => {
   console.log("value is: ", option.value);
   console.log("query is: ", query.value);
 
-  if (option.value == "username") {
+  if (option.value == "user") {
     getUserByUsername = async () => {
       try {
         const fetchOptions = {
@@ -120,7 +120,7 @@ form.addEventListener("submit", async (evt) => {
           },
         };
         const response = await fetch(
-          url + "/search/user" + query.value,
+          url + "/search/username/" + query.value,
           fetchOptions
         );
         const users = await response.json();
@@ -129,7 +129,7 @@ form.addEventListener("submit", async (evt) => {
           alert(`Sorry, there is no ${query.value} available at this moment.`);
           return;
         }
-        createUserCard(users);
+        createUserCards(users);
       } catch (e) {
         console.log(e.message);
       }
@@ -163,6 +163,7 @@ form.addEventListener("submit", async (evt) => {
     getPhotoByTag();
   }
 });
+createUserCards(getUserByUsername)
 
 const menu = document.querySelector(".menu");
 const navLink = document.querySelector(".side-nav");

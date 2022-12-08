@@ -17,7 +17,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ dest: 'uploads/', fileFilter })
 
 router
-  .get('', photoController.getPhotoByUserFollower)
+  .get('/', photoController.getPhotoByUserFollower) 
   .get('/explore', photoController.getPhotosRandom)
   .get('/user/:userId', photoController.getAllphotosByUser) //this one should be in user route
   .get('/photo/:photoId', photoController.getPhotoById)

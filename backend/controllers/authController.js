@@ -10,7 +10,7 @@ const login = (req, res) => {
   passport.authenticate('local', { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).json({
-        message: 'Something is not right',
+        message: 'Check you email and password again',
         user: user
       })
     }

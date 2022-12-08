@@ -38,19 +38,27 @@ if (token && user) {
 
 /*-- Create post content --*/
 //Get all image with id
-const getFollowingPhotos = async (id) => {
+const getFollowingPhotos = async () => {
   try {
     const fetchOptions = {
       method: "GET",
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      },
     };
-    const response = await fetch(url + "/photo/user" + id, fetchOptions);
+    const response = await fetch(url + "/front/explore", fetchOptions);
+  //   if(response.json().length == 0){
+  //     response = await fetch(url + "/front/explore", fetchOptions)
+  // }
+    console.log(response)
     const photos = await response.json();
+    console.log(photos)
     createPosts(photos);
   } catch (e) {
     console.log(e.message);
   }
 };
-getFollowingPhotos(loginUserId);
+getFollowingPhotos();
 
 //get all users
 const getAllUsers = async () => {

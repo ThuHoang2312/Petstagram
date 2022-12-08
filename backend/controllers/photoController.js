@@ -113,8 +113,10 @@ const deletePhoto = async (req, res) => {
 
 // Get photos by user's followers
 const getPhotoByUserFollower = async (req, res) => {
+  console.log('req.user', req.user)
   const photo = await photoModel.getPhotoByFollower(req.user.user_id, res)
   if (photo) {
+    console.log(photo)
     res.json(photo)
   } else {
     res.sendStatus(404)
