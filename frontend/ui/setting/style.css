@@ -35,7 +35,7 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: #f8f0e9;
-  height: 9.6rem;
+  height: 12rem;
   padding: 0 4.8rem;
 }
 
@@ -44,7 +44,7 @@ body {
   top: 0;
   bottom: 0;
   width: 100%;
-  height: 9.6rem;
+  height: 12rem;
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(255, 255, 255, 0.97);
@@ -58,7 +58,7 @@ body {
   padding: 4rem 0;
   display: flex;
   justify-content: center;
-  margin-top: 9.6rem;
+  margin-top: 15rem;
 }
 
 /* -------------------------------- */
@@ -86,7 +86,7 @@ body {
   top: 50%;
   right: 0;
   color: #bc6c25;
-  font-size: 5rem;
+  font-size: 10rem;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -101,20 +101,21 @@ body {
   position: relative;
   background-size: cover;
   margin: 0 5rem;
-  font-size: 1.4rem;
+  font-size: 5rem;
   font-weight: 500;
   display: flex;
   align-items: center;
 }
 
 .user-profile p {
-  font-size: 1.4rem;
-  margin-right: 2rem;
+  font-size: 3rem;
+  margin-left: 2rem;
+  margin-right: 3rem;
 }
 
 .user-profile img {
-  width: 4rem;
-  height: 4rem;
+  width: 6rem;
+  height: 6rem;
   border: 1px solid #bc6c25;
   border-radius: 50%;
 }
@@ -127,7 +128,7 @@ body {
   display: grid;
   grid-template-columns: 20% 80%;
   grid-gap: 3rem;
-  margin-top: 9.6rem;
+  margin-top: 12rem;
 }
 /* ----------SIDEBAR---------- */
 .left-col {
@@ -143,8 +144,8 @@ body {
   display: block;
   height: 100%;
   width: 100%;
-  line-height: 5rem;
-  font-size: 2rem;
+  line-height: 10rem;
+  font-size: 5rem;
   color: #283618;
   font-weight: 700;
   padding-left: 4rem;
@@ -181,7 +182,7 @@ body {
 
 .setting-menu-list {
   list-style: none;
-  font-size: 2rem;
+  font-size: 5rem;
   font-weight: 500;
   padding-top: 1rem;
   width: 100%;
@@ -197,7 +198,7 @@ body {
 }
 
 .setting-menu-list i {
-  font-size: 1.4rem;
+  font-size: 5rem;
   margin-left: 2rem;
   float: right;
 }
@@ -212,27 +213,29 @@ body {
   justify-content: center;
   align-items: center;
   color: #d5b07a;
-  font-size: 1.4rem;
+  font-size: 5rem;
 }
 
 form label {
-  font-size: 1.2rem;
+  font-size: 3rem;
 }
 
 #username,
 #description,
 #email,
 #updateDescription,
-#password {
+#password,
+#new_password,
+#checked_password {
   border: 1px solid #ab6909;
   border-radius: 5px;
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .updateOverlay {
   position: absolute;
-  top: 20%;
+  top: 50%;
   left: 30%;
   width: 60%;
   flex-direction: row;
@@ -244,7 +247,7 @@ form label {
 
 .passwordOverlay {
   position: absolute;
-  top: 20%;
+  top: 50%;
   left: 30%;
   width: 60%;
   flex-direction: row;
@@ -269,16 +272,9 @@ form label {
 .updateOverlay i,
 .passwordOverlay i,
 .deleteOverlay i {
-  align-self: flex-end;
   margin: 2%;
   cursor: pointer;
-  font-size: 1.4rem;
-}
-
-#edit,
-#update,
-#delete {
-  display: none;
+  font-size: 5rem;
 }
 
 .updateOverlay h4,
@@ -287,7 +283,7 @@ form label {
   color: #283618;
   text-align: center;
   margin-top: 3rem;
-  font-size: 1.4rem;
+  font-size: 4rem;
 }
 
 .updateOverlay form,
@@ -299,7 +295,9 @@ form label {
 #username,
 #email,
 #updateDescription,
-#password {
+#password,
+#new_password,
+#checked_password {
   margin-top: 2px;
   margin-bottom: 2rem;
 }
@@ -308,11 +306,10 @@ form label {
 .passwordOverlay button,
 .deleteOverlay button,
 .overlay-image button {
-  width: 50%;
   background: #d5b07a;
   border: none;
-  padding: 8px;
-  font-size: 1.6rem;
+  padding: 1rem 5rem;
+  font-size: 5rem;
   margin: 0 auto;
   cursor: pointer;
   color: #f8f0e9;

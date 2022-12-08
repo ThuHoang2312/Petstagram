@@ -33,8 +33,8 @@ if (token && user) {
 
 /*--------Overlay form handler--------*/
 const generalBtn = document.querySelector(".general");
-const passwordBtn = document.querySelector(".setting-item password");
-const deleteBtn = document.querySelector(".setting-item delete");
+const passwordBtn = document.querySelector(".password");
+const deleteBtn = document.querySelector(".delete");
 
 const updateOverlay = document.querySelector(".updateOverlay");
 const closeUpdateOverlay = document.querySelector("#edit");

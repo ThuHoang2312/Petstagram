@@ -73,7 +73,7 @@ if (getQParam("user_id") == null) {
 
     const img = document.createElement("img");
     if (user.avatar == null) {
-      img.src = "../../assets/avatar.jpg";
+      img.src = "../../assets/user_icon.png";
     } else {
       img.src = url + "/thumbnails" + user.avatar;
     }
@@ -114,6 +114,8 @@ if (getQParam("user_id") == null) {
     userDetail.appendChild(description);
     profile.appendChild(avatar);
     profile.appendChild(userFollow);
+    userDetail.appendChild(userFollow);
+    userDetail.appendChild(description);
     profile.appendChild(userDetail);
   } catch (e) {
     console.log(e.message);

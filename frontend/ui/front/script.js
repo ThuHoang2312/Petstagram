@@ -6,24 +6,24 @@ import logOut from "../logout.js";
 
 // get user data
 const token = sessionStorage.getItem("token");
-const user = sessionStorage.getItem("user");
-const loginUser = JSON.parse(user);
+const logInUser = sessionStorage.getItem("user");
+const loginUser = JSON.parse(logInUser);
 const loginUserId = loginUser.user_id;
 
 //if user does not login yet, redirect back to login page
-if (!token && !user) {
+if (!token && !logInUser) {
   location.href = "../home/index.html";
 }
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
-if (token && user) {
+if (token && logInUser) {
   const p = document.createElement("p");
   p.innerHTML = loginUser.username;
   const img = document.createElement("img");
   if (loginUser.avatar == null) {
-    img.src = "../../assets/avatar.jpg";
+    img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + user.avatar;
   }
@@ -70,7 +70,7 @@ async function getLikeOfUser() {
 }
 
 getAllLikes();
-if (user && token) {
+if (logInUser && token) {
   getLikeOfUser();
 }
 
@@ -125,29 +125,48 @@ function updateHeartCount(allLikes) {
   likeCount.textContent = allLikes + " likes";
 }
 
+async function getUser(id) {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/user/" + id, fetchOptions);
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 //Display feeds
 const post = document.querySelector(".post");
 const createPost = (photos) => {
   photos.forEach((photo) => {
-    (async function getUser() {
-      try {
-        const fetchOptions = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-        const response = await fetch(
-          url + `/user/${photo.user_id}`,
-          fetchOptions
-        );
-        const user = await response.json();
-        console.log("getUser(): ", user);
-        sessionStorage.setItem("user", JSON.stringify(user));
-      } catch (e) {
-        console.log(e.message);
-      }
-    })();
+    // (async function getUser() {
+    //   try {
+    //     const fetchOptions = {
+    //       headers: {
+    //         Authorization: "Bearer " + token,
+    //       },
+    //     };
+    //     const response = await fetch(
+    //       url + `/user/${photo.user_id}`,
+    //       fetchOptions
+    //     );
+    //     const user = await response.json();
+    //     console.log("getUser(): ", user);
+    //     sessionStorage.setItem("user", JSON.stringify(user));
+    //   } catch (e) {
+    //     console.log(e.message);
+    //   }
+    // })();
+
     //Display user
+    const user = getUser(photo.user_id);
+    console.log(user);
     const info = document.querySelector(".info");
     console.log(info);
     const profileUser = document.createElement("div");
@@ -158,34 +177,18 @@ const createPost = (photos) => {
     /*---Avatar display-----*/
     const imgProfile = document.createElement("img");
     if (user.avatar == null) {
-      imgProfile.src = "../../assets/avatar.jpg";
+      imgProfile.src = "../../assets/user_icon.png";
     } else {
       imgProfile.src = url + "/user/" + user.avatar;
     }
     imgProfile.alt = user.username;
     const p = document.createElement("p");
-
-    console.log(user.username);
     p.innerHTML = user.username;
 
     profilePic.appendChild(imgProfile);
     profileUser.appendChild(profilePic);
     profileUser.appendChild(p);
     info.appendChild(profileUser);
-
-    const postImg = document.createElement("img");
-    console.log(postImg);
-    postImg.src = url + "/photo/" + photo.filename;
-    postImg.alt = photo.description;
-
-    const postContent = document.querySelector(".post-content");
-    const description = document.createElement("p");
-    description.innerHTML = photo.description;
-    description.className = "description";
-
-    const date = document.createElement("p");
-    date.className = "post-time";
-    date.innerHTML = getDateAgo(photo.created_at);
 
     //delete button is add when admin or photo owner
     if (user.role == 0 || loginUserId === photo.user_id) {
@@ -217,9 +220,32 @@ const createPost = (photos) => {
         }
       });
     }
+
+    const postImg = document.createElement("img");
+    console.log(postImg);
+    postImg.src = url + "/" + photo.filename;
+    onerror = () => {
+      postImg.src = "https://picsum.photos/seed/picsum/100/200";
+    };
+    postImg.alt = photo.description;
+
+    const postContent = document.querySelector(".post-content");
+    const description = document.createElement("p");
+    description.innerHTML = photo.description;
+    description.className = "description";
+
+    const date = document.createElement("p");
+    date.className = "post-time";
+    date.innerHTML = photo.created_at;
+
+    postContent.appendChild(postImg);
     postContent.appendChild(description);
     postContent.appendChild(date);
     post.append(postContent);
+
+    postContent.addEventListener("click", () => {
+      location.href = `../post/single.html?id=${photo.photo_id}`;
+    });
   });
 };
 
