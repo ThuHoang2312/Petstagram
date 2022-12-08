@@ -76,6 +76,9 @@ const createUserCards = (users) => {
   search.innerHTML = "";
   if (users.length < 1) {
     console.log("no users found");
+    const h2 = document.createElement("h2");
+    h2.innerHTML = "No result found. Please try another one!";
+    search.appendChild(h2);
     return;
   }
 
@@ -89,18 +92,22 @@ const createUserCards = (users) => {
     div.classList.add = "result";
 
     const img = document.createElement("img");
-    img.src = url + "/user" + user.avatar;
+    if (user.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/user" + user.avatar;
+    }
     img.alt = user.username;
 
     const username = document.createElement("p");
-    username.textContent = user.username;
+    username.innerHTML = user.username;
 
     div.appendChild(img);
     div.appendChild(username);
     search.appendChild(div);
 
-    div.addEventListener("click", () => {
-      location.href = `profile.html?id=${user.user_id}`;
+    img.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${user.user_id}`;
     });
   });
 };
@@ -125,7 +132,7 @@ form.addEventListener("submit", async (evt) => {
         );
         const users = await response.json();
         console.log(users);
-        if (activities.message) {
+        if (users.message) {
           alert(`Sorry, there is no ${query.value} available at this moment.`);
           return;
         }
@@ -149,7 +156,7 @@ form.addEventListener("submit", async (evt) => {
         );
         const photos = await response.json();
         console.log(photos);
-        if (photos.message) {
+        if (photos.length == 0) {
           alert(
             `Sorry, there is no photo available with ${query.value} tag at this moment. Please try to search for another topic. Good luck.`
           );
@@ -162,21 +169,6 @@ form.addEventListener("submit", async (evt) => {
     };
     getPhotoByTag();
   }
-});
-createUserCards(getUserByUsername)
-
-const menu = document.querySelector(".menu");
-const navLink = document.querySelector(".side-nav");
-const closeMenu = document.querySelector(".close-menu");
-
-menu.addEventListener("click", () => {
-  navLink.classList.add(open);
-  navLink.classList.remove(close);
-});
-
-closeMenu.addEventListener("click", () => {
-  navLink.classList.add("close");
-  navLink.classList.remove("open");
 });
 
 /*-- Log out --*/
