@@ -45,11 +45,10 @@ const getPhotoRandomly = async (res) => {
 const addPhoto = async (photo, res) => {
   try {
     const sql =
-      'INSERT INTO photos(filename,description, user_id, coords) VALUE (?,?,?,?)'
+      'INSERT INTO photos(filename, description, user_id, coords) VALUE (?, ?, ?, ?)'
     const values = [
       photo.filename,
       photo.description,
-      // photo.createAt,
       photo.userId,
       photo.coords
     ]

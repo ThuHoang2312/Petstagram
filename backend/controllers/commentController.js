@@ -9,8 +9,6 @@ const uploadComment = async (req, res) => {
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
-    // Get date and time when the user create the comment
-    comment.createdAt = new Date()
     console.log('create a new comment: ', comment)
     const result = await commentModel.addComment(comment, req.user.user_id, photoId, res)
     res.status(201).json({ message: 'comment created', result })

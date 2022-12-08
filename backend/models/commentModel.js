@@ -5,10 +5,9 @@ const promisePool = pool.promise()
 // Add new comment to photo
 const addComment = async (comment, userId, photoId, res) => {
   try {
-    const sql = 'INSERT INTO comments VALUE (0, ?, ?, ?, ?)'
+    const sql = 'INSERT INTO comments(commentText, photoId, userId) VALUE (?, ?, ?)'
     const values = [
       comment.commentText,
-      comment.createdAt,
       photoId,
       userId
     ]

@@ -41,10 +41,9 @@ const getUserLogin = async (email) => {
 // Create a new user
 const addUser = async (user, res) => {
   try {
-    const sql = "INSERT INTO users (user_id, username, email, password, role) VALUES (NULL, ?, ?, ?, ?)"
+    const sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)"
     const values = [user.username, user.email, user.password, user.role]
     const [result] = await promisePool.query(sql, values)
-    //console.log("addUser(), result", result, "insertit", result.insertId)
     return result.insertId
   } catch (e) {
     console.log("user data:", user)
