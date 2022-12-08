@@ -4,20 +4,21 @@ import logOut from "../logout.js";
 
 const url = "http://localhost:3000";
 const token = sessionStorage.getItem("token");
-const user = sessionStorage.getItem("user");
+const loginUser = sessionStorage.getItem("user");
 
 // get user data from session storage
-const logInUser = JSON.parse(user);
+const logInUser = JSON.parse(loginUser);
+let userId;
 
-// //if user does not login yet, redirect back to login page
-// if (!token && !user) {
-//   location.href = "../login/login.html";
-// }
+//if user does not login yet, redirect back to login page
+if (!token && !user) {
+  location.href = "../login/login.html";
+}
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
-if (token && user) {
+if (token && loginUser) {
   const p = document.createElement("p");
   p.innerHTML = logInUser.username;
   const img = document.createElement("img");
@@ -43,34 +44,36 @@ const getQParam = (param) => {
   console.log(urlParams.get(param));
   return urlParams.get(param);
 };
-const userId = getQParam("user_id");
 
-//get user and display user
-const getUserById = async (id) => {
+if (getQParam("user_id") == null) {
+  userId = logInUser.user_id;
+} else {
+  userId = getQParam("user_id");
+}
+
+//Get user and display info on profile section
+(async function getUser() {
   try {
     const fetchOptions = {
-      method: "GET",
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: "Bearer " + token,
       },
     };
-    const response = await fetch(url + "/user/" + id, fetchOptions);
-    const users = await response.json();
-    profileDisplay(users);
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-getUserById(userId);
+    const response = await fetch(url + `/user/${userId}`, fetchOptions);
+    const user = await response.json();
+    console.log(user);
+    sessionStorage.setItem("user", JSON.stringify(user));
 
-//Display user's info on profile section
-const profile = document.querySelector(".user-info");
-const profileDisplay = (users) => {
-  users.forEach((user) => {
+    //Display user's profile
+    const profile = document.querySelector(".user-info");
     const avatar = document.createElement("div");
     avatar.className = "avatar";
     const img = document.createElement("img");
-    img.src = url + "/thumbnails" + user.avatar;
+    if (user.avatar == null) {
+      img.src = "../../assets/avatar.jpg";
+    } else {
+      img.src = url + "/thumbnails" + user.avatar;
+    }
     img.alt = user.username;
 
     const userDetail = document.createElement("div");
@@ -90,41 +93,43 @@ const profileDisplay = (users) => {
       userFollow.appendChild(button);
     }
     const description = document.createElement("p");
-    p.innerHTML = user.description;
+    description.innerHTML = user.description;
 
     avatar.appendChild(img);
     userDetail.appendChild(description);
     profile.appendChild(avatar);
     profile.appendChild(userDetail);
-  });
-};
+  } catch (e) {
+    console.log(e.message);
+  }
+})();
 
 //Toggle for follow account
 
-const followBtn = document.querySelector("btn-follow");
-followBtn.addEventListener("click", async (event) => {
-  event.preventDefault();
-  const fetchOptions =
-    followBtn.className === "btn-follow"
-      ? {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        }
-      : {
-          method: "DELETE",
-          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        };
+// const followBtn = document.querySelector("btn-follow");
+// followBtn.addEventListener("click", async (event) => {
+//   event.preventDefault();
+//   const fetchOptions =
+//     followBtn.className === "btn-follow"
+//       ? {
+//           method: "POST",
+//           headers: {
+//             Authorization: "Bearer " + sessionStorage.getItem("token"),
+//           },
+//         }
+//       : {
+//           method: "DELETE",
+//           headers: {
+//             Authorization: "Bearer " + sessionStorage.getItem("token"),
+//           },
+//         };
 
-  try {
-    const response = await fetch(url + "/follow/user/" + userId, fetchOptions);
-  } catch (error) {
-    alert(error.message);
-  }
-});
+//   try {
+//     const response = await fetch(url + "/follow/user/" + userId, fetchOptions);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// });
 
 //Update UI for follow button
 //function updateFollow();
@@ -174,6 +179,7 @@ postPhoto.addEventListener("submit", async (evt) => {
 /*---------Display the photo upload by user------------*/
 
 //get photo by user id
+const photoList = document.querySelector("#photo-lib");
 const getPhotosByUser = async (id) => {
   try {
     const fetchOptions = {
@@ -182,9 +188,16 @@ const getPhotosByUser = async (id) => {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    const response = await fetch(url + "/image/user/" + id, fetchOptions);
+    const response = await fetch(url + "/photo/user/" + id, fetchOptions);
     const images = await response.json();
-    createLibrary(photos);
+    console.log(images);
+    if (images.length == 0) {
+      const p = document.createElement("p");
+      p.innerHTML = " No photo uploaded";
+      photoList.appendChild(p);
+    } else {
+      createLibrary(photos);
+    }
   } catch (e) {
     console.log(e.message);
   }
@@ -194,7 +207,7 @@ getPhotosByUser(userId);
 
 //Display photo uploaded by user
 
-const photoList = document.querySelector("#photo-lib");
+// const photoList = document.querySelector("#photo-lib");
 const createCard = (photos) => {
   photos.forEach((photo) => {
     const image = document.createElement("div");

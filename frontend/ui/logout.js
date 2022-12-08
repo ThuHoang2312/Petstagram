@@ -10,7 +10,7 @@ export default async function logOut() {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");
     alert("You have logged out");
-    location.href = "../front/index.html";
+    location.href = "../home/index.html";
   } catch (e) {
     console.log(e.message);
   }

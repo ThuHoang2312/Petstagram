@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 app.use('/auth', authRouter)
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter)
-app.use('/front', passport.authenticate('jwt', { session: false }), photoRouter)
+app.use('/photo', passport.authenticate('jwt', { session: false }), photoRouter)
 app.use('/comment', commentRouter)
 app.use('/like', likeRouter)
 app.use('/search', searchRouter)

@@ -6,7 +6,7 @@ const promisePool = pool.promise()
 const getAllPhotosByUser = async (userId, res) => {
   try {
     const sql =
-      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE user_id = ?'
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE photos.user_id = ?'
     const [rows] = await promisePool.query(sql, [userId])
     return rows
   } catch (e) {

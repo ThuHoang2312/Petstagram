@@ -11,11 +11,11 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
   //console.log("test", req.params.userId);
   // placeholder, userId will be gotten from the jwt.
-  const user = await userModel.getUserById(res, 1)
+  const user = await userModel.getUserById(res, req.params.userId)
   if (user) {
     res.json(user)
   } else {
-    res.status(404).json({'message': 'user with the given id does not exist'})
+    res.status(404).json({ message: 'user with the given id does not exist' })
   }
 }
 
@@ -27,7 +27,7 @@ const modifyUser = async (req, res) => {
   }
   const result = await userModel.updateUserById(user, res)
   if (result.affectedRows > 0) {
-    res.json({ message: "user updated: " + user.id })
+    res.json({ message: 'user updated: ' + user.id })
   } else {
     res.status(404).json({ message: 'nothing was changed' })
   }
@@ -41,13 +41,13 @@ const follow = async (req, res) => {
   if (result) {
     res.json({ follower_id: followerId, followee_id: followedId })
   } else {
-    res.status(404).json({ "message": "couldn't follow" })
+    res.status(404).json({ message: "couldn't follow" })
   }
 }
 
 const checkToken = (req, res) => {
-  delete req.user.password;
-  res.json({ user: req.user });
+  delete req.user.password
+  res.json({ user: req.user })
 }
 
 module.exports = {
