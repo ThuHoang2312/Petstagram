@@ -5,7 +5,8 @@ const likeController = require('../controllers/likeController')
 
 router
   .post('/:photoId', likeController.addLike)
-  .get('/:photoId', likeController.isPhotoLikedByUser)
+  .get('/user/:photoId', likeController.isPhotoLikedByUser)
+  .get('/photo/:photoId', likeController.countLikesByPhoto)
   .delete('/:photoId', likeController.removeLike)
 
 

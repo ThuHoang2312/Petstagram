@@ -6,7 +6,6 @@ const { getCoordinates, makeThumbnail } = require('../utils/image')
 // Get all photos by a specific user
 const getAllphotosByUser = async (req, res) => {
   const photos = await photoModel.getAllPhotosByUser(req.params.userId, res)
-  console.log(photos)
   res.json(photos)
 }
 
@@ -14,9 +13,10 @@ const getAllphotosByUser = async (req, res) => {
 const getPhotoById = async (req, res) => {
   const photo = await photoModel.getPhotoById(req.params.photoId, res)
   if (photo) {
+    console.log('photo', photo)
     res.json(photo)
   } else {
-    res.sendStatus(404)
+    res.status(404).json({ message: 'photo controller' })
   }
 }
 
@@ -26,7 +26,7 @@ const getPhotosRandom = async (req, res) => {
   if (photo) {
     res.json(photo)
   } else {
-    res.sendStatus(404)
+    res.status(404)
   }
 }
 
@@ -113,7 +113,6 @@ const deletePhoto = async (req, res) => {
 
 // Get photos by user's followers
 const getPhotoByUserFollower = async (req, res) => {
-  console.log('req.user', req.user)
   const photo = await photoModel.getPhotoByFollower(req.user.user_id, res)
   if (photo.length < 1) {
     res.json(photo)

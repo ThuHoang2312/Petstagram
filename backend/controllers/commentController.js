@@ -25,11 +25,9 @@ const modifyComment = async (req, res) => {
   console.log('validation errors', errors)
   if (errors.isEmpty()) {
     const comment = req.body
-    const photoId = req.params.photoId
     const result = await commentModel.editComment(
       comment,
       req.user,
-      photoId,
       res
     )
     if (result.affectedRows > 0) {
@@ -45,12 +43,10 @@ const removeComment = async (req, res) => {
   const errors = validationResult(req)
   console.log('validation errors', errors)
   if (errors.isEmpty()) {
-    const comment = req.body
-    const photoId = req.params.photoId
+    const commentId = req.params.commentId
     const result = await commentModel.deleteComment(
-      comment,
+      commentId,
       req.user,
-      photoId,
       res
     )
     if (result.affectedRows > 0) {
@@ -63,8 +59,8 @@ const removeComment = async (req, res) => {
 
 // Get all comments of a photo
 const getAllCommentsByPhotoId = async (req, res) => {
-  const cats = await commentModel.getAllCommentsByPhoto(req.params.photoId, res)
-  res.json(cats)
+  const comments = await commentModel.getAllCommentsByPhoto(req.params.photoId, res)
+  res.json(comments)
 }
 
 module.exports = {
