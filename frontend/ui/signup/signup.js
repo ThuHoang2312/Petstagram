@@ -1,7 +1,7 @@
 "use strict";
 
 // import { url } from "../config.js";
-const url = "http://localhost:3000"
+const url = "http://localhost:3000";
 // select existing html elements
 const signupForm = document.querySelector("#signup-form");
 
@@ -17,21 +17,14 @@ signupForm.addEventListener("submit", async (evt) => {
   };
   const response = await fetch(url + "/auth/register", fetchOptions);
   const json = await response.json();
-
-  if (json) {
-    location.href = "../login/login.html";
-    return;
-  }
-
-  //alert the errors from validation
-  if (json.length > 0) {
-    let errors = "";
-    json.forEach((err) => (errors += `${err.msg}\n`));
-    alert(errors);
-    return false;
-  }
-
   //alert errors from backend
   alert(json.message);
-  return false;
+  console.log("signup response: ", json);
+
+  if (!response.ok) {
+    //alert("Error " + response.statusText + " occurred when register profile!");
+    window.location.href = "signup.html";
+  } else {
+    window.location.href = "../login/login.html";
+  }
 });
