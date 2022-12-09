@@ -22,7 +22,7 @@ const isPhotoLikedByUser = async (req, res) => {
   const photoId = req.params.photoId
   const result = await likeModel.getLikeStatusByPhotoId(req.user.user_id, photoId, res)
   if (result.length == 0) {
-    res.status(404).json({ message: false })
+    res.json({ message: false })
   } else {
     res.json({ message: true })
   }

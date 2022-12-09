@@ -1,54 +1,54 @@
-"use strict";
+"use strict"
 
 //import { url } from "../config.js";
-const url = "http://localhost:3000";
-import logOut from "../logout.js";
+const url = "http://localhost:3000"
+import logOut from "../logout.js"
 
 // get user data
-const token = sessionStorage.getItem("token");
-const logInUser = sessionStorage.getItem("user");
-const loginUser = JSON.parse(logInUser);
-const loginUserId = loginUser.user_id;
+const token = sessionStorage.getItem("token")
+const logInUser = sessionStorage.getItem("user")
+const loginUser = JSON.parse(logInUser)
+const loginUserId = loginUser.user_id
 
 //if user does not login yet, redirect back to login page
 if (!token && !logInUser) {
-  location.href = "../home/index.html";
+  location.href = "../home/index.html"
 }
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
+const userInfo = document.querySelector(".user-profile")
 if (token && logInUser) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const p = document.createElement("p")
+  p.innerHTML = loginUser.username
+  const img = document.createElement("img")
   if (loginUser.avatar == null) {
-    img.src = "../../assets/user_icon.png";
+    img.src = "../../assets/user_icon.png"
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + user.avatar
   }
-  img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
+  img.alt = loginUser.username
+  userInfo.appendChild(img)
+  userInfo.appendChild(p)
 
   img.addEventListener("click", () => {
-    location.href = `../profile/profile.html?id=${loginUserId}`;
-  });
+    location.href = `../profile/profile.html?id=${loginUserId}`
+  })
 }
 
 /*-- Create post content --*/
 
 //Get all the likes from the beginning
-const likeIcon = document.getElementById("like-icon");
-const likeCount = document.getElementById("like-count");
+const likeIcon = document.getElementById("like-icon")
+const likeCount = document.getElementById("like-count")
 
 async function getAllLikes() {
   try {
-    const response = await fetch(url + "/like/photo/" + photo_id);
-    const allLikes = await response.json();
-    updateHeartCount(allLikes.allLikes);
+    const response = await fetch(url + "/like/photo/" + photo_id)
+    const allLikes = await response.json()
+    updateHeartCount(allLikes.allLikes)
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
@@ -60,24 +60,24 @@ async function getLikeOfUser() {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-    };
-    const response = await fetch(url + "/like/user/" + photo_id, fetchOptions);
-    const like = await response.json();
-    updateHeartIcon(like.like);
+    }
+    const response = await fetch(url + "/like/" + photo_id, fetchOptions)
+    const like = await response.json()
+    updateHeartIcon(like.like)
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
-getAllLikes();
+getAllLikes()
 if (logInUser && token) {
-  getLikeOfUser();
+  getLikeOfUser()
 }
 
 //Toggle like and display number of likes
 if (likeIcon) {
   likeIcon.addEventListener("click", async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const fetchOptions =
       likeIcon.className === "bx bx-heart"
@@ -86,43 +86,42 @@ if (likeIcon) {
             headers: {
               Authorization: "Bearer " + sessionStorage.getItem("token"),
             },
+            //credentials: "include"
           }
         : {
             method: "DELETE",
             headers: {
               Authorization: "Bearer " + sessionStorage.getItem("token"),
             },
-          };
+            //credentials: "include"
+          }
 
     try {
-      const response = await fetch(
-        url + "/like/user/" + photo_id,
-        fetchOptions
-      );
+      const response = await fetch(url + "/like/" + photo_id, fetchOptions)
 
       if (response.status === 200) {
-        getAllLikes();
-        getLikeOfUser();
+        getAllLikes()
+        getLikeOfUser()
       }
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
-  });
+  })
 }
 
 //update UI of heart Icon
 function updateHeartIcon(userLike) {
   if (userLike > 0) {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "red";
+    likeIcon.className = "bx bx-heart"
+    likeIcon.style.color = "red"
   } else {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "black";
+    likeIcon.className = "bx bx-heart"
+    likeIcon.style.color = "black"
   }
 }
 
 function updateHeartCount(allLikes) {
-  likeCount.textContent = allLikes + " likes";
+  likeCount.textContent = allLikes + " likes"
 }
 
 async function getUser(id) {
@@ -132,17 +131,17 @@ async function getUser(id) {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-    };
-    const response = await fetch(url + "/user/" + id, fetchOptions);
-    const user = await response.json();
-    return user;
+    }
+    const response = await fetch(url + "/user/" + id, fetchOptions)
+    const user = await response.json()
+    return user
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
 //Display feeds
-const post = document.querySelector(".post");
+const post = document.querySelector(".post")
 const createPost = (photos) => {
   photos.forEach((photo) => {
     // (async function getUser() {
@@ -165,37 +164,37 @@ const createPost = (photos) => {
     // })();
 
     //Display user
-    const user = getUser(photo.user_id);
-    console.log(user);
-    const info = document.querySelector(".info");
-    console.log(info);
-    const profileUser = document.createElement("div");
-    profileUser.className = "user";
-    const profilePic = document.createElement("div");
-    profilePic.className = "profile-pic";
-    console.log(profilePic);
+    const user = getUser(photo.user_id)
+    console.log(user)
+    const info = document.querySelector(".info")
+    console.log(info)
+    const profileUser = document.createElement("div")
+    profileUser.className = "user"
+    const profilePic = document.createElement("div")
+    profilePic.className = "profile-pic"
+    console.log(profilePic)
     /*---Avatar display-----*/
-    const imgProfile = document.createElement("img");
+    const imgProfile = document.createElement("img")
     if (user.avatar == null) {
-      imgProfile.src = "../../assets/user_icon.png";
+      imgProfile.src = "../../assets/user_icon.png"
     } else {
-      imgProfile.src = url + "/user/" + user.avatar;
+      imgProfile.src = url + "/user/" + user.avatar
     }
-    imgProfile.alt = user.username;
-    const p = document.createElement("p");
-    p.innerHTML = user.username;
+    imgProfile.alt = user.username
+    const p = document.createElement("p")
+    p.innerHTML = user.username
 
-    profilePic.appendChild(imgProfile);
-    profileUser.appendChild(profilePic);
-    profileUser.appendChild(p);
-    info.appendChild(profileUser);
+    profilePic.appendChild(imgProfile)
+    profileUser.appendChild(profilePic)
+    profileUser.appendChild(p)
+    info.appendChild(profileUser)
 
     //delete button is add when admin or photo owner
     if (user.role == 0 || loginUserId === photo.user_id) {
-      const deleteButton = document.createElement("button");
-      deleteButton.innerHTML = "Delete";
-      deleteButton.className = "btn-delete";
-      profileUser.appendChild(deleteButton);
+      const deleteButton = document.createElement("button")
+      deleteButton.innerHTML = "Delete"
+      deleteButton.className = "btn-delete"
+      profileUser.appendChild(deleteButton)
 
       deleteButton.addEventListener("click", async () => {
         const fetchOptions = {
@@ -203,51 +202,51 @@ const createPost = (photos) => {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
-        };
+        }
         if (confirm("You are deleting a photo, continue?")) {
           try {
             const response = await fetch(
               url + "/photo/" + photo.photo_id,
               fetchOptions
-            );
-            const json = await response.json();
-            console.log("delete photo", json);
+            )
+            const json = await response.json()
+            console.log("delete photo", json)
           } catch (e) {
-            console.log(e.message);
+            console.log(e.message)
           }
         } else {
-          alert("You cancelled the action");
+          alert("You cancelled the action")
         }
-      });
+      })
     }
 
-    const postImg = document.createElement("img");
-    console.log(postImg);
-    postImg.src = url + "/" + photo.filename;
+    const postImg = document.createElement("img")
+    console.log(postImg)
+    postImg.src = url + "/" + photo.filename
     onerror = () => {
-      postImg.src = "https://picsum.photos/seed/picsum/100/200";
-    };
-    postImg.alt = photo.description;
+      postImg.src = "https://picsum.photos/seed/picsum/100/200"
+    }
+    postImg.alt = photo.description
 
-    const postContent = document.querySelector(".post-content");
-    const description = document.createElement("p");
-    description.innerHTML = photo.description;
-    description.className = "description";
+    const postContent = document.querySelector(".post-content")
+    const description = document.createElement("p")
+    description.innerHTML = photo.description
+    description.className = "description"
 
-    const date = document.createElement("p");
-    date.className = "post-time";
-    date.innerHTML = photo.created_at;
+    const date = document.createElement("p")
+    date.className = "post-time"
+    date.innerHTML = photo.created_at
 
-    postContent.appendChild(postImg);
-    postContent.appendChild(description);
-    postContent.appendChild(date);
-    post.append(postContent);
+    postContent.appendChild(postImg)
+    postContent.appendChild(description)
+    postContent.appendChild(date)
+    post.append(postContent)
 
     postContent.addEventListener("click", () => {
-      location.href = `../post/single.html?id=${photo.photo_id}`;
-    });
-  });
-};
+      location.href = `../post/single.html?id=${photo.photo_id}`
+    })
+  })
+}
 
 //Get all image with id
 const getFollowingPhotos = async () => {
@@ -257,18 +256,18 @@ const getFollowingPhotos = async () => {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-    };
-    const response = await fetch(url + "/photo", fetchOptions);
-    const photos = await response.json();
-    console.log(photos);
+    }
+    const response = await fetch(url + "/photo", fetchOptions)
+    const photos = await response.json()
+    console.log(photos)
     if (!(photos.length == 0)) {
-      createPost(photos);
+      createPost(photos)
     }
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-};
-getFollowingPhotos();
+}
+getFollowingPhotos()
 
 const getRandom = async () => {
   try {
@@ -277,16 +276,16 @@ const getRandom = async () => {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-    };
-    const response = await fetch(url + "/photo/explore", fetchOptions);
-    const photos = await response.json();
-    console.log(photos);
-    createPost(photos);
+    }
+    const response = await fetch(url + "/photo/explore", fetchOptions)
+    const photos = await response.json()
+    console.log(photos)
+    createPost(photos)
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-};
-getRandom();
+}
+getRandom()
 
 // /*-- Trending users --*/
 
@@ -330,8 +329,8 @@ getRandom();
 // getTrend();
 
 /*-- Log out --*/
-const logout = document.getElementById("logout");
+const logout = document.getElementById("logout")
 logout.addEventListener("click", () => {
-  console.log("click logout");
-  logOut();
-});
+  console.log("click logout")
+  logOut()
+})

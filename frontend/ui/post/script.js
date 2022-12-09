@@ -1,43 +1,43 @@
-"use strict";
+"use strict"
 
-import logOut from "../logout.js";
+import logOut from "../logout.js"
 //import { url } from "../config.js";
-const url = "http://localhost:3000";
+const url = "http://localhost:3000"
 // get user data
-const token = sessionStorage.getItem("token");
-const user = sessionStorage.getItem("user");
-const loginUser = JSON.parse(user);
-const loginUserId = loginUser.user_id;
+const token = sessionStorage.getItem("token")
+const user = sessionStorage.getItem("user")
+const loginUser = JSON.parse(user)
+const loginUserId = loginUser.user_id
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
+const userInfo = document.querySelector(".user-profile")
 if (token && user) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const p = document.createElement("p")
+  p.innerHTML = loginUser.username
+  const img = document.createElement("img")
   if (loginUser.avatar == null) {
-    img.src = "../../assets/user_icon.png";
+    img.src = "../../assets/user_icon.png"
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + user.avatar
   }
-  img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
+  img.alt = loginUser.username
+  userInfo.appendChild(img)
+  userInfo.appendChild(p)
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${loginUserId}`;
-  });
+    location.href = `profile.html?id=${loginUserId}`
+  })
 }
 
 /*-- Get param id on url --*/
 
 const getQParam = (param) => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  return urlParams.get(param);
-};
-const photoId = getQParam("id");
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get(param)
+}
+const photoId = getQParam("id")
 
 /*-- Get photo by photo Id --*/
 
@@ -45,79 +45,86 @@ const getPhoto = async (id) => {
   try {
     const fetchOptions = {
       method: "GET",
-    };
-    const response = await fetch(url + "/photo" + id, fetchOptions);
-    const photo = await response.json();
-    createPhotoCard(photo);
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+    const response = await fetch(url + "/photo/" + id, fetchOptions)
+    console.log(url + "/photo/" + id)
+    const photo = await response.json()
+    console.log(photo)
+    createPhotoCard(photo)
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-};
-getPhoto(photoId);
+}
+getPhoto(photoId)
 
 /*-- Display photo and info --*/
 
-const postDetail = document.querySelector("#image-content");
+const postDetail = document.querySelector("#image-content")
 /*-- Edit and delete button for admin and post owner --*/
-const editBtn = document.getElementById("edit");
-const deleteBtn = document.getElementById("delete");
-const editForm = document.querySelector(".overlay");
-const closeBtn = document.querySelector(".overlay i");
+const editBtn = document.getElementById("edit")
+const deleteBtn = document.getElementById("delete")
+const editForm = document.querySelector(".overlay")
+const closeBtn = document.querySelector(".overlay i")
 
 const createPhotoCard = (photo) => {
-  const imgDiv = document.getElementById("image");
-  const infoDiv = document.getElementById("info");
+  const imgDiv = document.getElementById("image")
+  const infoDiv = document.getElementById("info")
 
-  const img = document.createElement("img");
-  const imgDate = document.createElement("p");
-  const imgText = document.createElement("p");
+  const img = document.createElement("img")
+  const imgDate = document.createElement("p")
+  const imgText = document.createElement("p")
 
-  img.src = url + "/photo/" + photo.photo_id;
-  img.alt = photo.description;
-  imgDate.innerHTML = photo.created_at.toDateString().slice(4, 15);
-  imgText.innerHTML = photo.description;
+  img.src = url + "/" + photo.filename
+  img.alt = photo.description
+  imgDate.innerHTML = photo.created_at.toDateString().slice(4, 15)
+  imgText.innerHTML = photo.description
 
-  imgDate.className = "date";
-  imgText.className = "image-description";
+  console.log(img)
 
-  imageDiv.appendChild(img);
-  infoDiv.appendChild(imageTitle);
-  infoDiv.appendChild(artist);
-  infoDiv.appendChild(imageDate);
-  infoDiv.appendChild(imageDescription);
+  imgDate.className = "date"
+  imgText.className = "image-description"
+
+  imgDiv.appendChild(img)
+  infoDiv.appendChild(imageTitle)
+  infoDiv.appendChild(artist)
+  infoDiv.appendChild(imageDate)
+  infoDiv.appendChild(imageDescription)
 
   if (token && user && (user.role === 0 || loginUserId === photo.user_id)) {
-    editBtn.style.display = "block";
-    deleteBtn.style.display = "block";
+    editBtn.style.display = "block"
+    deleteBtn.style.display = "block"
   }
-};
+}
 
 editBtn.addEventListener("click", () => {
-  editForm.classList.add("overlay-open");
-});
+  editForm.classList.add("overlay-open")
+})
 
 closeBtn.addEventListener("click", () => {
-  editForm.classList.remove("overlay-open");
-});
+  editForm.classList.remove("overlay-open")
+})
 
 //Update image
-const updatePost = document.querySelector(".update-post");
+const updatePost = document.querySelector(".update-post")
 updatePost.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const data = serializeJson(updatePost);
+  e.preventDefault()
+  const data = serializeJson(updatePost)
   const fetchOptions = {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      authorization: "Bearer " + token,
     },
     body: JSON.stringify(data),
-  };
+  }
 
-  const response = await fetch(url + `/photo/user/${photo_id}`, fetchOptions);
-  const json = await response.json();
-  alert(json.message);
-});
+  const response = await fetch(url + `/photo/user/${photo_id}`, fetchOptions)
+  const json = await response.json()
+  alert(json.message)
+})
 
 //Delete image
 deleteBtn.addEventListener("click", async () => {
@@ -127,33 +134,39 @@ deleteBtn.addEventListener("click", async () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          authorization: "Bearer " + token,
         },
-      };
+      }
       const response = await fetch(
         url + `/photo/user/${photo_id}`,
         fetchOptions
-      );
-      const json = await response.json();
-      alert(json.message);
+      )
+      const json = await response.json()
+      alert(json.message)
       //Redirection to home page
-      location.href = `../front/index.html?id=${loginUserId}`;
+      location.href = `../front/index.html?id=${loginUserId}`
     }
   }
-});
+})
 
 /*-- Get like information--*/
 
-const likeIcon = document.querySelector("#likeIcon");
-const likeCount = document.querySelector("#likeCount");
+const likeIcon = document.querySelector("#likeIcon")
+const likeCount = document.querySelector("#likeCount")
 
 async function getAllLikes() {
   try {
-    const response = await fetch(url + "/like/photo/" + photoId);
-    const allLikes = await response.json();
-    updateHeartCount(allLikes.allLikes);
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+    const response = await fetch(url + "/like/photo/" + photoId, fetchOptions)
+    const allLikes = await response.json()
+    updateHeartCount(allLikes.allLikes)
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
@@ -163,65 +176,65 @@ async function getLikeOfUser() {
     const fetchOptions = {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-    };
-    const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
-    const like = await response.json();
-    updateHeartIcon(like.like);
+    }
+    const response = await fetch(url + "/like/user/" + photoId, fetchOptions)
+    const like = await response.json()
+    updateHeartIcon(like.like)
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
-getAllLikes();
+getAllLikes()
 if (user && token) {
-  getLikeOfUser();
+  getLikeOfUser()
 }
 
 //Toggle like and display number of likes
 likeIcon.addEventListener("click", async (event) => {
-  event.preventDefault();
+  event.preventDefault()
   const fetchOptions =
     likeIcon.className === "bx bx-heart"
       ? {
           method: "POST",
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         }
       : {
           method: "DELETE",
           headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
+            authorization: "Bearer " + sessionStorage.getItem("token"),
           },
-        };
+        }
 
   try {
-    const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
+    const response = await fetch(url + "/like/" + photoId, fetchOptions)
 
     if (response.status === 200) {
-      getAllLikes();
-      getLikeOfUser();
+      getAllLikes()
+      getLikeOfUser()
     }
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
-});
+})
 
 //update UI of heart Icon
 function updateHeartIcon(userLike) {
   if (userLike > 0) {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "red";
+    likeIcon.className = "bx bx-heart"
+    likeIcon.style.color = "red"
   } else {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "black";
+    likeIcon.className = "bx bx-heart"
+    likeIcon.style.color = "black"
   }
 }
 
 function updateHeartCount(allLikes) {
-  likeCount.textContent = allLikes + " likes";
+  likeCount.textContent = allLikes + " likes"
 }
 
 /*-- COMMENTS --*/
@@ -229,109 +242,115 @@ function updateHeartCount(allLikes) {
 //Get all comments
 async function getAllComments() {
   try {
-    const response = await fetch(url + "/comments/photo/" + photoId);
-    const allComments = await response.json();
-    displayComments(allComments);
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    }
+    const response = await fetch(url + "/comment/" + photoId, fetchOptions)
+    const allComments = await response.json()
+    displayComments(allComments)
   } catch (error) {
-    alert(error.message);
+    alert(error.message)
   }
 }
 
-getAllComments();
+getAllComments()
 
 //Display comment
 const displayComments = (allComments) => {
-  const allCommentsContainer = document.querySelector(".allComments");
-  allCommentsContainer.innerHTML = "";
+  const allCommentsContainer = document.querySelector(".allComments")
+  allCommentsContainer.innerHTML = ""
 
   allComments.map((comment) => {
-    const commentContainer = document.createElement("div");
-    const commentContent = document.createElement("div");
-    const name = document.createElement("p");
-    const userComment = document.createElement("p");
-    const buttonDelete = document.createElement("button");
-    const trashIcon = '<i class="bx bx-trash"></i>';
+    const commentContainer = document.createElement("div")
+    const commentContent = document.createElement("div")
+    const name = document.createElement("p")
+    const userComment = document.createElement("p")
+    const buttonDelete = document.createElement("button")
+    const trashIcon = '<i class="bx bx-trash"></i>'
 
-    name.innerHTML = comment.username;
-    userComment.innerHTML = comment.comments;
-    buttonDelete.innerHTML += trashIcon;
+    name.innerHTML = comment.username
+    userComment.innerHTML = comment.comments
+    buttonDelete.innerHTML += trashIcon
 
-    commentContent.appendChild(name);
-    commentContent.appendChild(userComment);
-    commentContainer.appendChild(commentContent);
+    commentContent.appendChild(name)
+    commentContent.appendChild(userComment)
+    commentContainer.appendChild(commentContent)
     if (
       token &&
       user &&
       (comment.user_id === loginUserId || loginUser.role === 0)
     ) {
-      commentContainer.appendChild(buttonDelete);
+      commentContainer.appendChild(buttonDelete)
       buttonDelete.addEventListener("click", (event) => {
         if (confirm("Are you sure you want to delete this comment?")) {
-          deleteComment(comment.id, event);
+          deleteComment(comment.id, event)
         }
-      });
+      })
     }
 
-    name.className = "commentUser";
-    comment.className = "comment";
-    commentContent.className = "commentContent";
-    commentContainer.className = "commentBox";
+    name.className = "commentUser"
+    comment.className = "comment"
+    commentContent.className = "commentContent"
+    commentContainer.className = "commentBox"
 
-    allCommentsContainer.appendChild(commentContainer);
-  });
-};
+    allCommentsContainer.appendChild(commentContainer)
+  })
+}
 
 //Adding comments
-const input = document.querySelector("#comment-input");
+const input = document.querySelector("#comment-input")
 input.addEventListener("keypress", async (e) => {
   if (e.key === "Enter") {
     //converting input comment to json object
     const data = {
       comment: input.value,
-    };
+    }
 
     const fetchOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        authorization: "Bearer " + token,
       },
       body: JSON.stringify(data),
-    };
+    }
     const response = await fetch(
-      url + `/photo/comment/${photo_id}`,
+      url + `/comment/${photo_id}`,
       fetchOptions
-    );
-    const allComments = await response.json();
+    )
+    const allComments = await response.json()
 
     if (allComments.length >= 0) {
-      displayComments(allComments);
-      input.value = "";
+      displayComments(allComments)
+      input.value = ""
     } else {
-      alert(allComments.message);
+      alert(allComments.message)
     }
   }
-});
+})
 
 //Delete comment
 const deleteComment = async (commentId, event) => {
-  event.preventDefault();
+  event.preventDefault()
   const fetchOptions = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      authorization: "Bearer " + token,
     },
-  };
-  const response = await fetch(
-    url + `/photo/comment/${comment_id}`,
-    fetchOptions
-  );
-  const json = await response.json();
-  if (json.message === "Comment has been deleted") {
-    window.location.reload();
   }
-};
+  const response = await fetch(
+    url + `/comment/${comment_id}`,
+    fetchOptions
+  )
+  const json = await response.json()
+  if (json.message === "Comment has been deleted") {
+    window.location.reload()
+  }
+}
 
 /*-- Trending users --*/
 
@@ -362,7 +381,7 @@ const deleteComment = async (commentId, event) => {
 //   try {
 //     const options = {
 //       headers: {
-//         Authorization: "Bearer " + sessionStorage.getItem("token"),
+//         authorization: "Bearer " + sessionStorage.getItem("token"),
 //       },
 //     };
 //     const response = await fetch(url + "/user/trend", options);
@@ -375,7 +394,7 @@ const deleteComment = async (commentId, event) => {
 // getTrend();
 
 /*-- Log out --*/
-const logout = document.querySelector("#logout");
+const logout = document.querySelector("#logout")
 logout.addEventListener("click", () => {
-  logOut();
-});
+  logOut()
+})
