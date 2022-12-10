@@ -21,13 +21,12 @@
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="./style.css" />
 
-
     <!-- TITLE -->
     <title>Petstagram &mdash; Home</title>
   </head>
   <body>
-    <header class="header sticky">
-      <div class="wrapper">
+    <div class="container">
+      <header class="header sticky">
         <div class="logo-box">
           <img
             src="../../assets/logo-dark.png"
@@ -36,96 +35,82 @@
           />
         </div>
 
+        <div class="user-profile"></div>
+      </header>
 
-        <div class="user-profile">
-          
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <div class="main-wrapper">
-        <section class="sidebar">
-          <div class="left-col">
-            <ul>
-              <li>
-                <a href="#" class="nav-items active">
-                  <i class="bx bx-home-alt-2"></i>
-                  <span>Home</span>
-                </a>
-              </li>
-              <!-- <li>
+      <main>
+        <div class="main-wrapper">
+          <aside class="sidebar">
+            <div class="left-col">
+              <ul>
+                <li>
+                  <a href="#" class="nav-items active">
+                    <i class="bx bx-home-alt-2"></i>
+                    <span>Home</span>
+                  </a>
+                </li>
+                <!-- <li>
                 <a href="../" class="nav-items">
                   <i class="bx bx-compass"></i>
                   <span>Explore</span>
                 </a>
               </li> -->
-              <li>
-                <a href="../search/search.html" class="nav-items">
-                  <i class="bx bx-search-alt-2"></i>
-                  <span>Search</span>
-                </a>
-              </li>
-              <li>
-                <a href="../profile/profile.html" class="nav-items">
-                  <i class="bx bx-user-circle"></i>
-                  <span>Profile</span>
-                </a>
-              </li>
-              <!-- <li>
+                <li>
+                  <a href="../search/search.html" class="nav-items">
+                    <i class="bx bx-search-alt-2"></i>
+                    <span>Search</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../profile/profile.html" class="nav-items">
+                    <i class="bx bx-user-circle"></i>
+                    <span>Profile</span>
+                  </a>
+                </li>
+                <!-- <li>
                 <a href="" class="nav-items">
                   <i class="bx bx-bookmarks"></i>
                   <span>Saved</span>
                 </a>
               </li> -->
-              <li>
-                <a href="../setting/setting.html" class="nav-items">
-                  <i class="bx bx-cog"></i>
-                  <span>Setting</span>
-                </a>
-              </li>
-              <li>
-                <a href="" class="nav-items" id="logout">
-                  <i class="bx bx-log-out-circle"></i>
-                  <span>Log out</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
+                <li>
+                  <a href="../setting/setting.html" class="nav-items">
+                    <i class="bx bx-cog"></i>
+                    <span>Setting</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="nav-items" id="logout">
+                    <i class="bx bx-log-out-circle"></i>
+                    <span>Log out</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
 
-        <section class="main-content">
-          <div class="middle-col">
-            <div class="post" id="post">
-              <div class="info">
-              </div>
-            
-              <div class="post-content">
-                <div class="reaction-wrapper">
-                  <i class="bx bx-heart id="like-icon"></i>
-                  <!-- <i class="bx bx-bookmarks"></i> -->
-                </div>
-                <div class="post-reaction">
-                </div>
-
+          <section class="main-content">
+            <div class="middle-col">
+              <div class="post-wrapper">
+                <div class="post"></div>
               </div>
             </div>
-            
-          </div>
-        </section>
+          </section>
 
-        <section class="trending">
-          <div class="right-col">
-            <div class="suggestion">Trending Account</div>
-            <div class="profile-card"></div>
+          <section class="trending">
+            <div class="right-col">
+              <div class="suggestion">
+                <p>Trending Account</p>
+                <div class="profile-card"></div>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
-    </main>
+          </section>
+        </div>
+      </main>
 
-    <!-- SCRIPT -->
-    <script type="module" src = "script.js"></script>
-    <script src="../login/serialize.js"></script>
+      <!-- SCRIPT -->
+      <script type="module" src="script.js"></script>
+      <script src="../login/serialize.js"></script>
+    </div>
   </body>
 </html>

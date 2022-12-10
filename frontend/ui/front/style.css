@@ -63,27 +63,14 @@ body {
   box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
 }
 
-.main {
-  width: 100%;
-  max-width: 130rem;
-  padding: 4rem 0;
+.container {
   display: flex;
-  justify-content: center;
-  margin-top: 15rem;
+  flex-direction: column;
 }
 
 /* -------------------------------- */
 /* ----------TOPBAR---------- */
 /* -------------------------------- */
-
-.wrapper {
-  width: 100%;
-  max-width: 130rem;
-  height: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .logo-box {
   height: 80%;
@@ -169,7 +156,15 @@ body {
   flex-direction: column;
 }
 
+.post-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .post {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: auto;
   background: #fff;
@@ -209,6 +204,16 @@ body {
   border-radius: 3px;
   border: none;
 }
+
+.btn-follow {
+  font-size: 2rem;
+  background: #dda15e;
+  padding: 0 1rem;
+  color: #f8f0e9;
+  border-radius: 3px;
+  border: none;
+}
+
 .info .profile-pic {
   height: 7rem;
   width: 7rem;
@@ -222,15 +227,15 @@ body {
   border-radius: 50%;
 }
 
-.post-img {
-  width: 100%;
-  height: 30rem;
-  object-fit: cover;
-}
-
 .post-content {
   width: 100%;
   padding: 2rem;
+}
+
+.post-content img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .reaction-wrapper {

@@ -151,7 +151,7 @@ form.addEventListener("submit", async (evt) => {
           },
         };
         const response = await fetch(
-          url + "/photo/" + query.value,
+          url + "/photo/tag/" + query.value,
           fetchOptions
         );
         const photos = await response.json();

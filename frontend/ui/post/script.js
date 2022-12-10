@@ -45,8 +45,12 @@ const getPhoto = async (id) => {
   try {
     const fetchOptions = {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
-    const response = await fetch(url + "/photo" + id, fetchOptions);
+    const response = await fetch(url + "/photo/" + id, fetchOptions);
     const photo = await response.json();
     createPhotoCard(photo);
   } catch (e) {
@@ -149,7 +153,7 @@ const likeCount = document.querySelector("#likeCount");
 
 async function getAllLikes() {
   try {
-    const response = await fetch(url + "/like/photo/" + photoId);
+    const response = await fetch(url + "/like/" + photoId);
     const allLikes = await response.json();
     updateHeartCount(allLikes.allLikes);
   } catch (error) {

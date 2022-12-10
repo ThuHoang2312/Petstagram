@@ -197,60 +197,118 @@ postPhoto.addEventListener("submit", async (evt) => {
   alert(json.message);
 });
 
-/*---------Display the photo upload by user------------*/
+// const ul = document.querySelector("ul"),
+//   tagInput = ul.querySelector("input"),
+//   countTag = querySelector(".details span");
+// let maxTags = 5,
+//   tags = [];
+// countTag();
 
-//get photo by user id
-//const photoList = document.querySelector("#photo-lib");
-const getPhotosByUser = async (id) => {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/photo/user/" + id, fetchOptions);
-    const images = await response.json();
-    console.log(images);
-    createCard(images);
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-getPhotosByUser(userId);
+// function countTag() {
+//   countNumb.innerText = maxTags - tags.length;
+// }
 
-//Display photo uploaded by user
+// function createTag() {
+//   ul.querySelectorAll("li").forEach((li) => li.remove());
+//   tags
+//     .slice()
+//     .reverse()
+//     .forEach((tag) => {
+//       let liTag = `<li>${tag}<i class="bx bx-x" onclick = remove(this, ${tag})></i></li>`;
+//       ul.insertAdjacentHTML("afterbegin", liTag);
+//     });
+//   countTag();
+// }
 
-const photoList = document.querySelector(".photo-lib");
+// function remove(item, tag) {
+//   let index = tags.indexOf(tag);
+//   tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+//   item.parentElement.remove();
+//   countTag();
+// }
 
-const createCard = (images) => {
-  if (images.length == 0) {
-    const h2 = document.createElement("h2");
-    h2.innerHTML = "No photo available";
-    photoList.appendChild(h2);
-  } else {
-    images.forEach((image) => {
-      const singleImage = document.createElement("div");
-      singleImage.className = "single-image";
+// function addTag(e) {
+//   if (e.key == "Enter") {
+//     let tag = e.target.value.replace(/\s+/g, ""); //remove unwanted spaces from user tags
+//     console.log(tag);
+//     //If there is more than 1 tag and the tag is not exist already
+//     if (tag.length > 1 && !tags.includes(tag)) {
+//       if (tags.length < 5) {
+//         tag.split(",").forEach((tag) => {
+//           //split the tags by comma
 
-      const img = document.createElement("img");
-      img.src = url + "/thumbnails/" + image.filename;
-      img.alt = image.description;
+//           //adding each tag to arrays
+//           tags.push(tag);
+//           createTag();
+//         });
+//       }
+//       e.target.value = "";
+//     }
+//   }
 
-      singleImage.appendChild(img);
+//   tagInput.addEventListener("keyup", addTag);
 
-      photoList.appendChild(singleImage);
+//   const removeTagBtn = document.querySelector(".details button");
+//   removeTagBtn.addEventListener("click", () => {
+//     tags.length = 0;
+//     ul.querySelectorAll("li").forEach((li) => li.remove());
+//   });
 
-      singleImage.addEventListener("click", () => {
-        location.href = `../post/single.html?id=${image.photo_id}`;
+  /*---------Display the photo upload by user------------*/
+
+  //get photo by user id
+  //const photoList = document.querySelector("#photo-lib");
+  const getPhotosByUser = async (id) => {
+    try {
+      const fetchOptions = {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url + "/photo/user/" + id, fetchOptions);
+      const images = await response.json();
+      console.log(images);
+      createCard(images);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+  getPhotosByUser(userId);
+
+  //Display photo uploaded by user
+
+  const photoList = document.querySelector(".photo-lib");
+
+  const createCard = (images) => {
+    if (images.length == 0) {
+      const h2 = document.createElement("h2");
+      h2.innerHTML = "No photo available";
+      photoList.appendChild(h2);
+    } else {
+      images.forEach((image) => {
+        const singleImage = document.createElement("div");
+        singleImage.className = "single-image";
+
+        const img = document.createElement("img");
+        img.src = url + "/thumbnails/" + image.filename;
+        img.alt = image.description;
+
+        singleImage.appendChild(img);
+
+        photoList.appendChild(singleImage);
+
+        singleImage.addEventListener("click", () => {
+          location.href = `../post/single.html?id=${image.photo_id}`;
+        });
       });
-    });
-  }
-};
+    }
+  };
 
-/*---------Log out------------*/
+  /*---------Log out------------*/
 
-const logout = document.querySelector("#logout");
-logout.addEventListener("click", () => {
-  logOut();
-});
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", () => {
+    logOut();
+  });
+}
