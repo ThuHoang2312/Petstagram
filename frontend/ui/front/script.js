@@ -7,7 +7,7 @@ import logOut from "../logout.js";
 // get user data
 const token = sessionStorage.getItem("token");
 const logInUser = sessionStorage.getItem("user");
-const loginUser = JSON.parse(logInUser);
+const loginUser = logInUser && JSON.parse(logInUser);
 const loginUserId = loginUser.user_id;
 
 //if user does not login yet, redirect back to login page
@@ -156,11 +156,10 @@ const createPost = (photos) => {
     }
 
     //Create follow button
-    if (!(logInUser == photo.user_id)) {
+    if (!(loginUserId == photo.user_id)) {
       const followButton = document.createElement("button");
       followButton.innerHTML = "Follow";
       followButton.className = "btn-follow";
-
       profileUser.appendChild(followButton);
 
       followButton.addEventListener("click", async (event) => {
@@ -220,6 +219,10 @@ const createPost = (photos) => {
     postContent.appendChild(date);
     post.appendChild(postContent);
     console.log(post);
+
+    userInfo.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${photo.user_id}`;
+    });
 
     postContent.addEventListener("click", () => {
       location.href = `../post/single.html?id=${photo.photo_id}`;

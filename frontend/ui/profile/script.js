@@ -108,6 +108,38 @@ const createProfile = (userProfile) => {
     span.innerHTML = "Follow";
     button.appendChild(span);
     userFollow.appendChild(button);
+
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const fetchOptions =
+        followButton.className === "btn-follow"
+          ? {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+            }
+          : {
+              method: "DELETE",
+              headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+            };
+
+      try {
+        const response = await fetch(
+          url + "/follow/" + photo.user_id,
+          fetchOptions
+        );
+
+        if (response.status === 200) {
+          getFollowOfUser();
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   }
 
   if (userData.user_id == userProfile.user_id) {
