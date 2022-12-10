@@ -1,4 +1,5 @@
 'use strict'
+const e = require('express')
 const userModel = require('../models/userModel')
 
 // Uses the data from userModel to display all users
@@ -19,13 +20,37 @@ const getUser = async (req, res) => {
   }
 }
 
+const getTrendingUsers = async (req, res ) => {
+  const users = await userModel.getUsersByTrending(req, res)
+  if (users) {
+    res.json(users)
+  } else {
+    res.status(404).json({ message: "Can't get trending users" })
+  }
+}
+
 // Uses the data from userModel to modify the user
-const modifyUser = async (req, res) => {
+const modifyUserGeneral = async (req, res) => {
+  const user = req.body
+  console.log("test", req.file)
+  if (req.params.userId) {
+    user.id = req.params.userId
+    user.avatar = req.file.filename
+  }
+  const result = await userModel.updateUserGeneral(user, res)
+  if (result.affectedRows > 0) {
+    res.json({ message: 'user updated: ' + user.id })
+  } else {
+    res.status(404).json({ message: 'nothing was changed' })
+  }
+}
+
+const modifyUserPassword = async (req, res) => {
   const user = req.body
   if (req.params.userId) {
     user.id = req.params.userId
   }
-  const result = await userModel.updateUserById(user, res)
+  const result = await userModel.updateUserPassword(user, res)
   if (result.affectedRows > 0) {
     res.json({ message: 'user updated: ' + user.id })
   } else {
@@ -53,7 +78,9 @@ const checkToken = (req, res) => {
 module.exports = {
   getUsers,
   getUser,
-  modifyUser,
+  getTrendingUsers,
+  modifyUserGeneral,
+  modifyUserPassword,
   follow,
   checkToken
 }

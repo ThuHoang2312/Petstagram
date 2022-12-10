@@ -38,6 +38,20 @@ const getUserLogin = async (email) => {
   }
 }
 
+
+const getUsersByTrending = async (req, res) => {
+  try {
+    const sql = "SELECT username FROM users INNER JOIN follows ON users.user_id = follows.followee_id GROUP BY username ORDER BY COUNT(followee_id) DESC;"
+    const [highestFollows] = await promisePool.query(sql)
+    console.log(highestFollows)
+    return highestFollows
+  } catch (e) {
+    console.log("user data:", user)
+    console.error("error adding a new user:", e.message)
+    res.status(500).json({ "message": e.message })
+  }
+}
+
 // Create a new user
 const addUser = async (user, res) => {
   try {
@@ -70,16 +84,27 @@ const startFollowing = async (followerId, followedId) => {
 }
 
 // Modifying a specific user
-const updateUserById = async (user, res) => {
+const updateUserGeneral = async (user, res) => {
   try {
-    console.log('Modified user: ', user)
-    const sql = "UPDATE users SET username = ?, email = ?, password = ?, avatar = ?, description = ?, role = ? " +
+    console.log('user to modify:', user)
+    const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
       "WHERE user_id = ?"
-    const values = [user.username, user.email, user.password, user.avatar, user.description, user.role, user.id]
+    const values = [user.username, user.avatar, user.description, user.id]
     const [rows] = await promisePool.query(sql, values)
     return rows
   } catch (e) {
-    console.error("error while updating a specific user:", e.message)
+    console.error("error while updating a specific user's username, avatar and description:", e.message)
+    res.status(500).json({ "error": e.message })
+  }
+}
+
+const updateUserPassword = async (user, res) => {
+  try {
+    console.log("password modification user:", user)
+    const sql = "UPDATE users SET password = ? WHERE user_id = ?"
+    const values = [user.password, user.id]
+  } catch (e) {
+    console.error("error while updating a specific user's password:", e.message)
     res.status(500).json({ "error": e.message })
   }
 }
@@ -88,7 +113,9 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserLogin,
+  getUsersByTrending,
   addUser,
   startFollowing,
-  updateUserById
+  updateUserGeneral,
+  updateUserPassword
 }
