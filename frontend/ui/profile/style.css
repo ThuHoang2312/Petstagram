@@ -255,7 +255,7 @@ body {
   z-index: 1;
   border: 1px solid #ab6909;
   background: white;
-  /* display: none; */
+  display: none;
 }
 
 .closeIcon {

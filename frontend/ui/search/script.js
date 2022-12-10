@@ -106,7 +106,7 @@ const createUserCards = (users) => {
     div.appendChild(username);
     search.appendChild(div);
 
-    img.addEventListener("click", () => {
+    div.addEventListener("click", () => {
       location.href = `../profile/profile.html?id=${user.user_id}`;
     });
   });

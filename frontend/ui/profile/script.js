@@ -1,126 +1,147 @@
 "use strict";
 //import { url } from "../config.js";
 import logOut from "../logout.js";
-
 const url = "http://localhost:3000";
-const token = sessionStorage.getItem("token");
-const loginUser = sessionStorage.getItem("user");
 
-// get user data from session storage
-const logInUser = JSON.parse(loginUser);
+const token = sessionStorage.getItem("token");
+const user = sessionStorage.getItem("user");
+const userData = user && JSON.parse(user);
 let userId;
 
-//if user does not login yet, redirect back to login page
-if (!token && !loginUser) {
+//if user does not login yet, redirect back to front page
+if (!token && !user) {
   location.href = "../home/index.html";
 }
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
-if (token && loginUser) {
+if (token && user) {
   const p = document.createElement("p");
-  p.innerHTML = logInUser.username;
+  p.innerHTML = userData.username;
   const img = document.createElement("img");
-  if (logInUser.avatar == null) {
-    img.src = "../../assets/avatar.jpg";
+  if (userData.avatar == null) {
+    img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/" + logInUser.avatar;
+    img.src = url + "/" + userData.avatar;
   }
-  img.alt = logInUser.username;
+  img.alt = userData.username;
   userInfo.appendChild(img);
   userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${user.user_id}`;
+    location.href = `profile.html?id=${userData.user_id}`;
   });
 }
 
 /*---------Display user's profile------------*/
-//Get id on url
+//get Id from param
 const getQParam = (param) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  console.log(urlParams.get(param));
   return urlParams.get(param);
 };
 
-if (getQParam("user_id") == null) {
-  userId = logInUser.user_id;
+if (getQParam("id") == null) {
+  userId = userData.user_id;
 } else {
-  userId = getQParam("user_id");
+  userId = getQParam("id");
 }
+console.log("getQParam: ", getQParam("id"));
 
-//Get user and display info on profile section
-(async function getUser() {
+/*-- Get user by user Id --*/
+const getUser = async (id) => {
   try {
     const fetchOptions = {
+      method: "GET",
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    const response = await fetch(url + `/user/${userId}`, fetchOptions);
-    const user = await response.json();
-    console.log("getUser(): ", user);
-    sessionStorage.setItem("user", JSON.stringify(user));
-    // console.log(profileUser);
+    const response = await fetch(url + "/user/" + id, fetchOptions);
+    const userProfile = await response.json();
+    createProfile(userProfile);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+getUser(userId);
 
-    //Display user's profile
-    const profile = document.querySelector(".user-info");
-    console.log(profile);
-    const avatar = document.createElement("div");
-    avatar.className = "avatar";
+//console.log("getUser result: ", getUser(userId));
 
-    const img = document.createElement("img");
-    if (user.avatar == null) {
-      img.src = "../../assets/user_icon.png";
-    } else {
-      img.src = url + "/thumbnails" + user.avatar;
-    }
-    img.alt = user.username;
+/*-- Create user profile section --*/
+const profile = document.querySelector(".user-info");
+const createProfile = (userProfile) => {
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  const img = document.createElement("img");
+  if (userProfile.avatar == null) {
+    img.src = "../../assets/user_icon.png";
+  } else {
+    img.src = url + "/user/" + userProfile.avatar;
+  }
+  img.alt = userProfile.username;
 
-    console.log(avatar);
+  const userDetail = document.createElement("div");
+  userDetail.className = "user-detail";
+  console.log(userDetail);
 
-    const userDetail = document.createElement("div");
-    userDetail.className = "user-detail";
-    console.log(userDetail);
+  const userFollow = document.createElement("div");
+  userFollow.className = "user-follow";
 
-    const userFollow = document.createElement("div");
-    userFollow.className = "user-follow";
+  const h2 = document.createElement("h2");
+  h2.innerHTML = userProfile.username;
 
-    const h2 = document.createElement("h2");
-    h2.innerHTML = user.username;
-    userFollow.appendChild(h2);
+  const description = document.createElement("p");
+  if (user.description == null) {
+    description.innerHTML = "No description available";
+  } else {
+    description.innerHTML = user.description;
+  }
+  avatar.appendChild(img);
+  userDetail.appendChild(description);
 
+  if (!(userData.user_id == userProfile.user_id)) {
     const button = document.createElement("button");
     button.className = "btn-follow";
     const span = document.createElement("span");
     span.innerHTML = "Follow";
     button.appendChild(span);
     userFollow.appendChild(button);
-    if (logInUser.user_id == user.user_id) {
-      button.style.display = "none";
-    } else {
-      button.style.display = "flex";
-    }
-    const description = document.createElement("p");
-    if (user.description == null) {
-      description.innerHTML = "No description available";
-    } else {
-      description.innerHTML = user.description;
-    }
-
-    avatar.appendChild(img);
-    userDetail.appendChild(description);
-    profile.appendChild(avatar);
-    profile.appendChild(userFollow);
-    userDetail.appendChild(userFollow);
-    userDetail.appendChild(description);
-    profile.appendChild(userDetail);
-  } catch (e) {
-    console.log(e.message);
   }
-})();
+
+  if (userData.user_id == userProfile.user_id) {
+    const addDiv = document.createElement("div");
+    addDiv.className = "add";
+
+    const addSpan = document.createElement("span");
+    addSpan.innerHTML = "Add";
+    const addIcon = document.createElement("i");
+    addIcon.className = "bx bx-image-add";
+
+    addDiv.appendChild(addSpan);
+    addDiv.appendChild(addIcon);
+    userFollow.appendChild(addDiv);
+
+    const addPhotoOverlay = document.querySelector(".overlay");
+    const closeOverlay = document.querySelector(".overlay i");
+
+    addDiv.addEventListener("click", () => {
+      addPhotoOverlay.classList.add("overlay-open");
+    });
+
+    closeOverlay.addEventListener("click", () => {
+      addPhotoOverlay.classList.remove("overlay-open");
+    });
+  }
+
+  userDetail.appendChild(h2);
+  userDetail.appendChild(description);
+  userDetail.appendChild(userFollow);
+  profile.appendChild(avatar);
+  profile.appendChild(userDetail);
+  profile.appendChild(userFollow);
+};
 
 //Toggle for follow account
 
@@ -154,28 +175,12 @@ if (getQParam("user_id") == null) {
 
 //Upload photo when it is the login user's profile page
 
-const add = document.querySelector(".add");
-if (!logInUser.user_id == userId) {
-  add.style.display = "none";
-}
-
-const addPhotoOverlay = document.querySelector(".overlay");
-const closeOverlay = document.querySelector(".overlay i");
-
-//Append file name to text
-document.getElementById("imagePosting").onchange = function () {
-  const fileName = this.value.split("\\");
-  document.getElementById("uploadImage").textContent =
-    fileName[fileName.length - 1];
-};
-
-add.addEventListener("click", () => {
-  addPhotoOverlay.classList.add("overlay-open");
-});
-
-closeOverlay.addEventListener("click", () => {
-  addPhotoOverlay.classList.remove("overlay-open");
-});
+// //Append file name to text
+// document.getElementById("imagePosting").onchange = function () {
+//   const fileName = this.value.split("\\");
+//   document.getElementById("uploadImage").textContent =
+//     fileName[fileName.length - 1];
+// };
 
 //Post Photo
 const postPhoto = document.querySelector("#post-image");
@@ -254,61 +259,58 @@ postPhoto.addEventListener("submit", async (evt) => {
 //     ul.querySelectorAll("li").forEach((li) => li.remove());
 //   });
 
-  /*---------Display the photo upload by user------------*/
+/*---------Display the photo upload by user------------*/
 
-  //get photo by user id
-  //const photoList = document.querySelector("#photo-lib");
-  const getPhotosByUser = async (id) => {
-    try {
-      const fetchOptions = {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url + "/photo/user/" + id, fetchOptions);
-      const images = await response.json();
-      console.log(images);
-      createCard(images);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-  getPhotosByUser(userId);
+//get photo by user id
 
-  //Display photo uploaded by user
+const getPhotosByUser = async (id) => {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/photo/user/" + id, fetchOptions);
+    const images = await response.json();
+    console.log(images);
+    createCard(images);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+getPhotosByUser(userId);
 
-  const photoList = document.querySelector(".photo-lib");
+//Display photo uploaded by user
+const photoList = document.querySelector(".photo-lib");
+const createCard = (images) => {
+  if (images.length == 0) {
+    const h2 = document.createElement("h2");
+    h2.innerHTML = "No photo available";
+    photoList.appendChild(h2);
+  } else {
+    images.forEach((image) => {
+      const singleImage = document.createElement("div");
+      singleImage.className = "single-image";
 
-  const createCard = (images) => {
-    if (images.length == 0) {
-      const h2 = document.createElement("h2");
-      h2.innerHTML = "No photo available";
-      photoList.appendChild(h2);
-    } else {
-      images.forEach((image) => {
-        const singleImage = document.createElement("div");
-        singleImage.className = "single-image";
+      const img = document.createElement("img");
+      img.src = url + "/thumbnails/" + image.filename;
+      img.alt = image.description;
 
-        const img = document.createElement("img");
-        img.src = url + "/thumbnails/" + image.filename;
-        img.alt = image.description;
+      singleImage.appendChild(img);
 
-        singleImage.appendChild(img);
+      photoList.appendChild(singleImage);
 
-        photoList.appendChild(singleImage);
-
-        singleImage.addEventListener("click", () => {
-          location.href = `../post/single.html?id=${image.photo_id}`;
-        });
+      singleImage.addEventListener("click", () => {
+        location.href = `../post/single.html?id=${image.photo_id}`;
       });
-    }
-  };
+    });
+  }
+};
 
-  /*---------Log out------------*/
+/*---------Log out------------*/
 
-  const logout = document.querySelector("#logout");
-  logout.addEventListener("click", () => {
-    logOut();
-  });
-}
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", () => {
+  logOut();
+});
