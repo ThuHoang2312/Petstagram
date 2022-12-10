@@ -6,7 +6,7 @@ const promisePool = pool.promise()
 const getAllPhotosByUser = async (userId, res) => {
   try {
     const sql =
-      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE photos.user_id = ?'
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username, users.avatar FROM photos JOIN users ON photos.user_id = users.user_id WHERE photos.user_id = ?'
     const [rows] = await promisePool.query(sql, [userId])
     return rows
   } catch (e) {
@@ -19,7 +19,7 @@ const getAllPhotosByUser = async (userId, res) => {
 const getPhotoById = async (photoId, res) => {
   try {
     const sql =
-      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id WHERE photo_id = ?'
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username, users.avatar FROM photos JOIN users ON photos.user_id = users.user_id WHERE photo_id = ?'
     const [rows] = await promisePool.query(sql, [photoId])
     return rows[0]
   } catch (e) {
@@ -32,7 +32,7 @@ const getPhotoById = async (photoId, res) => {
 const getPhotoRandomly = async (res) => {
   try {
     const sql =
-      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username FROM photos JOIN users ON photos.user_id = users.user_id ORDER BY RAND()'
+      'SELECT photo_id, filename, photos.description, created_at, photos.user_id, coords, users.username, users.avatar FROM photos JOIN users ON photos.user_id = users.user_id ORDER BY RAND()'
     const [rows] = await promisePool.query(sql)
     return rows
   } catch (e) {
@@ -144,7 +144,7 @@ const updateDescriptionAndPhotoById = async (photo, user, res) => {
 const getPhotoByFollower = async (userId, res) => {
   try {
     const [rows] = await promisePool.query(
-      'SELECT photo_id, filename, description, created_at, user_id FROM photos, follows WHERE user_id = follower_id and followee_id = ?',
+      'SELECT * FROM photos JOIN follows ON photos.user_id = follower_id JOIN users ON users.user_id = photos.user_id WHERE followee_id = ?',
       [userId]
     )
     return rows

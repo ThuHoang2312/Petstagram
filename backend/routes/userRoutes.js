@@ -5,9 +5,10 @@ const multer = require('multer')
 const {
   getUsers,
   getUser,
-  modifyUser,
+  modifyUserGeneral,
   follow,
-  checkToken
+  checkToken,
+  getTrendingUsers
 } = require('../controllers/userController')
 
 const fileFilter = (req, file, cb) => {
@@ -26,7 +27,8 @@ router
   .get('/', getUsers)
   .get('/token', checkToken)
   .get('/:userId', getUser)
+  .get('/trend', getTrendingUsers)
   .post('/follow/:userId', follow)
-  .put('/:userId', upload.single('avatar'), modifyUser)
+  .put('/:userId', upload.single('avatar'), modifyUserGeneral)
 
 module.exports = router

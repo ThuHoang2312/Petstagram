@@ -20,17 +20,17 @@ const addComment = async (comment, userId, photoId, res) => {
 }
 
 // Delete comment
-const deleteComment = async (comment, user, photoId, res) => {
+const deleteComment = async (commentId, user, res) => {
   try {
     if (user.role == 0) {
-      const sql = 'DELETE FROM comments WHERE id = ? and photo_id = ?'
-      const value = [comment.id, photoId]
+      const sql = 'DELETE FROM comments WHERE id = ?'
+      const value = [commentId]
       const [rows] = await promisePool.query(sql, value)
       return rows
     } else {
       const sql =
-        'DELETE FROM comments WHERE id = ? and user_id = ? and photo_id = ?'
-      const value = [comment.id, user.user_id, photoId]
+        'DELETE FROM comments WHERE id = ? and user_id = ?'
+      const value = [commentId, user.user_id]
       const [rows] = await promisePool.query(sql, value)
       return rows
     }

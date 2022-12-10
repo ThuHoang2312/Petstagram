@@ -38,6 +38,7 @@ const getQParam = (param) => {
   return urlParams.get(param);
 };
 const photoId = getQParam("id");
+console.log(photoId);
 
 /*-- Get photo by photo Id --*/
 
@@ -76,21 +77,20 @@ const createPhotoCard = (photo) => {
   const imgDate = document.createElement("p");
   const imgText = document.createElement("p");
 
-  img.src = url + "/photo/" + photo.photo_id;
+  img.src = url + "/" + photo.filename;
   img.alt = photo.description;
-  imgDate.innerHTML = photo.created_at.toDateString().slice(4, 15);
+  imgDate.innerHTML = photo.created_at;
   imgText.innerHTML = photo.description;
-
   imgDate.className = "date";
   imgText.className = "image-description";
 
-  imageDiv.appendChild(img);
-  infoDiv.appendChild(imageTitle);
-  infoDiv.appendChild(artist);
-  infoDiv.appendChild(imageDate);
-  infoDiv.appendChild(imageDescription);
+  imgDiv.appendChild(img);
+  infoDiv.appendChild(imgText);
+  infoDiv.appendChild(imgDate);
+  postDetail.appendChild(imgDiv);
+  postDetail.appendChild(infoDiv);
 
-  if (token && user && (user.role === 0 || loginUserId === photo.user_id)) {
+  if (token && user && (photo.role === 0 || loginUserId === photo.user_id)) {
     editBtn.style.display = "block";
     deleteBtn.style.display = "block";
   }
@@ -113,7 +113,7 @@ updatePost.addEventListener("submit", async (e) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      authorization: "Bearer " + token,
     },
     body: JSON.stringify(data),
   };
@@ -131,7 +131,7 @@ deleteBtn.addEventListener("click", async () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          authorization: "Bearer " + token,
         },
       };
       const response = await fetch(
@@ -148,92 +148,104 @@ deleteBtn.addEventListener("click", async () => {
 
 /*-- Get like information--*/
 
-const likeIcon = document.querySelector("#likeIcon");
-const likeCount = document.querySelector("#likeCount");
+// const likeIcon = document.querySelector("#likeIcon");
+// const likeCount = document.querySelector("#likeCount");
 
-async function getAllLikes() {
-  try {
-    const response = await fetch(url + "/like/" + photoId);
-    const allLikes = await response.json();
-    updateHeartCount(allLikes.allLikes);
-  } catch (error) {
-    alert(error.message);
-  }
-}
+// async function getAllLikes() {
+//   try {
+//     const fetchOptions = {
+//       method: "GET",
+//       headers: {
+//         authorization: "Bearer " + sessionStorage.getItem("token"),
+//       },
+//     };
+//     const response = await fetch(url + "/like/photo/" + photoId, fetchOptions);
+//     const allLikes = await response.json();
+//     updateHeartCount(allLikes.allLikes);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
 
-// Get like of the user
-async function getLikeOfUser() {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
-    const like = await response.json();
-    updateHeartIcon(like.like);
-  } catch (error) {
-    alert(error.message);
-  }
-}
+// // Get like of the user
+// async function getLikeOfUser() {
+//   try {
+//     const fetchOptions = {
+//       method: "GET",
+//       headers: {
+//         authorization: "Bearer " + sessionStorage.getItem("token"),
+//       },
+//     };
+//     const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
+//     const like = await response.json();
+//     updateHeartIcon(like.like);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
 
-getAllLikes();
-if (user && token) {
-  getLikeOfUser();
-}
+// getAllLikes();
+// if (user && token) {
+//   getLikeOfUser();
+// }
 
-//Toggle like and display number of likes
-likeIcon.addEventListener("click", async (event) => {
-  event.preventDefault();
-  const fetchOptions =
-    likeIcon.className === "bx bx-heart"
-      ? {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        }
-      : {
-          method: "DELETE",
-          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        };
+// //Toggle like and display number of likes
+// likeIcon.addEventListener("click", async (event) => {
+//   event.preventDefault();
+//   const fetchOptions =
+//     likeIcon.className === "bx bx-heart"
+//       ? {
+//           method: "POST",
+//           headers: {
+//             authorization: "Bearer " + sessionStorage.getItem("token"),
+//           },
+//         }
+//       : {
+//           method: "DELETE",
+//           headers: {
+//             authorization: "Bearer " + sessionStorage.getItem("token"),
+//           },
+//         };
 
-  try {
-    const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
+//   try {
+//     const response = await fetch(url + "/like/" + photoId, fetchOptions);
 
-    if (response.status === 200) {
-      getAllLikes();
-      getLikeOfUser();
-    }
-  } catch (error) {
-    alert(error.message);
-  }
-});
+//     if (response.status === 200) {
+//       getAllLikes();
+//       getLikeOfUser();
+//     }
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// });
 
-//update UI of heart Icon
-function updateHeartIcon(userLike) {
-  if (userLike > 0) {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "red";
-  } else {
-    likeIcon.className = "bx bx-heart";
-    likeIcon.style.color = "black";
-  }
-}
+// //update UI of heart Icon
+// function updateHeartIcon(userLike) {
+//   if (userLike > 0) {
+//     likeIcon.className = "bx bx-heart";
+//     likeIcon.style.color = "red";
+//   } else {
+//     likeIcon.className = "bx bx-heart";
+//     likeIcon.style.color = "black";
+//   }
+// }
 
-function updateHeartCount(allLikes) {
-  likeCount.textContent = allLikes + " likes";
-}
+// function updateHeartCount(allLikes) {
+//   likeCount.textContent = allLikes + " likes";
+// }
 
-/*-- COMMENTS --*/
+// /*-- COMMENTS --*/
 
 //Get all comments
 async function getAllComments() {
   try {
-    const response = await fetch(url + "/comments/photo/" + photoId);
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + `/comment/${photoId}`, fetchOptions);
     const allComments = await response.json();
     displayComments(allComments);
   } catch (error) {
@@ -241,7 +253,7 @@ async function getAllComments() {
   }
 }
 
-getAllComments();
+getAllComments(photoId);
 
 //Display comment
 const displayComments = (allComments) => {
@@ -298,14 +310,11 @@ input.addEventListener("keypress", async (e) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        authorization: "Bearer " + token,
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch(
-      url + `/photo/comment/${photo_id}`,
-      fetchOptions
-    );
+    const response = await fetch(url + `/comment/${photoId}`, fetchOptions);
     const allComments = await response.json();
 
     if (allComments.length >= 0) {
@@ -324,13 +333,10 @@ const deleteComment = async (commentId, event) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      authorization: "Bearer " + token,
     },
   };
-  const response = await fetch(
-    url + `/photo/comment/${comment_id}`,
-    fetchOptions
-  );
+  const response = await fetch(url + `/comment/${comment_id}`, fetchOptions);
   const json = await response.json();
   if (json.message === "Comment has been deleted") {
     window.location.reload();
@@ -366,7 +372,7 @@ const deleteComment = async (commentId, event) => {
 //   try {
 //     const options = {
 //       headers: {
-//         Authorization: "Bearer " + sessionStorage.getItem("token"),
+//         authorization: "Bearer " + sessionStorage.getItem("token"),
 //       },
 //     };
 //     const response = await fetch(url + "/user/trend", options);

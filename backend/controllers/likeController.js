@@ -21,11 +21,28 @@ const removeLike = async (req, res) => {
 const isPhotoLikedByUser = async (req, res) => {
   const photoId = req.params.photoId
   const result = await likeModel.getLikeStatusByPhotoId(req.user.user_id, photoId, res)
+  if (result.length == 0) {
+    res.json({ message: false })
+  } else {
+    res.json({ message: true })
+  }
+}
+
+// Count likes in a photo
+const countLikesByPhoto = async (req, res) => {
+  const photoId = req.params.photoId
+  const result = await likeModel.getAllLikesByPhoto(photoId, res)
   console.log(result)
+  if (result) {
+    res.json(result)
+  } else {
+    res.status(404).json({ message: false })
+  }
 }
 
 module.exports = {
   addLike,
   removeLike,
-  isPhotoLikedByUser
+  isPhotoLikedByUser,
+  countLikesByPhoto
 }

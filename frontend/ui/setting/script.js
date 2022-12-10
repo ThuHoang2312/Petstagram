@@ -41,6 +41,7 @@ const closeUpdateOverlay = document.querySelector("#edit");
 
 generalBtn.addEventListener("click", () => {
   updateOverlay.classList.add("overlay-open");
+  updateProfile()
 });
 closeUpdateOverlay.addEventListener("click", () => {
   updateOverlay.classList.remove("overlay-open");
@@ -85,13 +86,13 @@ const updateProfile = async () => {
     }
     //Fill the dummy data to form if the user leaves fields blank
     if (data.get("username") === "") {
-      data.set("username", logInUser.username);
+      data.set("username", loginUser.username);
     }
-    if (data.get("image") === "") {
-      data.set("image", logInUser.avatar);
+    if (data.get("avatar") === "") {
+      data.set("avatar", loginUser.avatar);
     }
     if (data.get("description") === "") {
-      data.set("description", logInUser.description);
+      data.set("description", loginUser.description);
     }
     const options = {
       method: "PUT",
@@ -101,7 +102,7 @@ const updateProfile = async () => {
       body: data,
     };
 
-    const response = await fetch(url + `/user/${logInUserId}`, options);
+    const response = await fetch(url + `/user/${loginUserId}`, options);
     const json = await response.json();
     console.log(json);
 
@@ -142,7 +143,7 @@ const changePassword = async () => {
         body: JSON.stringify(data),
       };
       const response = await fetch(
-        url + `/user/${logInUserId}/passwordChange`,
+        url + `/user/${loginUserId}/passwordChange`,
         options
       );
       const json = await response.json();
@@ -181,7 +182,7 @@ const handleDeleteForm = async () => {
         },
         body: JSON.stringify(data),
       };
-      const response = await fetch(url + `/user/${logInUserId}`, options);
+      const response = await fetch(url + `/user/${loginUserId}`, options);
       const json = await response.json();
 
       if (!response.ok) {

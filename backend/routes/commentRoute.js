@@ -6,7 +6,7 @@ const commentController = require('../controllers/commentController')
 router
   .post('/:photoId', commentController.uploadComment)
   .get('/:photoId', commentController.getAllCommentsByPhotoId)
-  .delete('/:photoId', commentController.removeComment)
+  .delete('/:commentId', commentController.removeComment)
   .put('/:photoId', commentController.modifyComment)
 
   module.exports = router
