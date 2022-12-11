@@ -134,12 +134,9 @@ deleteBtn.addEventListener("click", async () => {
           authorization: "Bearer " + token,
         },
       };
-      const response = await fetch(
-        url + `/photo/${photoId}`,
-        fetchOptions
-      );
+      const response = await fetch(url + `/photo/${photoId}`, fetchOptions);
       const json = await response.json();
-      console.log('delete front', json)
+      console.log("delete front", json);
       alert(json.message);
       //Redirection to home page
       location.href = `../front/index.html?id=${loginUserId}`;
@@ -255,6 +252,7 @@ async function getAllComments() {
 }
 
 getAllComments(photoId);
+console.log("getAllComments(photoId");
 
 //Display comment
 const displayComments = (allComments) => {
@@ -285,6 +283,7 @@ const displayComments = (allComments) => {
       buttonDelete.addEventListener("click", (event) => {
         if (confirm("Are you sure you want to delete this comment?")) {
           deleteComment(comment.id, event);
+          window.location.reload();
         }
       });
     }
@@ -317,6 +316,7 @@ input.addEventListener("keypress", async (e) => {
     };
     const response = await fetch(url + `/comment/${photoId}`, fetchOptions);
     const allComments = await response.json();
+    window.location.reload();
 
     if (allComments.length >= 0) {
       displayComments(allComments);
@@ -337,53 +337,50 @@ const deleteComment = async (commentId, event) => {
       authorization: "Bearer " + token,
     },
   };
-  const response = await fetch(url + `/comment/${comment_id}`, fetchOptions);
+  const response = await fetch(url + "/comment/" + commentId, fetchOptions);
   const json = await response.json();
-  if (json.message === "Comment has been deleted") {
-    window.location.reload();
-  }
 };
 
 /*-- Trending users --*/
 
-// const suggestion = document.querySelector("profile-card");
-// const createTrend = (topUsers) => {
-//   topUsers.forEach((topUser) => {
-//     const profilePic = document.createElement("div");
-//     profilePic.className = "profile-pic";
-//     const img = document.createElement("img");
-//     img.src = url + "/user/" + topUser.user_id;
-//     img.alt = topUser.username;
+const suggestion = document.querySelector("profile-card");
+const createTrend = (topUsers) => {
+  topUsers.forEach((topUser) => {
+    const profilePic = document.createElement("div");
+    profilePic.className = "profile-pic";
+    const img = document.createElement("img");
+    img.src = url + "/user/" + topUser.user_id;
+    img.alt = topUser.username;
 
-//     const div = document.createElement("div");
-//     const p = document.createElement("p");
-//     p.innerHTML = topUser.username;
-//     div.appendChild(p);
-//     profilePic.appendChild(img);
-//     suggestion.appendChild(profilePic);
-//     suggestion.appendChild(div);
+    const div = document.createElement("div");
+    const p = document.createElement("p");
+    p.innerHTML = topUser.username;
+    div.appendChild(p);
+    profilePic.appendChild(img);
+    suggestion.appendChild(profilePic);
+    suggestion.appendChild(div);
 
-//     suggestion.addEventListener("click", () => {
-//       location.href = `profile.html?id=${topUser.user_id}`;
-//     });
-//   });
-// };
+    suggestion.addEventListener("click", () => {
+      location.href = `profile.html?id=${topUser.user_id}`;
+    });
+  });
+};
 
-// const getTrend = async () => {
-//   try {
-//     const options = {
-//       headers: {
-//         authorization: "Bearer " + sessionStorage.getItem("token"),
-//       },
-//     };
-//     const response = await fetch(url + "/user/trend", options);
-//     const topUsers = await response.json();
-//     createTrend(topUsers);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// };
-// getTrend();
+const getTrend = async () => {
+  try {
+    const options = {
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/user/trend", options);
+    const topUsers = await response.json();
+    createTrend(topUsers);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+getTrend();
 
 /*-- Log out --*/
 const logout = document.querySelector("#logout");

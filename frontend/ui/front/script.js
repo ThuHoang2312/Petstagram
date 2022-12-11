@@ -32,45 +32,15 @@ if (token && logInUser) {
   userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    location.href = `../profile/profile.html?id=${loginUserId}`;
+    window.location.href = `../profile/profile.html?id=${loginUserId}`;
   });
 }
 
 /*-- Create post content --*/
 
 //Get all the likes from the beginning
-const likeIcon = document.getElementById("like-icon");
-const likeCount = document.getElementById("like-count");
 
-// async function getAllLikes() {
-//   try {
-//     const response = await fetch(url + "/like/photo/" + photo_id);
-//     const allLikes = await response.json();
-//     updateHeartCount(allLikes.allLikes);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
-
-// // Get like of the login user
-// async function getLikeOfUser() {
-//   try {
-//     const fetchOptions = {
-//       method: "GET",
-//       headers: {
-//         Authorization: "Bearer " + sessionStorage.getItem("token"),
-//       },
-//     };
-//     const response = await fetch(url + "/like/" + photo_id, fetchOptions);
-//     const like = await response.json();
-//     updateHeartIcon(like.like);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
-//getFollowingOfUser();
-
-async function getFollowOfUser() {
+const getAllLikes = async (id) => {
   try {
     const fetchOptions = {
       method: "GET",
@@ -78,24 +48,46 @@ async function getFollowOfUser() {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    const response = await fetch(url + "/follow/" + loginUserId, fetchOptions);
-    const follows = await response.json();
-    updateFollow(follows);
+    const response = await fetch(url + "/like/photo/" + id, fetchOptions);
+    const allLikes = await response.json();
   } catch (error) {
     alert(error.message);
   }
-}
+};
 
-//update UI of follow button
-function updateFollow(follow) {
-  if (follow.length > 0) {
-    followButton.className = "btn-follow";
-    followButton.innerHTML = "Following";
-  } else {
-    followButton.className = "btn-follow";
-    followButton.style.color = "Follow";
+// Get like of the login user
+const getLikeStatus = async (id) => {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/like/user/" + id, fetchOptions);
+    const like = await response.json();
+  } catch (error) {
+    alert(error.message);
   }
-}
+};
+
+const getFollowStatus = async (id) => {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(
+      url + "/follow/followStatus/" + id,
+      fetchOptions
+    );
+    const follows = await response.json();
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
 const post = document.querySelector(".post");
 const createPost = (photos) => {
@@ -161,6 +153,15 @@ const createPost = (photos) => {
       followButton.innerHTML = "Follow";
       followButton.className = "btn-follow";
       profileUser.appendChild(followButton);
+      console.log("followBtn", followButton);
+      const followStatus = getFollowStatus(photo.user_id);
+      if (followStatus) {
+        followButton.innerHTML = "Following";
+      } else {
+        followButton.innerHTML = "Follow";
+      }
+
+      console.log("Follow status: ", getFollowStatus(photo.user_id));
 
       followButton.addEventListener("click", async (event) => {
         event.preventDefault();
@@ -187,15 +188,13 @@ const createPost = (photos) => {
           );
 
           if (response.status === 200) {
-            getFollowOfUser();
+            getFollowStatus(photo.user_id);
           }
         } catch (error) {
           alert(error.message);
         }
       });
     }
-
-    post.appendChild(userInfo);
 
     const postContent = document.createElement("div");
     postContent.className = "post-content";
@@ -214,18 +213,77 @@ const createPost = (photos) => {
     date.className = "post-time";
     date.innerHTML = photo.created_at;
 
+    const reaction = document.createElement("div");
+    reaction.className = "reaction-wrapper";
+    const likeIcon = document.createElement("i");
+    likeIcon.className = "bx bx-heart";
+    const likeCount = document.createElement("span");
+    likeCount.className = "like-count";
+    reaction.appendChild(likeIcon);
+    reaction.appendChild(likeCount);
+
+    const likeNumber = getAllLikes(photo.photo_id).message;
+    likeCount.innerHTML = likeNumber + " likes";
+
+    console.log("reaction:", reaction);
+
+    const like = getLikeStatus(photo.photo_id);
+    console.log(like);
+    if (like == true) {
+      likeIcon.style.color = "red";
+    } else {
+      likeIcon.style.color = "black";
+    }
+    console.log("likeIcon:", likeIcon);
+
+    likeIcon.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const fetchOptions =
+        likeIcon.className === "bx bx-heart"
+          ? {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+            }
+          : {
+              method: "DELETE",
+              headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+            };
+
+      try {
+        const response = await fetch(
+          url + "/like/" + photo.photo_id,
+          fetchOptions
+        );
+
+        if (response.status === 200) {
+          getAllLikes(photo.photo_id);
+          getLikeStatus(photo.photo_id);
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
     postContent.appendChild(postImg);
     postContent.appendChild(description);
     postContent.appendChild(date);
+    post.appendChild(userInfo);
     post.appendChild(postContent);
+    post.appendChild(reaction);
+
     console.log(post);
 
     userInfo.addEventListener("click", () => {
-      location.href = `../profile/profile.html?id=${photo.user_id}`;
+      window.location.href = `../profile/profile.html?id=${photo.user_id}`;
     });
 
     postContent.addEventListener("click", () => {
-      location.href = `../post/single.html?id=${photo.photo_id}`;
+      window.location.href = `../post/single.html?id=${photo.photo_id}`;
     });
   });
 };
@@ -270,46 +328,52 @@ const getRandom = async () => {
   }
 };
 
-// /*-- Trending users --*/
+/*-- Trending users --*/
 
-// const suggestion = document.querySelector("profile-card");
-// const createTrend = (topUsers) => {
-//   topUsers.forEach((topUser) => {
-//     const profilePic = document.createElement("div");
-//     profilePic.className = "profile-pic";
-//     const img = document.createElement("img");
-//     img.src = url + "/user/" + topUser.user_id;
-//     img.alt = topUser.username;
+const suggestion = document.querySelector(".profile-card");
+const createTrend = (topUsers) => {
+  topUsers.forEach((topUser) => {
+    const profilePic = document.createElement("div");
+    profilePic.className = "profile-pic";
+    const img = document.createElement("img");
+    if (topUser.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/user/" + topUser.avatar;
+    }
 
-//     const div = document.createElement("div");
-//     const p = document.createElement("p");
-//     p.innerHTML = topUser.username;
-//     div.appendChild(p);
-//     profilePic.appendChild(img);
-//     suggestion.appendChild(profilePic);
-//     suggestion.appendChild(div);
+    img.alt = topUser.username;
 
-//     suggestion.addEventListener("click", () => {
-//       location.href = `profile.html?id=${topUser.user_id}`;
-//     });
-//   });
-// };
+    const div = document.createElement("div");
+    const p = document.createElement("p");
+    p.innerHTML = topUser.username;
+    div.appendChild(p);
+    profilePic.appendChild(img);
+    suggestion.appendChild(profilePic);
+    suggestion.appendChild(div);
 
-// const getTrend = async () => {
-//   try {
-//     const options = {
-//       headers: {
-//         Authorization: "Bearer " + sessionStorage.getItem("token"),
-//       },
-//     };
-//     const response = await fetch(url + "/user/trend", options);
-//     const topUsers = await response.json();
-//     createTrend(topUsers);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// };
-// getTrend();
+    suggestion.addEventListener("click", () => {
+      window.location.href = `profile.html?id=${topUser.user_id}`;
+    });
+  });
+};
+
+const getTrend = async () => {
+  try {
+    const options = {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/user/trend", options);
+    const topUsers = await response.json();
+    console.log("getTrend: ", topUsers);
+    createTrend(topUsers);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+getTrend();
 
 /*-- Log out --*/
 const logout = document.getElementById("logout");

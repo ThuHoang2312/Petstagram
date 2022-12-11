@@ -240,7 +240,7 @@ body {
 
 .reaction-wrapper {
   width: 100%;
-  height: 5rem;
+  height: 7rem;
   display: flex;
   justify-content: space-between;
   margin-top: -2rem;
@@ -316,6 +316,7 @@ body {
   font-weight: 500;
 }
 
+.re
 /* ----------Below 1200px (small desktop and laptop)---------- */
 @media (max-width: 75em) {
   html {

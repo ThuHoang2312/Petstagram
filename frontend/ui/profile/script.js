@@ -58,7 +58,7 @@ const getUser = async (id) => {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    const response = await fetch(url + "/user/" + id, fetchOptions);
+    const response = await fetch(url + "/user/profile/" + id, fetchOptions);
     const userProfile = await response.json();
     createProfile(userProfile);
   } catch (e) {
@@ -113,7 +113,7 @@ const createProfile = (userProfile) => {
       event.preventDefault();
 
       const fetchOptions =
-        followButton.className === "btn-follow"
+        button.className === "btn-follow"
           ? {
               method: "POST",
               headers: {
@@ -129,12 +129,12 @@ const createProfile = (userProfile) => {
 
       try {
         const response = await fetch(
-          url + "/follow/" + photo.user_id,
+          url + "/follow/" + userProfile.user_id,
           fetchOptions
         );
 
         if (response.status === 200) {
-          getFollowOfUser();
+          getFollowOfUser(userData.user_id);
         }
       } catch (error) {
         alert(error.message);
