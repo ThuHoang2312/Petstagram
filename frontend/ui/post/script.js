@@ -146,91 +146,93 @@ deleteBtn.addEventListener("click", async () => {
 
 /*-- Get like information--*/
 
-// const likeIcon = document.querySelector("#likeIcon");
-// const likeCount = document.querySelector("#likeCount");
+const likeIcon = document.querySelector("#likeIcon");
+const likeCount = document.querySelector("#likeCount");
 
-// async function getAllLikes() {
-//   try {
-//     const fetchOptions = {
-//       method: "GET",
-//       headers: {
-//         authorization: "Bearer " + sessionStorage.getItem("token"),
-//       },
-//     };
-//     const response = await fetch(url + "/like/photo/" + photoId, fetchOptions);
-//     const allLikes = await response.json();
-//     updateHeartCount(allLikes.allLikes);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
+async function getAllLikes() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/like/photo/" + photoId, fetchOptions);
+    const allLikes = await response.json();
+    updateHeartCount(allLikes.message);
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
-// // Get like of the user
-// async function getLikeOfUser() {
-//   try {
-//     const fetchOptions = {
-//       method: "GET",
-//       headers: {
-//         authorization: "Bearer " + sessionStorage.getItem("token"),
-//       },
-//     };
-//     const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
-//     const like = await response.json();
-//     updateHeartIcon(like.like);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
+// Get like of the user
+async function getLikeOfUser() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
+    const like = await response.json();
+    updateIcon(like.message);
+    console.log("like status", like.message);
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
-// getAllLikes();
-// if (user && token) {
-//   getLikeOfUser();
-// }
+getAllLikes();
+if (user && token) {
+  getLikeOfUser();
+}
 
-// //Toggle like and display number of likes
-// likeIcon.addEventListener("click", async (event) => {
-//   event.preventDefault();
-//   const fetchOptions =
-//     likeIcon.className === "bx bx-heart"
-//       ? {
-//           method: "POST",
-//           headers: {
-//             authorization: "Bearer " + sessionStorage.getItem("token"),
-//           },
-//         }
-//       : {
-//           method: "DELETE",
-//           headers: {
-//             authorization: "Bearer " + sessionStorage.getItem("token"),
-//           },
-//         };
+//Toggle like and display number of likes
+likeIcon.addEventListener("click", async (event) => {
+  event.preventDefault();
+  const fetchOptions =
+    likeIcon.style.color === "black"
+      ? {
+          method: "POST",
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      : {
+          method: "DELETE",
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        };
 
-//   try {
-//     const response = await fetch(url + "/like/" + photoId, fetchOptions);
+  try {
+    const response = await fetch(url + "/like/" + photoId, fetchOptions);
+    window.location.reload();
+    if (response.status === 200) {
+      getAllLikes();
+      getLikeOfUser();
+      window.location.reload();
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
-//     if (response.status === 200) {
-//       getAllLikes();
-//       getLikeOfUser();
-//     }
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// });
+//update UI of heart Icon
+function updateIcon(userLike) {
+  if (userLike == true) {
+    likeIcon.className = "bx bx-heart";
+    likeIcon.style.color = "red";
+  } else {
+    likeIcon.className = "bx bx-heart";
+    likeIcon.style.color = "black";
+  }
+}
 
-// //update UI of heart Icon
-// function updateHeartIcon(userLike) {
-//   if (userLike > 0) {
-//     likeIcon.className = "bx bx-heart";
-//     likeIcon.style.color = "red";
-//   } else {
-//     likeIcon.className = "bx bx-heart";
-//     likeIcon.style.color = "black";
-//   }
-// }
-
-// function updateHeartCount(allLikes) {
-//   likeCount.textContent = allLikes + " likes";
-// }
+function updateHeartCount(allLikes) {
+  likeCount.textContent = allLikes + " likes";
+}
 
 // /*-- COMMENTS --*/
 
@@ -246,6 +248,7 @@ async function getAllComments() {
     const response = await fetch(url + `/comment/${photoId}`, fetchOptions);
     const allComments = await response.json();
     displayComments(allComments);
+    console.log(allComments);
   } catch (error) {
     alert(error.message);
   }
@@ -261,6 +264,12 @@ const displayComments = (allComments) => {
 
   allComments.map((comment) => {
     const commentContainer = document.createElement("div");
+    const avatar = document.createElement("img");
+    if (comment.avatar == null) {
+      avatar.src = "../../assets/user_icon.png";
+    } else {
+      avatar.src = comment.avatar;
+    }
     const commentContent = document.createElement("div");
     const name = document.createElement("p");
     const userComment = document.createElement("p");
@@ -268,12 +277,14 @@ const displayComments = (allComments) => {
     const trashIcon = '<i class="bx bx-trash"></i>';
 
     name.innerHTML = comment.username;
-    userComment.innerHTML = comment.comments;
+    userComment.innerHTML = comment.comment_text;
     buttonDelete.innerHTML += trashIcon;
-
+    commentContent.appendChild(avatar);
     commentContent.appendChild(name);
     commentContent.appendChild(userComment);
     commentContainer.appendChild(commentContent);
+    console.log("comment container: ", commentContainer);
+
     if (
       token &&
       user &&
@@ -292,8 +303,8 @@ const displayComments = (allComments) => {
     comment.className = "comment";
     commentContent.className = "commentContent";
     commentContainer.className = "commentBox";
-
     allCommentsContainer.appendChild(commentContainer);
+    console.log(allCommentsContainer);
   });
 };
 
@@ -341,15 +352,20 @@ const deleteComment = async (commentId, event) => {
   const json = await response.json();
 };
 
-/*-- Trending users --*/
+/*-- Trending users --*/ /*-- Trending users --*/
 
-const suggestion = document.querySelector("profile-card");
+const suggestion = document.querySelector(".profile-card");
 const createTrend = (topUsers) => {
   topUsers.forEach((topUser) => {
     const profilePic = document.createElement("div");
     profilePic.className = "profile-pic";
     const img = document.createElement("img");
-    img.src = url + "/user/" + topUser.user_id;
+    if (topUser.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/user/" + topUser.avatar;
+    }
+
     img.alt = topUser.username;
 
     const div = document.createElement("div");
@@ -361,7 +377,7 @@ const createTrend = (topUsers) => {
     suggestion.appendChild(div);
 
     suggestion.addEventListener("click", () => {
-      location.href = `profile.html?id=${topUser.user_id}`;
+      location.href = `../profile/profile.html?id=${topUser.user_id}`;
     });
   });
 };
@@ -370,11 +386,12 @@ const getTrend = async () => {
   try {
     const options = {
       headers: {
-        authorization: "Bearer " + sessionStorage.getItem("token"),
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
     const response = await fetch(url + "/user/trend", options);
     const topUsers = await response.json();
+    console.log("getTrend: ", topUsers);
     createTrend(topUsers);
   } catch (e) {
     console.log(e.message);

@@ -32,41 +32,41 @@ if (token && logInUser) {
   userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    window.location.href = `../profile/profile.html?id=${loginUserId}`;
+    location.href = `../profile/profile.html?id=${loginUserId}`;
   });
 }
 
 /*-- Create post content --*/
 
-//Get all the likes from the beginning
-
-const getAllLikes = async (id) => {
+//Get number of like on the photo
+const getAllLike = async (id) => {
   try {
     const fetchOptions = {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
     const response = await fetch(url + "/like/photo/" + id, fetchOptions);
     const allLikes = await response.json();
-    console.log('allLikes', allLikes)
+    console.log("Like number: ", allLikes.message);
   } catch (error) {
     alert(error.message);
   }
 };
 
-// Get like of the login user
-const getLikeStatus = async (id) => {
+//Get like status of the user on the photo
+const getLikeOfUser = async (id) => {
   try {
     const fetchOptions = {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
     const response = await fetch(url + "/like/user/" + id, fetchOptions);
     const like = await response.json();
+    console.log("like status: ", like.message);
   } catch (error) {
     alert(error.message);
   }
@@ -84,7 +84,8 @@ const getFollowStatus = async (id) => {
       url + "/follow/followStatus/" + id,
       fetchOptions
     );
-    const follows = await response.json();
+    const follow = await response.json();
+    console.log("Follow status: ", follow.message);
   } catch (error) {
     alert(error.message);
   }
@@ -105,7 +106,7 @@ const createPost = (photos) => {
     if (photo.avatar == null) {
       imgProfile.src = "../../assets/user_icon.png";
     } else {
-      imgProfile.src = url + "/user/" + photo.avatar;
+      //imgProfile.src = url + "/user/" + photo.avatar;
     }
     imgProfile.alt = photo.username;
     const p = document.createElement("p");
@@ -154,48 +155,15 @@ const createPost = (photos) => {
       followButton.innerHTML = "Follow";
       followButton.className = "btn-follow";
       profileUser.appendChild(followButton);
-      console.log("followBtn", followButton);
       const followStatus = getFollowStatus(photo.user_id);
       if (followStatus) {
         followButton.innerHTML = "Following";
       } else {
         followButton.innerHTML = "Follow";
       }
-
-      console.log("Follow status: ", getFollowStatus(photo.user_id));
-
-      followButton.addEventListener("click", async (event) => {
-        event.preventDefault();
-
-        const fetchOptions =
-          followButton.className === "btn-follow"
-            ? {
-                method: "POST",
-                headers: {
-                  Authorization: "Bearer " + sessionStorage.getItem("token"),
-                },
-              }
-            : {
-                method: "DELETE",
-                headers: {
-                  Authorization: "Bearer " + sessionStorage.getItem("token"),
-                },
-              };
-
-        try {
-          const response = await fetch(
-            url + "/follow/" + photo.user_id,
-            fetchOptions
-          );
-
-          if (response.status === 200) {
-            getFollowStatus(photo.user_id);
-          }
-        } catch (error) {
-          alert(error.message);
-        }
-      });
     }
+
+    post.appendChild(userInfo);
 
     const postContent = document.createElement("div");
     postContent.className = "post-content";
@@ -214,78 +182,30 @@ const createPost = (photos) => {
     date.className = "post-time";
     date.innerHTML = photo.created_at;
 
-    const reaction = document.createElement("div");
-    reaction.className = "reaction-wrapper";
-    const likeIcon = document.createElement("i");
-    likeIcon.className = "bx bx-heart";
-    const likeCount = document.createElement("span");
-    likeCount.className = "like-count";
-    reaction.appendChild(likeIcon);
-    reaction.appendChild(likeCount);
-
-    const likeNumber = getAllLikes(photo.photo_id).message;
-    console.log('like num', likeNumber)
-    likeCount.textContent = likeNumber + " likes";
-
-    console.log("reaction:", reaction);
-
-    const like = getLikeStatus(photo.photo_id);
-    console.log(like);
-    if (like == true) {
-      likeIcon.style.color = "red";
-    } else {
-      likeIcon.style.color = "black";
-    }
-    console.log("likeIcon:", likeIcon);
-
-    likeIcon.addEventListener("click", async (event) => {
-      event.preventDefault();
-
-      const fetchOptions =
-        likeIcon.className === "bx bx-heart"
-          ? {
-              method: "POST",
-              headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
-              },
-            }
-          : {
-              method: "DELETE",
-              headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
-              },
-            };
-
-      try {
-        const response = await fetch(
-          url + "/like/" + photo.photo_id,
-          fetchOptions
-        );
-
-        if (response.status === 200) {
-          getAllLikes(photo.photo_id);
-          getLikeStatus(photo.photo_id);
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-    });
+    // const reaction = document.querySelector(".reaction-wrapper");
+    // const likeIcon = document.getElementById("i");
+    // likeIcon.className = "like-icon";
+    // const likeCount = document.createElement("span");
+    // reaction.appendChild(likeIcon);
+    // reaction.appendChild(likeCount);
+    // if (token && logInUser) {
+    //   getAllLikes(photo.photo_id);
+    //   getLikeOfUser(photo.photo_id);
+    // }
 
     postContent.appendChild(postImg);
     postContent.appendChild(description);
     postContent.appendChild(date);
-    post.appendChild(userInfo);
     post.appendChild(postContent);
-    post.appendChild(reaction);
-
+    //post.appendChild(reaction);
     console.log(post);
 
     userInfo.addEventListener("click", () => {
-      window.location.href = `../profile/profile.html?id=${photo.user_id}`;
+      location.href = `../profile/profile.html?id=${photo.user_id}`;
     });
 
     postContent.addEventListener("click", () => {
-      window.location.href = `../post/single.html?id=${photo.photo_id}`;
+      location.href = `../post/single.html?id=${photo.photo_id}`;
     });
   });
 };
@@ -343,9 +263,7 @@ const createTrend = (topUsers) => {
     } else {
       img.src = url + "/user/" + topUser.avatar;
     }
-
     img.alt = topUser.username;
-
     const div = document.createElement("div");
     const p = document.createElement("p");
     p.innerHTML = topUser.username;
@@ -355,7 +273,7 @@ const createTrend = (topUsers) => {
     suggestion.appendChild(div);
 
     suggestion.addEventListener("click", () => {
-      window.location.href = `profile.html?id=${topUser.user_id}`;
+      location.href = `profile.html?id=${topUser.user_id}`;
     });
   });
 };

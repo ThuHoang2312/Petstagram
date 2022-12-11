@@ -67,6 +67,70 @@ const getUser = async (id) => {
 };
 getUser(userId);
 
+// Get follow status of the user
+async function getFollowOfUser() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(
+      url + "/follow/followStatus/" + userId,
+      fetchOptions
+    );
+    const follow = await response.json();
+    updateFollow(follow.message);
+    console.log("follow status", follow.message);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+getFollowOfUser();
+
+//update UI of heart Icon
+function updateFollow(follow) {
+  if (follow == true) {
+    buttonFollow.innerHTML = "Following";
+  } else {
+    buttonFollow.innerHTML = "Follow";
+  }
+}
+
+const buttonFollow = document.getElementById("btn-follow");
+console.log("button Follow: ", buttonFollow);
+buttonFollow.addEventListener("click", async (event) => {
+  event.preventDefault();
+  console.log("button follow click");
+  const fetchOptions =
+    buttonFollow.innerHTML === "Follow"
+      ? {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      : {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        };
+
+  try {
+    const response = await fetch(url + "/follow/" + userId, fetchOptions);
+    window.location.reload();
+
+    if (response.status === 200) {
+      getFollowOfUser();
+      window.location.reload();
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
 //console.log("getUser result: ", getUser(userId));
 
 /*-- Create user profile section --*/
@@ -101,45 +165,12 @@ const createProfile = (userProfile) => {
   avatar.appendChild(img);
   userDetail.appendChild(description);
 
-  if (!(userData.user_id == userProfile.user_id)) {
-    const button = document.createElement("button");
-    button.className = "btn-follow";
-    const span = document.createElement("span");
-    span.innerHTML = "Follow";
-    button.appendChild(span);
-    userFollow.appendChild(button);
-
-    button.addEventListener("click", async (event) => {
-      event.preventDefault();
-
-      const fetchOptions =
-        button.className === "btn-follow"
-          ? {
-              method: "POST",
-              headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
-              },
-            }
-          : {
-              method: "DELETE",
-              headers: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
-              },
-            };
-
-      try {
-        const response = await fetch(
-          url + "/follow/" + userProfile.user_id,
-          fetchOptions
-        );
-
-        if (response.status === 200) {
-          getFollowOfUser(userData.user_id);
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-    });
+  const followDiv = document.querySelector(".follow");
+  console.log(followDiv);
+  if (userData.user_id == userProfile.user_id) {
+    followDiv.display = "none";
+  } else {
+    followDiv.display = "flex";
   }
 
   if (userData.user_id == userProfile.user_id) {
@@ -175,44 +206,12 @@ const createProfile = (userProfile) => {
   profile.appendChild(userFollow);
 };
 
-//Toggle for follow account
-
-// const followBtn = document.querySelector("btn-follow");
-// followBtn.addEventListener("click", async (event) => {
-//   event.preventDefault();
-//   const fetchOptions =
-//     followBtn.className === "btn-follow"
-//       ? {
-//           method: "POST",
-//           headers: {
-//             Authorization: "Bearer " + sessionStorage.getItem("token"),
-//           },
-//         }
-//       : {
-//           method: "DELETE",
-//           headers: {
-//             Authorization: "Bearer " + sessionStorage.getItem("token"),
-//           },
-//         };
-
-//   try {
-//     const response = await fetch(url + "/follow/user/" + userId, fetchOptions);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// });
-
-//Update UI for follow button
-//function updateFollow();
-
-//Upload photo when it is the login user's profile page
-
-// //Append file name to text
-// document.getElementById("imagePosting").onchange = function () {
-//   const fileName = this.value.split("\\");
-//   document.getElementById("uploadImage").textContent =
-//     fileName[fileName.length - 1];
-// };
+//Append file name to text
+document.getElementById("imagePosting").onchange = function () {
+  const fileName = this.value.split("\\");
+  document.getElementById("uploadImage").textContent =
+    fileName[fileName.length - 1];
+};
 
 //Post Photo
 const postPhoto = document.querySelector("#post-image");

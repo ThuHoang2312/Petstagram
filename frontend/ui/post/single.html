@@ -26,6 +26,7 @@
     <title>Petstagram &mdash; Home</title>
   </head>
   <body>
+    <div class="container">
     <header class="header sticky">
       <div class="wrapper">
         <div class="logo-box">
@@ -107,7 +108,7 @@
               <div id="reaction">
                 <div class="likeReaction">
                   <i class="bx bx-heart" id="likeIcon"></i>
-                  <span id="likeCount"></span>
+                  <span id="likeCount">5 likes</span>
                 </div>
                 <!-- <i class="far fa-bookmark" id="save"></i> -->
                 <div id="edit">
@@ -120,7 +121,7 @@
                 </div>
               </div>
               <div id="comment">
-                <i class="bx bx-user-circle" id="avatar"></i>
+                <img src="../../assets/user_icon.png" alt="user's avatar" id = "avatar">
                 <input
                   id="comment-input"
                   type="text"
@@ -175,6 +176,6 @@
     <!-- SCRIPT -->
     <script src="../login/serialize.js"></script>
     <script type="module" src="script.js"></script>
-    
+    </div>
   </body>
 </html>

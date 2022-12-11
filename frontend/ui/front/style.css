@@ -205,8 +205,14 @@ body {
   border: none;
 }
 
+.follow {
+  display: flex;
+  height: 10rem;
+  font-size: 5rem;
+}
+
 .btn-follow {
-  font-size: 2rem;
+  font-size: 3rem;
   background: #dda15e;
   padding: 0 1rem;
   color: #f8f0e9;
@@ -316,7 +322,6 @@ body {
   font-weight: 500;
 }
 
-.re
 /* ----------Below 1200px (small desktop and laptop)---------- */
 @media (max-width: 75em) {
   html {
