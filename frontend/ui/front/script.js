@@ -50,6 +50,7 @@ const getAllLikes = async (id) => {
     };
     const response = await fetch(url + "/like/photo/" + id, fetchOptions);
     const allLikes = await response.json();
+    console.log('allLikes', allLikes)
   } catch (error) {
     alert(error.message);
   }
@@ -223,7 +224,8 @@ const createPost = (photos) => {
     reaction.appendChild(likeCount);
 
     const likeNumber = getAllLikes(photo.photo_id).message;
-    likeCount.innerHTML = likeNumber + " likes";
+    console.log('like num', likeNumber)
+    likeCount.textContent = likeNumber + " likes";
 
     console.log("reaction:", reaction);
 

@@ -30,9 +30,9 @@ const isUserFollowing = async (req, res) => {
     res
   )
   if (result.length == 0) {
-    res.json(false)
+    res.json({ message: false })
   } else {
-    res.json(true)
+    res.json({ message: true })
   }
 }
 
@@ -40,7 +40,7 @@ const isUserFollowing = async (req, res) => {
 const countFollowers = async (req, res) => {
   const result = await followModel.countFollowersByUser(req.user.user_id, res)
   if (result) {
-    res.json(result.length)
+    res.json({ message: `${result.length}` })
   } else {
     res.status(404).json({ message: 'error' })
   }
@@ -50,7 +50,7 @@ const countFollowers = async (req, res) => {
 const countFollowings = async (req, res) => {
   const result = await followModel.countFollowingByUser(req.user.user_id, res)
   if (result) {
-    res.json(result.length)
+    res.json({ message: `${result.length}` })
   } else {
     res.status(404).json({ message: 'error' })
   }
