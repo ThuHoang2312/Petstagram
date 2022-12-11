@@ -41,7 +41,7 @@ const getUserLogin = async (email) => {
 
 const getUsersByTrending = async (res) => {
   try {
-    const sql = "SELECT username, avatar, user_id FROM users INNER JOIN follows ON users.user_id = follows.followee_id GROUP BY username ORDER BY COUNT(followee_id) DESC;"
+    const sql = "SELECT username, avatar, user_id FROM users INNER JOIN follows ON users.user_id = follows.followee_id GROUP BY username ORDER BY COUNT(followee_id) DESC LIMIT 5;"
     const [highestFollows] = await promisePool.query(sql)
     console.log(highestFollows)
     return highestFollows

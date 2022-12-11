@@ -30,9 +30,9 @@ const isUserFollowing = async (req, res) => {
     res
   )
   if (result.length == 0) {
-    res.json({ message: false })
+    res.json(false)
   } else {
-    res.json({ message: true })
+    res.json(true)
   }
 }
 
