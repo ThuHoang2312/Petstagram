@@ -31,7 +31,7 @@ const removeFollow = async (followerId, followeeId, res) => {
 
 const getFollowStatus = async (followerId, followeeId, res) => {
   try {
-    const sql = 'SELECT * FROM likes  follower_id = ? and followee_id = ?'
+    const sql = 'SELECT * FROM follows WHERE follower_id = ? and followee_id = ?'
     const value = [followerId, followeeId]
     const [rows] = await promisePool.query(sql, value)
     return rows
