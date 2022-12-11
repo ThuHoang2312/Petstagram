@@ -35,7 +35,7 @@ const countLikesByPhoto = async (req, res) => {
   if (result) {
     res.json(result.length)
   } else {
-    res.status(404).json({ message: false })
+    res.status(404).json({ message: 'error' })
   }
 }
 

@@ -39,14 +39,13 @@ const getUserLogin = async (email) => {
 }
 
 
-const getUsersByTrending = async (req, res) => {
+const getUsersByTrending = async (res) => {
   try {
-    const sql = "SELECT username FROM users INNER JOIN follows ON users.user_id = follows.followee_id GROUP BY username ORDER BY COUNT(followee_id) DESC;"
+    const sql = "SELECT username, avatar, user_id FROM users INNER JOIN follows ON users.user_id = follows.followee_id GROUP BY username ORDER BY COUNT(followee_id) DESC;"
     const [highestFollows] = await promisePool.query(sql)
     console.log(highestFollows)
     return highestFollows
   } catch (e) {
-    console.log("user data:", user)
     console.error("error adding a new user:", e.message)
     res.status(500).json({ "message": e.message })
   }
@@ -66,22 +65,22 @@ const addUser = async (user, res) => {
   }
 }
 
-const startFollowing = async (followerId, followedId) => {
-  try {
-    const [checkFollowedId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followedId)
-    const [checkFollowerId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followerId)
-    if (checkFollowedId[0] && checkFollowerId[0]) {
-      const insertFollows = "INSERT INTO follows (follower_id, followee_id) VALUES (?, ?)"
-      const values = [followerId, followedId]
-      const [result] = await promisePool.query(insertFollows, values)
-      return result
-    } else {
-      console.log("user id incorrect")
-    }
-  } catch (e) {
-    console.error("error", e.message)
-  }
-}
+// const startFollowing = async (followerId, followedId) => {
+//   try {
+//     const [checkFollowedId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followedId)
+//     const [checkFollowerId] = await promisePool.query("SELECT * FROM users WHERE user_id = ?;", followerId)
+//     if (checkFollowedId[0] && checkFollowerId[0]) {
+//       const insertFollows = "INSERT INTO follows (follower_id, followee_id) VALUES (?, ?)"
+//       const values = [followerId, followedId]
+//       const [result] = await promisePool.query(insertFollows, values)
+//       return result
+//     } else {
+//       console.log("user id incorrect")
+//     }
+//   } catch (e) {
+//     console.error("error", e.message)
+//   }
+// }
 
 // Modifying a specific user
 const updateUserGeneral = async (user, res) => {
@@ -103,6 +102,8 @@ const updateUserPassword = async (user, res) => {
     console.log("password modification user:", user)
     const sql = "UPDATE users SET password = ? WHERE user_id = ?"
     const values = [user.password, user.id]
+    const [rows] = await promisePool.query(sql, values)
+    return rows
   } catch (e) {
     console.error("error while updating a specific user's password:", e.message)
     res.status(500).json({ "error": e.message })
@@ -115,7 +116,7 @@ module.exports = {
   getUserLogin,
   getUsersByTrending,
   addUser,
-  startFollowing,
+  // startFollowing,
   updateUserGeneral,
   updateUserPassword
 }

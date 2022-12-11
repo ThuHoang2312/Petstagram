@@ -8,7 +8,7 @@ const addLike = async (userId, photoId, res) => {
     const sql = 'INSERT INTO likes VALUE (?, ?)'
     const values = [userId, photoId]
     const [result] = await promisePool.query(sql, values)
-    return result.insertId
+    return result
   } catch (e) {
     res.status(500).send(e.message)
     console.error('error', e.message)

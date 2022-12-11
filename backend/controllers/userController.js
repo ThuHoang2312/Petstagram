@@ -1,5 +1,4 @@
 'use strict'
-const e = require('express')
 const userModel = require('../models/userModel')
 
 // Uses the data from userModel to display all users
@@ -20,8 +19,8 @@ const getUser = async (req, res) => {
   }
 }
 
-const getTrendingUsers = async (req, res ) => {
-  const users = await userModel.getUsersByTrending(req, res)
+const getTrendingUsers = async (req, res) => {
+  const users = await userModel.getUsersByTrending(res)
   if (users) {
     res.json(users)
   } else {
@@ -32,7 +31,7 @@ const getTrendingUsers = async (req, res ) => {
 // Uses the data from userModel to modify the user
 const modifyUserGeneral = async (req, res) => {
   const user = req.body
-  console.log("test", req.file)
+  console.log('test', req.file)
   if (req.params.userId) {
     user.id = req.params.userId
     user.avatar = req.file.filename
@@ -58,17 +57,17 @@ const modifyUserPassword = async (req, res) => {
   }
 }
 
-const follow = async (req, res) => {
-  const followedId = req.params.userId // get the id of the person you want to follow from parameters
-  const followerId = req.user.user_id // get your id from the token
+// const follow = async (req, res) => {
+//   const followedId = req.params.userId // get the id of the person you want to follow from parameters
+//   const followerId = req.user.user_id // get your id from the token
 
-  const result = await userModel.startFollowing(followerId, followedId)
-  if (result) {
-    res.json({ follower_id: followerId, followee_id: followedId })
-  } else {
-    res.status(404).json({ message: "couldn't follow" })
-  }
-}
+//   const result = await userModel.startFollowing(followerId, followedId)
+//   if (result) {
+//     res.json({ follower_id: followerId, followee_id: followedId })
+//   } else {
+//     res.status(404).json({ message: "couldn't follow" })
+//   }
+// }
 
 const checkToken = (req, res) => {
   delete req.user.password
@@ -81,6 +80,6 @@ module.exports = {
   getTrendingUsers,
   modifyUserGeneral,
   modifyUserPassword,
-  follow,
+  // follow,
   checkToken
 }

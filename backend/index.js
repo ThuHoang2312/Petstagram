@@ -11,6 +11,7 @@ const commentRouter = require('./routes/commentRoute')
 const likeRouter = require('./routes/likeRoute')
 const searchRouter = require('./routes/searchRoute')
 const tagRouter = require('./routes/tagRoute')
+const followRouter = require('./routes/followRoute')
 
 app.use(express.json()) // for parsing application/json
 app.use(cors())
@@ -43,6 +44,11 @@ app.use(
   '/search',
   passport.authenticate('jwt', { session: false }),
   searchRouter
+)
+app.use(
+  '/follow',
+  passport.authenticate('jwt', { session: false }),
+  followRouter
 )
 app.use(
   '/tag',
