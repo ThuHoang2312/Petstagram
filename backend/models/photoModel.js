@@ -75,16 +75,16 @@ const deletePhotosById = async (photoId, user, res) => {
       const [rows] = await promisePool.query(deletePhoto, value)
       return rows
     } else {
-      const value = [photoId, user.user_id]
-      const deleteComment =
-        'DELETE FROM comments WHERE photo_id = ? and user_id = ?'
-      await promisePool.query(deleteComment, value)
-      const removeLike = 'DELETE FROM likes WHERE photo_id = ? and user_id = ?'
-      await promisePool.query(removeLike, value)
-      const deletePhoto =
-        'DELETE FROM photos WHERE photo_id = ? and user_id = ?'
-      const [rows] = await promisePool.query(deletePhoto, value)
-      return rows
+    const value = [photoId, user.user_id]
+    const deleteComment = 'DELETE FROM comments WHERE photo_id = ?'
+    await promisePool.query(deleteComment, value)
+    const removeLike = 'DELETE FROM likes WHERE photo_id = ?'
+    await promisePool.query(removeLike, value)
+    const deleteTag = 'DELETE FROM photo_tags WHERE photo_id = ?'
+    await promisePool.query(deleteTag, value)
+    const deletePhoto = 'DELETE FROM photos WHERE photo_id = ? and user_id = ?'
+    const [rows] = await promisePool.query(deletePhoto, value)
+    return rows
     }
   } catch (e) {
     res.status(404).send(e.message)
@@ -93,52 +93,52 @@ const deletePhotosById = async (photoId, user, res) => {
 }
 
 // Modify photo description
-const updateDescriptionById = async (photo, user, res) => {
-  try {
-    if (user.role == 0) {
-      const sql = 'UPDATE photos SET description = ? WHERE photo_id = ?'
-      const values = [photo.description, photo.photoId]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    } else {
-      const sql =
-        'UPDATE photos SET description = ? WHERE photo_id = ? and user_id = ?'
-      const values = [photo.description, photo.photoId, user.user_id]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-    console.error('error', e.message)
-  }
-}
+// const updateDescriptionById = async (photo, user, res) => {
+//   try {
+//     if (user.role == 0) {
+//       const sql = 'UPDATE photos SET description = ? WHERE photo_id = ?'
+//       const values = [photo.description, photo.photoId]
+//       const [rows] = await promisePool.query(sql, values)
+//       return rows
+//     } else {
+//       const sql =
+//         'UPDATE photos SET description = ? WHERE photo_id = ? and user_id = ?'
+//       const values = [photo.description, photo.photoId, user.user_id]
+//       const [rows] = await promisePool.query(sql, values)
+//       return rows
+//     }
+//   } catch (e) {
+//     res.status(500).json({ error: e.message })
+//     console.error('error', e.message)
+//   }
+// }
 
 // Modify photo description and photo
-const updateDescriptionAndPhotoById = async (photo, user, res) => {
-  try {
-    if (user.role == 0) {
-      const sql =
-        'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ?'
-      const values = [photo.description, photo.filename, photo.photoId]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    } else {
-      const sql =
-        'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ? and user_id = ?'
-      const values = [
-        photo.description,
-        photo.filename,
-        photo.photoId,
-        user.user_id
-      ]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-    console.error('error', e.message)
-  }
-}
+// const updateDescriptionAndPhotoById = async (photo, user, res) => {
+//   try {
+//     if (user.role == 0) {
+//       const sql =
+//         'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ?'
+//       const values = [photo.description, photo.filename, photo.photoId]
+//       const [rows] = await promisePool.query(sql, values)
+//       return rows
+//     } else {
+//       const sql =
+//         'UPDATE photos SET description = ?, filename = ? WHERE photo_id = ? and user_id = ?'
+//       const values = [
+//         photo.description,
+//         photo.filename,
+//         photo.photoId,
+//         user.user_id
+//       ]
+//       const [rows] = await promisePool.query(sql, values)
+//       return rows
+//     }
+//   } catch (e) {
+//     res.status(500).json({ error: e.message })
+//     console.error('error', e.message)
+//   }
+// }
 
 // Get photo by user's follower
 const getPhotoByFollower = async (userId, res) => {
@@ -159,8 +159,8 @@ module.exports = {
   getPhotoById,
   addPhoto,
   deletePhotosById,
-  updateDescriptionById,
-  updateDescriptionAndPhotoById,
+  // updateDescriptionById,
+  // updateDescriptionAndPhotoById,
   getPhotoByFollower,
   getPhotoRandomly
 }

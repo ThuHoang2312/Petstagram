@@ -22,11 +22,12 @@ router
   .get('/user/:userId', photoController.getAllphotosByUser) //this one should be in user route
   .get('/:photoId', photoController.getPhotoById)
   .post('', upload.single('image'), photoController.uploadPhoto)
-  .put('/:photoId', photoController.editDescription)
-  .put(
-    '/:photoId',
-    upload.single('photo'),
-    photoController.editPhotoAndDescription
-  )
+  .delete('/:photoId', photoController.deletePhoto)
+  // .put('/:photoId', photoController.editDescription)
+  // .put(
+  //   '/:photoId',
+  //   upload.single('photo'),
+  //   photoController.editPhotoAndDescription
+  // )
 
 module.exports = router

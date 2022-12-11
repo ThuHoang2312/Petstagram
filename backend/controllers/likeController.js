@@ -32,9 +32,8 @@ const isPhotoLikedByUser = async (req, res) => {
 const countLikesByPhoto = async (req, res) => {
   const photoId = req.params.photoId
   const result = await likeModel.getAllLikesByPhoto(photoId, res)
-  console.log(result)
   if (result) {
-    res.json(result)
+    res.json(result.length)
   } else {
     res.status(404).json({ message: false })
   }

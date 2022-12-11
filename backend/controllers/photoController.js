@@ -31,47 +31,47 @@ const getPhotosRandom = async (req, res) => {
 }
 
 // Modify both photo and description
-const editPhotoAndDescription = async (req, res) => {
-  console.log('editPhotoAndDescription')
-  const errors = validationResult(req)
-  if (errors.isEmpty()) {
-    const photo = req.body
-    photo.description = req.body.description
-    photo.filename = req.file.filename
-    if (req.params.photoId) {
-      photo.photoId = req.params.photoId
-    }
-    const result = await photoModel.updateDescriptionAndPhotoById(
-      photo,
-      req.user,
-      res
-    )
-    if (result.affectedRows > 0) {
-      res.json({ message: 'photo modified: ' + photo.photoId })
-    }
-  } else {
-    res.status(401).json({ message: 'photo modify failed' })
-  }
-}
+// const editPhotoAndDescription = async (req, res) => {
+//   console.log('editPhotoAndDescription')
+//   const errors = validationResult(req)
+//   if (errors.isEmpty()) {
+//     const photo = req.body
+//     photo.description = req.body.description
+//     photo.filename = req.file.filename
+//     if (req.params.photoId) {
+//       photo.photoId = req.params.photoId
+//     }
+//     const result = await photoModel.updateDescriptionAndPhotoById(
+//       photo,
+//       req.user,
+//       res
+//     )
+//     if (result.affectedRows > 0) {
+//       res.json({ message: 'photo modified: ' + photo.photoId })
+//     }
+//   } else {
+//     res.status(401).json({ message: 'photo modify failed' })
+//   }
+// }
 
 // Modify description
-const editDescription = async (req, res) => {
-  console.log('edit desc')
-  const errors = validationResult(req)
-  if (errors.isEmpty()) {
-    const photo = req.body
-    photo.description = req.body.description
-    if (req.params.photoId) {
-      photo.photoId = req.params.photoId
-    }
-    const result = await photoModel.updateDescriptionById(photo, req.user, res)
-    if (result.affectedRows > 0) {
-      res.json({ message: 'photo modified: ' + photo.photoId })
-    }
-  } else {
-    res.status(401).json({ message: 'photo modify failed' })
-  }
-}
+// const editDescription = async (req, res) => {
+//   console.log('edit desc')
+//   const errors = validationResult(req)
+//   if (errors.isEmpty()) {
+//     const photo = req.body
+//     photo.description = req.body.description
+//     if (req.params.photoId) {
+//       photo.photoId = req.params.photoId
+//     }
+//     const result = await photoModel.updateDescriptionById(photo, req.user, res)
+//     if (result.affectedRows > 0) {
+//       res.json({ message: 'photo modified: ' + photo.photoId })
+//     }
+//   } else {
+//     res.status(401).json({ message: 'photo modify failed' })
+//   }
+// }
 
 // Create new photo
 const uploadPhoto = async (req, res) => {
@@ -124,10 +124,10 @@ const getPhotoByUserFollower = async (req, res) => {
 module.exports = {
   getAllphotosByUser,
   getPhotoById,
-  editDescription,
+  // editDescription,
   uploadPhoto,
   deletePhoto,
-  editPhotoAndDescription,
+  // editPhotoAndDescription,
   getPhotoByUserFollower,
   getPhotosRandom
 }

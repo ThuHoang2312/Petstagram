@@ -135,10 +135,11 @@ deleteBtn.addEventListener("click", async () => {
         },
       };
       const response = await fetch(
-        url + `/photo/user/${photo_id}`,
+        url + `/photo/${photoId}`,
         fetchOptions
       );
       const json = await response.json();
+      console.log('delete front', json)
       alert(json.message);
       //Redirection to home page
       location.href = `../front/index.html?id=${loginUserId}`;
