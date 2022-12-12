@@ -18,22 +18,18 @@ let getUserByUsername;
 
 /*-- Display username --*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const img = document.querySelector(".user-wrapper img");
   if (loginUser.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + loginUser.avatar;
   }
-  img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
+  const h4 = document.querySelector(".user-wrapper h4");
+  h4.innerHTML = loginUser.username;
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${loginUser.user_id}`;
+    location.href = `../profile/profile.html?id=${loginUser.user_id}`;
   });
 }
 
@@ -88,25 +84,25 @@ const createUserCards = (users) => {
       return;
     }
 
-    const div = document.createElement("div");
-    div.classList.add = "result";
+    const result = document.createElement("div");
+    result.classList.add("result");
 
     const img = document.createElement("img");
     if (user.avatar == null) {
       img.src = "../../assets/user_icon.png";
     } else {
-      img.src = url + "/user" + user.avatar;
+      img.src = url + "/" + user.avatar;
     }
     img.alt = user.username;
 
     const username = document.createElement("p");
     username.innerHTML = user.username;
 
-    div.appendChild(img);
-    div.appendChild(username);
-    search.appendChild(div);
+    result.appendChild(img);
+    result.appendChild(username);
+    search.appendChild(result);
 
-    div.addEventListener("click", () => {
+    result.addEventListener("click", () => {
       location.href = `../profile/profile.html?id=${user.user_id}`;
     });
   });

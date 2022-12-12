@@ -12,22 +12,18 @@ const loginUserId = loginUser.user_id;
 
 /*--------Display logIn user avatar and username-------*/
 
-const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const img = document.querySelector(".user-wrapper img");
   if (loginUser.avatar == null) {
-    img.src = "../../assets/avatar.jpg";
+    img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + loginUser.avatar;
   }
-  img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
+  const h4 = document.querySelector(".user-wrapper h4");
+  h4.innerHTML = loginUser.username;
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${loginUserId}`;
+    location.href = `../profile/profile.html?id=${loginUser.user_id}`;
   });
 }
 
@@ -56,17 +52,6 @@ passwordBtn.addEventListener("click", () => {
 
 closePassOverlay.addEventListener("click", () => {
   passwordOverlay.classList.remove("overlay-open");
-});
-
-const deleteOverlay = document.querySelector(".deleteOverlay");
-const closeDeleteOverlay = document.querySelector("#delete");
-
-deleteBtn.addEventListener("click", () => {
-  deleteOverlay.classList.add("overlay-open");
-});
-
-closeDeleteOverlay.addEventListener("click", () => {
-  deleteOverlay.classList.remove("overlay-open");
 });
 
 /*--------Update profile form handler--------*/

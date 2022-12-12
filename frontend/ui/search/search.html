@@ -25,86 +25,81 @@
     <title>Petstagram &mdash; Search</title>
   </head>
   <body>
-    <header class="header sticky">
-      <div class="wrapper">
-        <div class="logo-box">
-          <img
-            src="../../assets/logo-dark.png"
-            alt="Petstagram logo"
-            class="logo-img"
-          />
+    <div class="container">
+      <div class="menu-toggle">
+        <div class="hamburger">
+          <span></span>
         </div>
-
-        <div class="user-profile"></div>
       </div>
-    </header>
 
-    <main>
-      <div class="main-wrapper">
-        <section class="sidebar">
-          <div class="left-col">
-            <ul class="side-nav">
-              <li>
-                <a href="../front/index.html" class="nav-items">
-                  <i class="bx bx-home-alt-2"></i>
-                  <span>Home</span>
-                </a>
-              </li>
-              <!-- <li>
-                <a href="../explore/explore.html" class="nav-items">
-                  <i class="bx bx-compass"></i>
-                  <span>Explore</span>
-                </a>
-              </li> -->
-              <li>
-                <a href="../search/search.html" class="nav-items active">
-                  <i class="bx bx-search-alt-2"></i>
-                  <span>Search</span>
-                </a>
-              </li>
-              <li>
-                <a href="../profile/profile.html" class="nav-items">
-                  <i class="bx bx-user-circle"></i>
-                  <span>Profile</span>
-                </a>
-              </li>
-              <!-- <li>
-                <a href="../save/save.html" class="nav-items">
-                  <i class="bx bx-bookmarks"></i>
-                  <span>Saved</span>
-                </a>
-              </li> -->
-              <li>
-                <a href="../setting/setting.html" class="nav-items">
-                  <i class="bx bx-cog"></i>
-                  <span>Setting</span>
-                </a>
-              </li>
-              <li>
-                <a href="" class="nav-items" id="logout">
-                  <i class="bx bx-log-out-circle"></i>
-                  <span>Log out</span>
-                </a>
-              </li>
-            </ul>
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img src="../../assets/logo-dark.png" alt="Petstagram logo" />
+        </div>
+        <div class="sidebar-menu">
+          <ul>
+            <li>
+              <a href="../front/index.html" class="nav-items">
+                <i class="bx bx-home-alt-2"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-items is-active">
+                <i class="bx bx-search-alt-2"></i>
+                <span>Search</span>
+              </a>
+            </li>
+            <li>
+              <a href="../profile/profile.html" class="nav-items">
+                <i class="bx bx-user-circle"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="../setting/setting.html" class="nav-items">
+                <i class="bx bx-cog"></i>
+                <span>Setting</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="nav-items" id="logout">
+                <i class="bx bx-log-out-circle"></i>
+                <span>Log out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="main-container">
+        <header class="header">
+          <div class="dashboard">
+            <span>Petstagram</span>
           </div>
-        </section>
+          <div class="user-wrapper">
+            <img src="../../assets/user_icon.png" alt="" />
+            <h4>John Doe</h4>
+          </div>
+        </header>
 
-        <section class="main-content">
-          <div class="middle-col">
+        <main>
+          <div class="content-container">
             <form id="search_form">
               <select id="search_selector">
                 <option value="user">User</option>
-                <option value="tag">Tag</option>
+                <option value="photoDescription">Photo description</option>
               </select>
-              <input
-                id="query"
-                type="text"
-                name="query"
-                placeholder="Search.."
-                required
-              />
-              <button id="search_button" type="submit">Search</button>
+              <div class="search">
+                <input
+                  id="query"
+                  type="text"
+                  name="query"
+                  placeholder="Search.."
+                  required
+                />
+                <button id="search_button" type="submit">Search</button>
+              </div>
             </form>
 
             <!--Container for the result-->
@@ -112,19 +107,12 @@
               <!-- js creates search result here -->
             </div>
           </div>
-        </section>
-
-        <section class="trending">
-          <div class="right-col">
-            <div class="suggestion">Trending Account</div>
-            <div class="profile-card"></div>
-          </div>
-        </section>
+        </main>
       </div>
-    </main>
 
-    <!-- SCRIPT -->
-    <script src="../login/serialize.js"></script>
-    <script type="module" src="script.js"></script>
+      <!-- SCRIPT -->
+      <script src="../login/serialize.js"></script>
+      <script type="module" src="script.js"></script>
+    </div>
   </body>
 </html>

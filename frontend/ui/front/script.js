@@ -69,7 +69,7 @@ const createPost = (photos) => {
     if (photo.avatar == null) {
       imgProfile.src = "../../assets/user_icon.png";
     } else {
-      //imgProfile.src = url + "/user/" + photo.avatar;
+      imgProfile.src = url + "/" + photo.avatar;
     }
     imgProfile.alt = photo.username;
     const p = document.createElement("p");

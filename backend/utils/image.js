@@ -12,15 +12,17 @@ const getCoordinates = (imgFile) => {
         if (error) {
           console.log('Error: ' + error.message)
         } else {
-          const decimalLon = gpsToDecimal(
-            exifData.gps.GPSLongitude,
-            exifData.gps.GPSLongitudeRef
-          )
-          const decimalLat = gpsToDecimal(
-            exifData.gps.GPSLatitude,
-            exifData.gps.GPSLatitudeRef
-          )
-          coordinates = [decimalLon, decimalLat]
+          if (exifData.gps.GPSLongitude) {
+            const decimalLon = gpsToDecimal(
+              exifData.gps.GPSLongitude,
+              exifData.gps.GPSLongitudeRef
+            )
+            const decimalLat = gpsToDecimal(
+              exifData.gps.GPSLatitude,
+              exifData.gps.GPSLatitudeRef
+            )
+            coordinates = [decimalLon, decimalLat]
+          }
         }
         resolve(coordinates)
       })

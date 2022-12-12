@@ -5,163 +5,147 @@
 /* -------------------------------- */
 /* ----------GENERAL---------- */
 /* -------------------------------- */
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  font-family: "Inter", sans-serif;
   /* font-size: 10px; */
   /* 10px / 16px = 0.625 = 62.5% */
   /* Percentage of user's browser font-size setting */
   font-size: 62.5%;
-  text-decoration: none;
-  list-style: none;
+  color: #283618;
 }
 
 *:focus {
   outline: none;
 }
 
-body {
-  width: 100%;
-  background: #f8f0e9;
-  position: relative;
-  font-family: "Inter", sans-serif;
-}
-
-.header {
-  /* max-width: 130rem; */
+.container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f8f0e9;
-  height: 12rem;
-  padding: 0 4.8rem;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  bottom: 0;
+  min-height: 100vh;
   width: 100%;
-  height: 12rem;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(255, 255, 255, 0.97);
-  z-index: 999;
-  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
 }
 
-.main {
+main {
   width: 100%;
-  /* max-width: 130rem; */
-  padding: 4rem 0;
-  display: flex;
-  justify-content: center;
-  margin-top: 15rem;
 }
-
+/* .main {
+  margin-top: 2rem;
+  padding: 2rem 1.5rem;
+  background: #f2e2d3;
+  min-height: calc(100vh-10rem);
+} */
 /* -------------------------------- */
-/* ----------TOPBAR---------- */
-/* -------------------------------- */
-
-.wrapper {
-  width: 100%;
-  /* max-width: 130rem; */
-  height: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 5rem;
-}
-
-.logo-box {
-  height: 80%;
-  aspect-ratio: 1/1;
-  margin: 1rem;
-}
-
-.logo-box #menu-btn {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  color: #bc6c25;
-  font-size: 10rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.logo-img {
-  height: 100%;
-}
-
-.user-profile {
-  height: 100%;
-  aspect-ratio: 1/1;
-  position: relative;
-  background-size: cover;
-  margin: 0 5rem;
-  font-size: 5rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-}
-
-.user-profile p {
-  font-size: 3rem;
-  margin-left: 2rem;
-  margin-right: 3rem;
-}
-
-.user-profile img {
-  width: 6rem;
-  height: 6rem;
-  border: 1px solid #bc6c25;
-  border-radius: 50%;
-}
-
-/* -------------------------------- */
-/* ----------MAIN---------- */
-/* -------------------------------- */
-.main-wrapper {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-gap: 3rem;
-  margin-top: 12rem;
-}
 /* ----------SIDEBAR---------- */
-.left-col {
+/* -------------------------------- */
+.sidebar {
   position: fixed;
   left: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  padding: 2rem 1rem;
+  background-color: #f2e2d3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  z-index: 100;
 }
 
-.left-col .nav-items {
+.sidebar-brand {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 5rem;
+}
+
+.sidebar-brand img {
   display: block;
-  height: 100%;
+  width: 80%;
+  height: auto;
+}
+
+.sidebar-menu {
+  margin-top: 10rem;
+}
+.sidebar-menu li {
   width: 100%;
-  line-height: 10rem;
+  margin-bottom: 5rem;
+  padding-left: 2rem;
+}
+
+.sidebar-menu .nav-items {
+  display: block;
   font-size: 5rem;
   color: #283618;
-  font-weight: 700;
-  padding-left: 4rem;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
-.left-col .nav-items i {
-  margin-right: 1rem;
-}
-
-.left-col .nav-items:hover {
+.sidebar-menu .nav-items:hover {
   padding-left: 5rem;
 }
 
-.left-col .nav-items.active {
+.sidebar-menu .nav-items.is-active {
   color: #bc6c25;
+  border-right: 10px solid #bc6c25;
+}
+
+.main-container {
+  margin-left: 300px;
+  width: 100%;
+  display: flex;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: calc(100% - 300px);
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.97);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard {
+  font-size: 7rem;
+  padding-left: 2rem;
+  font-weight: 500;
+}
+
+.user-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.user-wrapper img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.user-wrapper h4 {
+  font-size: 3rem;
+  color: #283618;
+}
+
+main {
+  width: 100%;
+}
+.content-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 11rem;
 }
 
 /* ----------FEEDS---------- */
@@ -188,13 +172,16 @@ body {
   width: 100%;
   margin-bottom: 5%;
   display: flex;
+  flex-direction: column;
 }
 
 .setting-menu-list li {
   border: 2px solid #f8f0e9;
   background: #d09866;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 1rem;
+  width: 20%;
+  margin-bottom: 2rem;
 }
 
 .setting-menu-list i {
@@ -214,6 +201,8 @@ body {
   align-items: center;
   color: #d5b07a;
   font-size: 5rem;
+  padding: 2rem;
+  width: 100%;
 }
 
 form label {
@@ -229,40 +218,32 @@ form label {
 #checked_password {
   border: 1px solid #ab6909;
   border-radius: 5px;
-  width: 100%;
+  width: 50%;
   padding: 2rem;
 }
 
 .updateOverlay {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 30%;
-  width: 60%;
-  flex-direction: row;
+  width: 40%;
+  flex-direction: column;
   z-index: 1;
   border: 2px solid #bc6c25;
   background: #f2e2d3;
   display: none;
+}
+
+.overlay-header-wrapper {
+  display: flex;
 }
 
 .passwordOverlay {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 30%;
-  width: 60%;
-  flex-direction: row;
-  z-index: 1;
-  border: 2px solid #bc6c25;
-  background: #f2e2d3;
-  display: none;
-}
-
-.deleteOverlay {
-  position: absolute;
-  top: 50%;
-  left: 30%;
-  width: 60%;
-  flex-direction: row;
+  width: 40%;
+  flex-direction: column;
   z-index: 1;
   border: 2px solid #bc6c25;
   background: #f2e2d3;
@@ -270,26 +251,24 @@ form label {
 }
 
 .updateOverlay i,
-.passwordOverlay i,
-.deleteOverlay i {
+.passwordOverlay i {
   margin: 2%;
   cursor: pointer;
   font-size: 5rem;
 }
 
 .updateOverlay h4,
-.passwordOverlay h4,
-.deleteOverlay h4 {
+.passwordOverlay h4 {
   color: #283618;
   text-align: center;
   margin-top: 3rem;
-  font-size: 4rem;
+  font-size: 3rem;
+  text-align: center;
 }
 
 .updateOverlay form,
-.passwordOverlay form,
-.deleteOverlay form {
-  padding: 10%;
+.passwordOverlay form {
+  padding: 5%;
 }
 
 #username,
@@ -300,16 +279,34 @@ form label {
 #checked_password {
   margin-top: 2px;
   margin-bottom: 2rem;
+  font-size: 2rem;
+  width: 100%;
+}
+
+label {
+  padding-top: 5px;
 }
 
 .updateOverlay button,
-.passwordOverlay button,
-.deleteOverlay button,
-.overlay-image button {
+.passwordOverlay button .overlay-image button {
   background: #d5b07a;
   border: none;
   padding: 1rem 5rem;
-  font-size: 5rem;
+  font-size: 3rem;
+  margin: 0 auto;
+  cursor: pointer;
+  color: #f8f0e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.update {
+  background: #d5b07a;
+  border: none;
+  padding: 1rem 5rem;
+  font-size: 3rem;
   margin: 0 auto;
   cursor: pointer;
   color: #f8f0e9;
