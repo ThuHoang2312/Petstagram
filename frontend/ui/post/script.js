@@ -159,7 +159,7 @@ async function getAllLikes() {
     };
     const response = await fetch(url + "/like/photo/" + photoId, fetchOptions);
     const allLikes = await response.json();
-    updateHeartCount(allLikes.message);
+    updateLikeCount(allLikes.message);
   } catch (error) {
     alert(error.message);
   }
@@ -230,7 +230,7 @@ function updateIcon(userLike) {
   }
 }
 
-function updateHeartCount(allLikes) {
+function updateLikeCount(allLikes) {
   likeCount.textContent = allLikes + " likes";
 }
 

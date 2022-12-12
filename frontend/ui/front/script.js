@@ -10,26 +10,23 @@ const logInUser = sessionStorage.getItem("user");
 const loginUser = logInUser && JSON.parse(logInUser);
 const loginUserId = loginUser.user_id;
 
-//if user does not login yet, redirect back to login page
-if (!token && !logInUser) {
-  location.href = "../home/index.html";
-}
+// //if user does not login yet, redirect back to login page
+// if (!token && !logInUser) {
+//   location.href = "../home/index.html";
+// }
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
+
 if (token && logInUser) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const img = document.querySelector(".user-wrapper img");
   if (loginUser.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + loginUser.avatar;
   }
-  img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
+  const h4 = document.querySelector(".user-wrapper h4");
+  h4.innerHTML = loginUser.username;
 
   img.addEventListener("click", () => {
     location.href = `../profile/profile.html?id=${loginUserId}`;
@@ -37,40 +34,6 @@ if (token && logInUser) {
 }
 
 /*-- Create post content --*/
-
-//Get number of like on the photo
-const getAllLike = async (id) => {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/like/photo/" + id, fetchOptions);
-    const allLikes = await response.json();
-    console.log("Like number: ", allLikes.message);
-  } catch (error) {
-    alert(error.message);
-  }
-};
-
-//Get like status of the user on the photo
-const getLikeOfUser = async (id) => {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/like/user/" + id, fetchOptions);
-    const like = await response.json();
-    console.log("like status: ", like.message);
-  } catch (error) {
-    alert(error.message);
-  }
-};
 
 const getFollowStatus = async (id) => {
   try {
@@ -117,13 +80,15 @@ const createPost = (photos) => {
     profileUser.appendChild(p);
     userInfo.appendChild(profileUser);
 
+    const buttonDiv = document.createElement("div");
+    userInfo.appendChild(buttonDiv);
     //delete button is add when admin or photo owner
     if (photo.role == 0 || loginUserId === photo.user_id) {
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = "Delete";
       deleteButton.className = "btn-delete";
 
-      profileUser.appendChild(deleteButton);
+      buttonDiv.appendChild(deleteButton);
 
       deleteButton.addEventListener("click", async () => {
         const fetchOptions = {
@@ -154,7 +119,7 @@ const createPost = (photos) => {
       const followButton = document.createElement("button");
       followButton.innerHTML = "Follow";
       followButton.className = "btn-follow";
-      profileUser.appendChild(followButton);
+      buttonDiv.appendChild(followButton);
       const followStatus = getFollowStatus(photo.user_id);
       if (followStatus) {
         followButton.innerHTML = "Following";
@@ -176,28 +141,27 @@ const createPost = (photos) => {
 
     const description = document.createElement("p");
     description.innerHTML = photo.description;
-    description.className = "description";
-
+    const textDiv = document.createElement("div");
+    textDiv.className = "description";
+    const username = document.createElement("span");
+    username.innerHTML = photo.username;
+    textDiv.appendChild(username);
+    textDiv.appendChild(description);
     const date = document.createElement("p");
     date.className = "post-time";
-    date.innerHTML = photo.created_at;
+    if (photo.created_at != null) {
+      date.innerHTML = photo.created_at.substring(0, 10);
+    } else {
+      date.innerHTML = photo.created_at;
+    }
 
-    // const reaction = document.querySelector(".reaction-wrapper");
-    // const likeIcon = document.getElementById("i");
-    // likeIcon.className = "like-icon";
-    // const likeCount = document.createElement("span");
-    // reaction.appendChild(likeIcon);
-    // reaction.appendChild(likeCount);
-    // if (token && logInUser) {
-    //   getAllLikes(photo.photo_id);
-    //   getLikeOfUser(photo.photo_id);
-    // }
-
+    const line = document.createElement("hr");
+    line.className = "line";
     postContent.appendChild(postImg);
-    postContent.appendChild(description);
+    postContent.appendChild(textDiv);
     postContent.appendChild(date);
     post.appendChild(postContent);
-    //post.appendChild(reaction);
+    post.appendChild(line);
     console.log(post);
 
     userInfo.addEventListener("click", () => {
@@ -255,21 +219,18 @@ const getRandom = async () => {
 const suggestion = document.querySelector(".profile-card");
 const createTrend = (topUsers) => {
   topUsers.forEach((topUser) => {
-    const profilePic = document.createElement("div");
-    profilePic.className = "profile-pic";
+    const div = document.createElement("div");
     const img = document.createElement("img");
     if (topUser.avatar == null) {
       img.src = "../../assets/user_icon.png";
     } else {
-      img.src = url + "/user/" + topUser.avatar;
+      img.src = url + "/" + topUser.avatar;
     }
     img.alt = topUser.username;
-    const div = document.createElement("div");
     const p = document.createElement("p");
     p.innerHTML = topUser.username;
+    div.appendChild(img);
     div.appendChild(p);
-    profilePic.appendChild(img);
-    suggestion.appendChild(profilePic);
     suggestion.appendChild(div);
 
     suggestion.addEventListener("click", () => {
@@ -294,6 +255,16 @@ const getTrend = async () => {
   }
 };
 getTrend();
+
+/*-- Hambuger menu --*/
+
+const menu_toggle = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+menu_toggle.addEventListener("click", () => {
+  menu_toggle.classList.toggle("is-active");
+  sidebar.classList.toggle("is-active");
+});
 
 /*-- Log out --*/
 const logout = document.getElementById("logout");
