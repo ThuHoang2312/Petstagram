@@ -80,8 +80,6 @@ const deletePhotosById = async (photoId, user, res) => {
       await promisePool.query(deleteComment, value)
       const removeLike = 'DELETE FROM likes WHERE photo_id = ?'
       await promisePool.query(removeLike, value)
-      const deleteTag = 'DELETE FROM photo_tags WHERE photo_id = ?'
-      await promisePool.query(deleteTag, value)
       const deletePhoto =
         'DELETE FROM photos WHERE photo_id = ? and user_id = ?'
       const [rows] = await promisePool.query(deletePhoto, value)

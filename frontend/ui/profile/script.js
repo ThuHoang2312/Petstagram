@@ -142,7 +142,7 @@ const createProfile = (userProfile) => {
   if (userProfile.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/user/" + userProfile.avatar;
+    img.src = url + "/" + userProfile.avatar;
   }
   img.alt = userProfile.username;
 
@@ -157,10 +157,10 @@ const createProfile = (userProfile) => {
   h2.innerHTML = userProfile.username;
 
   const description = document.createElement("p");
-  if (user.description == null) {
+  if (userProfile.description == null) {
     description.innerHTML = "No description available";
   } else {
-    description.innerHTML = user.description;
+    description.innerHTML = userProfile.description;
   }
   avatar.appendChild(img);
   userDetail.appendChild(description);

@@ -95,7 +95,7 @@ const createUserCards = (users) => {
     if (user.avatar == null) {
       img.src = "../../assets/user_icon.png";
     } else {
-      img.src = url + "/user" + user.avatar;
+      img.src = url + "/" + user.avatar;
     }
     img.alt = user.username;
 

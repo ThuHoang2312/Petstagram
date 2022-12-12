@@ -67,21 +67,31 @@ const modifyUserPassword = async (req, res) => {
   }
 }
 
-/*const deleteUser = async (req, res) => {
-  const user = req.body
-  if (req.params.userId) {
-    user.id = req.params.userId
-  }
-  console.log(user)
-  const result = await userModel.deleteCurrentUser(user, res)
+const deleteUser = async (req, res) => {
+  // const user = req.body
+  // if (req.params.userId) {
+  //   user.id = req.params.userId
+  // }
+  // console.log(user)
+  // const result = await userModel.deleteCurrentUser(user, res)
+  // if (result.affectedRows > 0) {
+  //   res.json({ message: 'user deleted'})
+  // } else if (!result) {
+  //   res.json({ message: 'User was no deleted'})
+  // } else {
+  //   res.status(404).json({ message: 'nothing was changed' })
+  // }
+  const result = await userModel.deleteCurrentUser(
+    req.user,
+    res
+  )
+  console.log('user deleted', result)
   if (result.affectedRows > 0) {
-    res.json({ message: 'user deleted'})
-  } else if (!result) {
-    res.json({ message: 'User was no deleted'})
+    res.json({ message: 'user deleted' })
   } else {
-    res.status(404).json({ message: 'nothing was changed' })
+    res.status(401).json({ message: 'user delete failed' })
   }
-}*/
+}
 
 // const follow = async (req, res) => {
 //   const followedId = req.params.userId // get the id of the person you want to follow from parameters
@@ -108,6 +118,6 @@ module.exports = {
   modifyUserGeneral,
   modifyUserPassword,
   // follow,
-  //deleteUser,
+  deleteUser,
   checkToken
 }

@@ -118,7 +118,7 @@ updatePost.addEventListener("submit", async (e) => {
     body: JSON.stringify(data),
   };
 
-  const response = await fetch(url + `/photo/user/${photo_id}`, fetchOptions);
+  const response = await fetch(url + `/photo/${photoId}`, fetchOptions);
   const json = await response.json();
   alert(json.message);
 });

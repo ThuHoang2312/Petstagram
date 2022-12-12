@@ -134,7 +134,7 @@ const updateUserPassword = async (user, res) => {
   }
 }
 
-/*const deleteCurrentUser = async (user, res) => {
+const deleteCurrentUser = async (user, res) => {
   try {
     const [result] = await promisePool.query("SELECT email, role FROM users WHERE user_id = ?", user.id)
     console.log(result)
@@ -150,11 +150,25 @@ const updateUserPassword = async (user, res) => {
     } else {
       return false
     }
+    // const value = user.user_id
+    // // Delete comments and likes that belongs to the user (has user_id as foreign key)
+    // const deleteCommentByUser = 'DELETE FROM comments WHERE user_id = ?'
+    // await promisePool.query(deleteCommentByUser, value)
+    // const deleteComment = 'DELETE FROM comments JOIN photos ON comments.photo_id = photos.photos_id WHERE photos.user_id = ?'
+    // await promisePool.query(deleteComment, value)
+    // const removeLike = 'DELETE FROM likes WHERE user_id = ?'
+    // await promisePool.query(removeLike, value)
+    // // Delete photo
+    // const removePhoto = 'DELETE FROM photos WHERE user_id = ?'
+    // await promisePool.query(removePhoto, value)
+    // const deleteUser = 'DELETE FROM users WHERE user_id = ?'
+    // const [rows] = await promisePool.query(deleteUser, value)
+    // return rows
   } catch (e) {
     console.error("error trying to delete the user:", e.message)
     res.status(500).json({ "error": e.message })
   }
-}*/
+}
 
 module.exports = {
   getAllUsers,
@@ -165,5 +179,5 @@ module.exports = {
   // startFollowing,
   updateUserGeneral,
   updateUserPassword,
-  //deleteCurrentUser
+  deleteCurrentUser
 }

@@ -18,14 +18,14 @@ if (!token && !logInUser) {
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 const userInfo = document.querySelector(".user-profile");
-if (token && logInUser) {
+if (token && loginUser) {
   const p = document.createElement("p");
   p.innerHTML = loginUser.username;
   const img = document.createElement("img");
   if (loginUser.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + loginUser.avatar;
   }
   img.alt = loginUser.username;
   userInfo.appendChild(img);
@@ -106,7 +106,7 @@ const createPost = (photos) => {
     if (photo.avatar == null) {
       imgProfile.src = "../../assets/user_icon.png";
     } else {
-      //imgProfile.src = url + "/user/" + photo.avatar;
+      imgProfile.src = url + "/" + photo.avatar;
     }
     imgProfile.alt = photo.username;
     const p = document.createElement("p");

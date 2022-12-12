@@ -23,10 +23,10 @@ router
   .get('/:photoId', photoController.getPhotoById)
   .post('', upload.single('image'), photoController.uploadPhoto)
   .delete('/:photoId', photoController.deletePhoto)
-  .put(
-    '/:photoId',
-    upload.single('photo'),
-    photoController.editPhotoAndDescription
-  )
+  // .put(
+  //   '/:photoId',
+  //   upload.single('image'),
+  //   photoController.editPhotoAndDescription
+  // )
 
 module.exports = router
