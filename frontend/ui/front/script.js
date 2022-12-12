@@ -233,8 +233,8 @@ const createTrend = (topUsers) => {
     div.appendChild(p);
     suggestion.appendChild(div);
 
-    suggestion.addEventListener("click", () => {
-      location.href = `profile.html?id=${topUser.user_id}`;
+    div.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${topUser.user_id}`;
     });
   });
 };
