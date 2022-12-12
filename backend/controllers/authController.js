@@ -21,20 +21,13 @@ const login = (req, res) => {
       // generate a signed son web token with the contents of user object and return it in the response
       delete user.password
       const token = jwt.sign(user, config.KEY)
-      console.log('token:', token, 'user:', user)
       return res.json({ user, token })
     })
   })(req, res)
 }
 
 const register = async (req, res) => {
-  console.log('Creating a new user: ', req.body)
   const newUser = req.body
-  if (!newUser.role) {
-    // default user role
-    newUser.role = 1
-  }
-  //console.log(req.body.email)
   // When registering, check if an email and/or username is already in use.
   // Display the message on screen for the user
   const user = await getAllUsers()
@@ -59,14 +52,12 @@ const register = async (req, res) => {
     }
   }
   const errors = validationResult(req)
-  console.log('validation errors: ' + errors)
   if (errors.isEmpty() && validation) {
     // Encrypt the password when registering a new user before adding it to the database
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(newUser.password, salt)
     newUser.password = passwordHash
     const result = await addUser(newUser, res)
-    //console.log("resulttest", result)
     res.status(201).json({ message: 'user created', userId: result })
   } else {
     console.log('req.body', req.body)
@@ -74,7 +65,6 @@ const register = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  console.log('some user logged out')
   res.json({ message: 'logged out' })
 }
 

@@ -9,32 +9,12 @@ const uploadComment = async (req, res) => {
   if (errors.isEmpty()) {
     const comment = req.body
     const photoId = req.params.photoId
-    console.log('create a new comment: ', comment)
     const result = await commentModel.addComment(comment, req.user.user_id, photoId, res)
     res.status(201).json({ message: 'comment created', result })
   } else {
     res
       .status(400)
       .json({ message: 'comment creation failed', errors: errors.array() })
-  }
-}
-
-// Modify an existing comment
-const modifyComment = async (req, res) => {
-  const errors = validationResult(req)
-  console.log('validation errors', errors)
-  if (errors.isEmpty()) {
-    const comment = req.body
-    const result = await commentModel.editComment(
-      comment,
-      req.user,
-      res
-    )
-    if (result.affectedRows > 0) {
-      res.json({ message: 'Comment modified' })
-    }
-  } else {
-    res.status(401).json({ message: 'comment modify failed' })
   }
 }
 
@@ -65,7 +45,6 @@ const getAllCommentsByPhotoId = async (req, res) => {
 
 module.exports = {
   uploadComment,
-  modifyComment,
   removeComment,
   getAllCommentsByPhotoId
 }

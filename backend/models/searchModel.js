@@ -10,7 +10,6 @@ const getUsernameDataForSearch = async (username, res) => {
     return result
   } catch (error) {
     res.status(500).send(error.message)
-    console.error('error', error.message)
   }
 }
 
@@ -22,7 +21,6 @@ const getTagDataForSearch = async (tagName, res) => {
     return result
   } catch (error) {
     res.status(500).send(error.message)
-    console.error('error', error.message)
   }
 }
 

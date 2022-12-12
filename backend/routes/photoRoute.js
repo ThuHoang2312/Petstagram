@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-// const { body } = require('express-validator')
 
 const photoController = require('../controllers/photoController')
 
@@ -23,10 +22,5 @@ router
   .get('/:photoId', photoController.getPhotoById)
   .post('', upload.single('image'), photoController.uploadPhoto)
   .delete('/:photoId', photoController.deletePhoto)
-  .put(
-    '/:photoId',
-    upload.single('photo'),
-    photoController.editPhotoAndDescription
-  )
 
 module.exports = router

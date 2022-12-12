@@ -11,7 +11,6 @@ const addLike = async (userId, photoId, res) => {
     return result
   } catch (e) {
     res.status(500).send(e.message)
-    console.error('error', e.message)
   }
 }
 
@@ -24,7 +23,6 @@ const removeLike = async (userId, photoId, res) => {
     return rows
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
   }
 }
 
@@ -37,7 +35,6 @@ const getLikeStatusByPhotoId = async (userId, photoId, res) => {
     return rows
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
   }
 }
 
@@ -49,7 +46,6 @@ const getAllLikesByPhoto = async (photoId, res) => {
     return rows
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
   }
 }
 

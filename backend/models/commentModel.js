@@ -12,7 +12,6 @@ const addComment = async (comment, userId, photoId, res) => {
     return result.insertId
   } catch (e) {
     res.status(500).send(e.message)
-    console.error('error', e.message)
   }
 }
 
@@ -32,29 +31,6 @@ const deleteComment = async (commentId, user, res) => {
     }
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
-// Modify comment
-const editComment = async (comment, user, photoId, res) => {
-  try {
-    if (user.role == 0) {
-      const sql =
-        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ?'
-      const values = [comment.commentText, comment.id, photoId]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    } else {
-      const sql =
-        'UPDATE comments SET comment_text = ? WHERE id = ? and photo_id = ? and user_id = ?'
-      const values = [comment.commentText, comment.id, photoId, user.user_id]
-      const [rows] = await promisePool.query(sql, values)
-      return rows
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-    console.error('error', e.message)
   }
 }
 
@@ -67,13 +43,11 @@ const getAllCommentsByPhoto = async (photoId, res) => {
     return rows
   } catch (e) {
     res.status(500).send(e.message)
-    console.error('error', e.message)
   }
 }
 
 module.exports = {
   addComment,
   deleteComment,
-  editComment,
   getAllCommentsByPhoto
 }

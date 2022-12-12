@@ -1,6 +1,4 @@
-/* ==============FONT IMPORT Inter ==============*/
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 /* -------------------------------- */
 /* ----------GENERAL---------- */
@@ -12,10 +10,7 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style-type: none;
-  font-family: "Inter", sans-serif;
-  /* font-size: 10px; */
-  /* 10px / 16px = 0.625 = 62.5% */
-  /* Percentage of user's browser font-size setting */
+  font-family: "Ubuntu", sans-serif;
   font-size: 62.5%;
   color: #283618;
 }
@@ -112,6 +107,7 @@ header {
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.97);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  padding-right: 5rem;
 }
 
 .dashboard {
