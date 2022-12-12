@@ -50,6 +50,7 @@ const getPhoto = async (id) => {
     };
     const response = await fetch(url + "/photo/" + id, fetchOptions);
     const photo = await response.json();
+    addMarker(JSON.parse(photo.coords));
     createPhotoCard(photo);
   } catch (e) {
     console.log(e.message);
