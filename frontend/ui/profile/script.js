@@ -15,22 +15,20 @@ if (!token && !user) {
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
+const userInfo = document.querySelector(".user-wrapper");
 if (token && user) {
-  const p = document.createElement("p");
-  p.innerHTML = userData.username;
-  const img = document.createElement("img");
+  const h4 = document.querySelector("h4");
+  h4.innerHTML = userData.username;
+  const img = document.querySelector(".user-wrapper img");
   if (userData.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + userData.avatar;
   }
   img.alt = userData.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
 
-  img.addEventListener("click", () => {
-    location.href = `profile.html?id=${userData.user_id}`;
+  userInfo.addEventListener("click", () => {
+    location.href = `../profile/profile.html?id=${userData.user_id}`;
   });
 }
 
@@ -142,7 +140,7 @@ const createProfile = (userProfile) => {
   if (userProfile.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/user/" + userProfile.avatar;
+    img.src = url + "/" + userProfile.avatar;
   }
   img.alt = userProfile.username;
 
@@ -167,10 +165,11 @@ const createProfile = (userProfile) => {
 
   const followDiv = document.querySelector(".follow");
   console.log(followDiv);
-  if (userData.user_id == userProfile.user_id) {
-    followDiv.display = "none";
+
+  if (!(userData.user_id == userId)) {
+    followDiv.style.display = "flex";
   } else {
-    followDiv.display = "flex";
+    followDiv.style.display = "none";
   }
 
   if (userData.user_id == userProfile.user_id) {

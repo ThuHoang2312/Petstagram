@@ -149,7 +149,7 @@ main {
   margin-top: 11rem;
 }
 
-/* ----------FEEDS---------- */
+/* ----------MAIN---------- */
 .middle-col {
   display: flex;
   flex-direction: column;
@@ -165,7 +165,7 @@ main {
   padding-top: 5rem;
 }
 
-.search{
+.search {
   position: relative;
   display: flex;
   width: 100%;
@@ -183,8 +183,7 @@ main {
   /* margin-top: 6rem; */
 }
 
-
-#search_form{
+#search_form {
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -238,7 +237,7 @@ main {
   /* flex-direction: column; */
   /* justify-content: center; */
   /* /* align-items: center; */
-  align-items: center; 
+  align-items: center;
   /* border: 1px solid #bc6c25; */
   background-color: #f8f0e9;
   border-radius: 5px;
@@ -252,7 +251,6 @@ main {
   left: 0;
   margin: 1rem;
 }
-
 
 .result p {
   font-size: 3rem;

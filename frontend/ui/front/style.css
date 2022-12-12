@@ -29,15 +29,10 @@
   min-height: 100vh;
 }
 
-main{
+main {
   width: 100%;
 }
-/* .main {
-  margin-top: 2rem;
-  padding: 2rem 1.5rem;
-  background: #f2e2d3;
-  min-height: calc(100vh-10rem);
-} */
+
 /* -------------------------------- */
 /* ----------SIDEBAR---------- */
 /* -------------------------------- */
@@ -83,7 +78,7 @@ main{
   font-size: 5rem;
   color: #283618;
   font-weight: 600;
-  transition: all 0.3s ease
+  transition: all 0.3s ease;
 }
 
 .sidebar-menu .nav-items:hover {
@@ -101,7 +96,7 @@ main{
   display: flex;
 }
 
-.right-container{
+.right-container {
   display: flex;
 }
 

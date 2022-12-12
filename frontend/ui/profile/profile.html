@@ -24,63 +24,67 @@
     <title>Petstagram &mdash; Profile</title>
   </head>
   <body>
-    <header class="header sticky">
-      <div class="wrapper">
-        <div class="logo-box">
-          <img
-            src="../../assets/logo-dark.png"
-            alt="Petstagram logo"
-            class="logo-img"
-          />
+    <div class="container">
+      <div class="menu-toggle">
+        <div class="hamburger">
+          <span></span>
         </div>
-
-        <div class="user-profile"></div>
       </div>
-    </header>
 
-    <main>
-      <div class="main-wrapper">
-        <section class="sidebar">
-          <div class="left-col">
-            <ul>
-              <li>
-                <a href="../front/index.html" class="nav-items">
-                  <i class="bx bx-home-alt-2"></i>
-                  <span>Home</span>
-                </a>
-              </li>
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img src="../../assets/logo-dark.png" alt="Petstagram logo" />
+        </div>
+        <div class="sidebar-menu">
+          <ul>
+            <li>
+              <a href="../front/index.html" class="nav-items">
+                <i class="bx bx-home-alt-2"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="../search/search.html" class="nav-items">
+                <i class="bx bx-search-alt-2"></i>
+                <span>Search</span>
+              </a>
+            </li>
+            <li>
+              <a href="../profile/profile.html" class="nav-items is-active">
+                <i class="bx bx-user-circle"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="../setting/setting.html" class="nav-items">
+                <i class="bx bx-cog"></i>
+                <span>Setting</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="nav-items" id="logout">
+                <i class="bx bx-log-out-circle"></i>
+                <span>Log out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
 
-              <li>
-                <a href="../search/search.html" class="nav-items">
-                  <i class="bx bx-search-alt-2"></i>
-                  <span>Search</span>
-                </a>
-              </li>
-              <li>
-                <a href="../profile/profile.html" class="nav-items active">
-                  <i class="bx bx-user-circle"></i>
-                  <span>Profile</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="../setting/setting.html" class="nav-items">
-                  <i class="bx bx-cog"></i>
-                  <span>Setting</span>
-                </a>
-              </li>
-              <li>
-                <a href="" class="nav-items" id="logout">
-                  <i class="bx bx-log-out-circle"></i>
-                  <span>Log out</span>
-                </a>
-              </li>
-            </ul>
+      <div class="main-container">
+        <header class="header">
+          <div class="dashboard">
+            <span>Petstagram</span>
           </div>
-        </section>
-
-        <section class="main-content">
-          <div class="middle-col">
+          <div class="user-wrapper">
+            <img src="../../assets/user_icon.png" alt="" />
+            <h4>John Doe</h4>
+          </div>
+        </header>
+        
+        <main>
+          <div class="content-container">
+            <div class="middle-col">
             <div class="user-info">
               <div class="overlay">
                 <i class="bx bx-x closeIcon"></i>
@@ -140,7 +144,14 @@
             <hr class="line" />
             <div class="photo-lib"></div>
           </div>
-        </section>
+            
+          </div>
+        </main>
+      </div>
+
+        <div class="main-content">
+          
+        </div>
       </div>
     </main>
 
