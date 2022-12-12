@@ -52,6 +52,7 @@ const closePassOverlay = document.querySelector("#update");
 
 passwordBtn.addEventListener("click", () => {
   passwordOverlay.classList.add("overlay-open");
+  changePassword()
 });
 
 closePassOverlay.addEventListener("click", () => {

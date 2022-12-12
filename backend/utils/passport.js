@@ -41,7 +41,6 @@ passport.use(
       secretOrKey: config.KEY
     },
     function (jwtPayload, done) {
-      console.log('payload:', jwtPayload)
       return done(null, jwtPayload)
     }
   )
