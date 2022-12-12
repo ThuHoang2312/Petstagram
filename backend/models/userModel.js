@@ -86,14 +86,26 @@ const addUser = async (user, res) => {
 // Modifying the logged in user
 const updateUserGeneral = async (user, res) => {
   try {
+    let noDuplicateUsernames = true
     console.log('user to modify:', user)
-    const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
-      "WHERE user_id = ?"
-    const values = [user.username, user.avatar, user.description, user.id]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    const userList = await getAllUsers()
+    for (let i = 1; i <= userList.length; i++) {
+      if (userList[i-1].username == user.username) {
+        noDuplicateUsernames = false
+        break
+      }
+    }
+    if (noDuplicateUsernames) {
+      const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
+        "WHERE user_id = ?"
+      const values = [user.username, user.avatar, user.description, user.id]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    } else {
+      return false
+    }
   } catch (e) {
-    console.error("error while updating a specific user's username, avatar and description:", e.message)
+    console.error("error while updating the user's username, avatar and description:", e.message)
     res.status(500).json({ "error": e.message })
   }
 }
@@ -122,6 +134,28 @@ const updateUserPassword = async (user, res) => {
   }
 }
 
+/*const deleteCurrentUser = async (user, res) => {
+  try {
+    const [result] = await promisePool.query("SELECT email, role FROM users WHERE user_id = ?", user.id)
+    console.log(result)
+    const userEmail = result[0].email
+    const userRole = result[0].role
+    console.log(userEmail, userRole)
+    if (userEmail == user.email || userRole == 0) {
+      const [follower] = await promisePool.query("DELETE FROM follows WHERE follower_id = ?", user.id)
+      const [followed] = await promisePool.query("DELETE FROM follows WHERE followee_id = ?", user.id)
+      const [result] = await promisePool.query("DELETE FROM users WHERE email = ?", user.email)
+      console.log("follower", follower, followed)
+      return result
+    } else {
+      return false
+    }
+  } catch (e) {
+    console.error("error trying to delete the user:", e.message)
+    res.status(500).json({ "error": e.message })
+  }
+}*/
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -130,5 +164,6 @@ module.exports = {
   addUser,
   // startFollowing,
   updateUserGeneral,
-  updateUserPassword
+  updateUserPassword,
+  //deleteCurrentUser
 }

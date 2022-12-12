@@ -39,6 +39,8 @@ const modifyUserGeneral = async (req, res) => {
   const result = await userModel.updateUserGeneral(user, res)
   if (result.affectedRows > 0) {
     res.json({ message: 'user updated: ' + user.id })
+  } else if (!result) {
+    res.json({ message: "Username already in use" })
   } else {
     res.status(404).json({ message: 'nothing was changed' })
   }
@@ -57,11 +59,29 @@ const modifyUserPassword = async (req, res) => {
     const result = await userModel.updateUserPassword(user, res)
     if (result.affectedRows > 0) {
       res.json({ message: 'user updated: ' + user.id })
+    } else if (!result){
+      res.json({ message: "Current password incorrect"})
     } else {
       res.status(404).json({ message: 'nothing was changed' })
     }
   }
 }
+
+/*const deleteUser = async (req, res) => {
+  const user = req.body
+  if (req.params.userId) {
+    user.id = req.params.userId
+  }
+  console.log(user)
+  const result = await userModel.deleteCurrentUser(user, res)
+  if (result.affectedRows > 0) {
+    res.json({ message: 'user deleted'})
+  } else if (!result) {
+    res.json({ message: 'User was no deleted'})
+  } else {
+    res.status(404).json({ message: 'nothing was changed' })
+  }
+}*/
 
 // const follow = async (req, res) => {
 //   const followedId = req.params.userId // get the id of the person you want to follow from parameters
@@ -88,5 +108,6 @@ module.exports = {
   modifyUserGeneral,
   modifyUserPassword,
   // follow,
+  //deleteUser,
   checkToken
 }

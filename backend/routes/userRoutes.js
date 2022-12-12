@@ -10,6 +10,7 @@ const {
   checkToken,
   getTrendingUsers,
   modifyUserPassword
+  //deleteUser
 } = require('../controllers/userController')
 
 const fileFilter = (req, file, cb) => {
@@ -32,5 +33,6 @@ router
   // .post('/follow/:userId', follow)
   .put('/:userId', upload.single('avatar'), modifyUserGeneral)
   .put('/:userId/passwordChange', modifyUserPassword)
+  //.delete('/:userId', deleteUser)
 
 module.exports = router

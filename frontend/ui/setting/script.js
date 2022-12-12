@@ -64,6 +64,7 @@ const closeDeleteOverlay = document.querySelector("#delete");
 
 deleteBtn.addEventListener("click", () => {
   deleteOverlay.classList.add("overlay-open");
+  handleDeleteForm()
 });
 
 closeDeleteOverlay.addEventListener("click", () => {
@@ -174,7 +175,7 @@ const handleDeleteForm = async () => {
 
     if (data["email"] === "") {
       alert("Please confirm");
-    } else if (data["email"] === loggedInUser.email) {
+    } else if (data["email"] === loginUser.email) {
       const options = {
         method: "DELETE",
         headers: {
