@@ -24,7 +24,7 @@ if (token && user) {
   p.innerHTML = loginUser.username;
   const img = document.createElement("img");
   if (loginUser.avatar == null) {
-    img.src = "../../assets/avatar.jpg";
+    img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + user.avatar;
   }

@@ -92,6 +92,10 @@
   display: flex;
 }
 
+.right-container{
+  display: flex;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -128,6 +132,8 @@ header {
   color: #283618;
 }
 
+/* ----------FEEDS---------- */
+
 .content-container {
   width: 100%;
   display: grid;
@@ -135,10 +141,6 @@ header {
   grid-gap: 2rem;
   margin-top: 10rem;
 } 
-
-.left-section{
-  display: flex;
-}
 
 .right-section{
   display: flex;
@@ -274,7 +276,6 @@ header {
 .right-section {
   position: fixed;
   right: 0;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
