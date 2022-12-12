@@ -76,6 +76,13 @@ body {
   padding: 0 4.8rem;
 }
 
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 /* ----------HEADER---------- */
 .sticky {
   position: fixed;

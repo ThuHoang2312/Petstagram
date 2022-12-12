@@ -11,22 +11,19 @@ const loginUserId = loginUser.user_id;
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
-const userInfo = document.querySelector(".user-profile");
 if (token && user) {
-  const p = document.createElement("p");
-  p.innerHTML = loginUser.username;
-  const img = document.createElement("img");
+  const h4 = document.querySelector(".user-wrapper h4");
+  h4.innerHTML = loginUser.username;
+  const img = document.querySelector(".user-wrapper img");
   if (loginUser.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + user.avatar;
   }
   img.alt = loginUser.username;
-  userInfo.appendChild(img);
-  userInfo.appendChild(p);
 
   img.addEventListener("click", () => {
-    location.href = `profile.html?id=${loginUserId}`;
+    location.href = `../profile/profile.html?id=${loginUserId}`;
   });
 }
 
@@ -62,12 +59,9 @@ getPhoto(photoId);
 
 /*-- Display photo and info --*/
 
-const postDetail = document.querySelector("#image-content");
-/*-- Edit and delete button for admin and post owner --*/
-const editBtn = document.getElementById("edit");
+const postDetail = document.querySelector(".image-wrapper");
+/*-- Delete button for admin and post owner --*/
 const deleteBtn = document.getElementById("delete");
-const editForm = document.querySelector(".overlay");
-const closeBtn = document.querySelector(".overlay i");
 
 const createPhotoCard = (photo) => {
   const imgDiv = document.getElementById("image");
@@ -76,52 +70,32 @@ const createPhotoCard = (photo) => {
   const img = document.createElement("img");
   const imgDate = document.createElement("p");
   const imgText = document.createElement("p");
+  const userText = document.createElement("span");
+  const description = document.createElement("div");
 
   img.src = url + "/" + photo.filename;
   img.alt = photo.description;
-  imgDate.innerHTML = photo.created_at;
+  if (photo.created_at != null) {
+    imgDate.innerHTML = photo.created_at.substring(0, 10);
+  }
+
   imgText.innerHTML = photo.description;
+  userText.innerHTML = photo.username;
   imgDate.className = "date";
   imgText.className = "image-description";
 
   imgDiv.appendChild(img);
-  infoDiv.appendChild(imgText);
+  description.appendChild(userText);
+  description.appendChild(imgText);
+  infoDiv.appendChild(description);
   infoDiv.appendChild(imgDate);
   postDetail.appendChild(imgDiv);
   postDetail.appendChild(infoDiv);
 
   if (token && user && (photo.role === 0 || loginUserId === photo.user_id)) {
-    editBtn.style.display = "block";
-    deleteBtn.style.display = "block";
+    deleteBtn.style.display = "flex";
   }
 };
-
-editBtn.addEventListener("click", () => {
-  editForm.classList.add("overlay-open");
-});
-
-closeBtn.addEventListener("click", () => {
-  editForm.classList.remove("overlay-open");
-});
-
-//Update image
-const updatePost = document.querySelector(".update-post");
-updatePost.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const data = serializeJson(updatePost);
-  const fetchOptions = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: "Bearer " + token,
-    },
-    body: JSON.stringify(data),
-  };
-
-  const response = await fetch(url + `/photo/user/${photo_id}`, fetchOptions);
-  const json = await response.json();
-  alert(json.message);
-});
 
 //Delete image
 deleteBtn.addEventListener("click", async () => {
@@ -222,16 +196,16 @@ likeIcon.addEventListener("click", async (event) => {
 //update UI of heart Icon
 function updateIcon(userLike) {
   if (userLike == true) {
-    likeIcon.className = "bx bx-heart";
+    likeIcon.className = "bx bxs-heart";
     likeIcon.style.color = "red";
   } else {
-    likeIcon.className = "bx bx-heart";
+    likeIcon.className = "bx bxs-heart";
     likeIcon.style.color = "black";
   }
 }
 
 function updateLikeCount(allLikes) {
-  likeCount.textContent = allLikes + " likes";
+  likeCount.textContent = allLikes;
 }
 
 // /*-- COMMENTS --*/
@@ -352,52 +326,15 @@ const deleteComment = async (commentId, event) => {
   const json = await response.json();
 };
 
-/*-- Trending users --*/ /*-- Trending users --*/
+/*-- Hambuger menu --*/
 
-const suggestion = document.querySelector(".profile-card");
-const createTrend = (topUsers) => {
-  topUsers.forEach((topUser) => {
-    const profilePic = document.createElement("div");
-    profilePic.className = "profile-pic";
-    const img = document.createElement("img");
-    if (topUser.avatar == null) {
-      img.src = "../../assets/user_icon.png";
-    } else {
-      img.src = url + "/user/" + topUser.avatar;
-    }
+const menu_toggle = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
 
-    img.alt = topUser.username;
-
-    const div = document.createElement("div");
-    const p = document.createElement("p");
-    p.innerHTML = topUser.username;
-    div.appendChild(p);
-    profilePic.appendChild(img);
-    suggestion.appendChild(profilePic);
-    suggestion.appendChild(div);
-
-    suggestion.addEventListener("click", () => {
-      location.href = `../profile/profile.html?id=${topUser.user_id}`;
-    });
-  });
-};
-
-const getTrend = async () => {
-  try {
-    const options = {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/user/trend", options);
-    const topUsers = await response.json();
-    console.log("getTrend: ", topUsers);
-    createTrend(topUsers);
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-getTrend();
+menu_toggle.addEventListener("click", () => {
+  menu_toggle.classList.toggle("is-active");
+  sidebar.classList.toggle("is-active");
+});
 
 /*-- Log out --*/
 const logout = document.querySelector("#logout");
