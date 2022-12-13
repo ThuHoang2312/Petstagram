@@ -33,6 +33,7 @@ const getUserLogin = async (email) => {
     return rows
   } catch (e) {
     console.log("error", e.message)
+    res.status(500).json({ "message": e.message })
   }
 }
 
@@ -64,14 +65,20 @@ const updateUserGeneral = async (user, res) => {
   try {
     let noDuplicateUsernames = true
     const userList = await getAllUsers()
-    // Make sure there are no duplicate usernames before updating the user
-    for (let i = 1; i <= userList.length; i++) {
-      if (userList[i - 1].username == user.username) {
-        noDuplicateUsernames = false
-        break
+    const userById = await getUserById(res, user.id)
+    if (user.username != userById.username) {
+      // Make sure there are no duplicate usernames before updating the user
+      for (let i = 1; i <= userList.length; i++) {
+        if (userList[i - 1].username == user.username) {
+          noDuplicateUsernames = false
+          break
+        }
       }
     }
     if (noDuplicateUsernames) {
+      if (!user.avatar) {
+        user.avatar = userById.avatar
+      }
       const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
         "WHERE user_id = ?"
       const values = [user.username, user.avatar, user.description, user.id]

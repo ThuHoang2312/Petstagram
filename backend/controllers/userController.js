@@ -30,9 +30,10 @@ const getTrendingUsers = async (req, res) => {
 // Uses the logic from userModel to modify the user
 const modifyUserGeneral = async (req, res) => {
   const user = req.body
-  console.log('test', req.file)
   if (req.params.userId) {
     user.id = req.params.userId
+  }
+  if (req.file) {
     user.avatar = req.file.filename
   }
   const result = await userModel.updateUserGeneral(user, res)
