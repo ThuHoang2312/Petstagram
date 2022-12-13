@@ -69,7 +69,7 @@ Front page:
 Clone the repo:
 
 ```
-git clone (link here)
+git clone https://github.com/ThuHoang2312/Petstagram.git
 ```
 
 To run the back-end:
