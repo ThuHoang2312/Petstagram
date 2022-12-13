@@ -1,7 +1,6 @@
 'use strict'
 const userModel = require('../models/userModel')
 
-
 // Uses the data from userModel to display all users
 const getUsers = async (req, res) => {
   const users = await userModel.getAllUsers(res)
@@ -65,9 +64,13 @@ const modifyUserPassword = async (req, res) => {
   }
 }
 
-const checkToken = (req, res) => {
-  delete req.user.password
-  res.json({ user: req.user })
+const checkToken = (req, res, next) => {
+  if (!req.user) {
+    next(new Error('Token is not valid!'))
+  } else {
+    delete req.user.password
+    res.json({ user: req.user })
+  }
 }
 
 module.exports = {

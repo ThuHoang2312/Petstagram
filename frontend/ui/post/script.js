@@ -67,7 +67,8 @@ getPhoto(photoId);
 
 const postDetail = document.querySelector(".image-wrapper");
 /*-- Delete button for admin and post owner --*/
-const deleteBtn = document.getElementById("delete");
+const deleteBtn = document.querySelector("#delete");
+console.log(deleteBtn);
 
 const createPhotoCard = (photo) => {
   const imgDiv = document.getElementById("image");
@@ -101,12 +102,8 @@ const createPhotoCard = (photo) => {
   addMarker(JSON.parse(photo.coords));
 
   //Delete button show for photo owner and admin
-  if (
-    token &&
-    user &&
-    (loginUserId.role === 0 || loginUserId === photo.user_id)
-  ) {
-    deleteBtn.style.display = "flex";
+  if (!(loginUser.role === 0 || loginUserId === photo.user_id)) {
+    deleteBtn.style.display = "none";
   }
 };
 

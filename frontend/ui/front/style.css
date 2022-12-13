@@ -205,10 +205,11 @@ header {
 .btn-delete {
   font-size: 2rem;
   background: #dda15e;
-  padding: 0 1rem;
+  padding: 1rem 2rem;
   color: #f8f0e9;
   border-radius: 3px;
   border: none;
+  margin-right: 1rem;
 }
 
 .btn-follow {

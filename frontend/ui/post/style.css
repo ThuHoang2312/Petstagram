@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 /* -------------------------------- */
 /* ----------GENERAL---------- */
 /* -------------------------------- */
@@ -14,7 +13,7 @@
   font-size: 62.5%;
 }
 
-main{
+main {
   padding-bottom: 5rem;
 }
 
@@ -158,7 +157,7 @@ header {
 
 #image img {
   width: 100%;
-  object-fit:cover;
+  object-fit: cover;
 }
 
 #info {
@@ -191,7 +190,7 @@ header {
   padding-left: 30rem;
 }
 
-.map-wrapper{
+.map-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -266,7 +265,6 @@ header {
   background: #dda15e;
   border-radius: 3px;
   color: #f2e2d3;
-  display: none;
   margin-right: 5rem;
 }
 

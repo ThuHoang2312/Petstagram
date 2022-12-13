@@ -85,7 +85,7 @@ const createPost = (photos) => {
     userInfo.appendChild(buttonDiv);
 
     //delete button is add when login user'role admin or photo owner
-    if (loginUserId == 0 || loginUserId === photo.user_id) {
+    if (loginUser.role == 0 || loginUserId === photo.user_id) {
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = "Delete";
       deleteButton.className = "btn-delete";

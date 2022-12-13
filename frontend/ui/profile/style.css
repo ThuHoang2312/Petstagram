@@ -147,8 +147,8 @@ header {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .photo-lib h2 {
@@ -487,8 +487,8 @@ header {
   }
 
   .middle-col {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .photo-lib {
@@ -523,7 +523,7 @@ header {
   }
 
   .middle-col {
-    width: 90%;
+    /* width: 90%; */
     padding-left: 0;
     padding-right: 0;
   }
