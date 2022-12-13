@@ -8,7 +8,6 @@ import logOut from "../logout.js";
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
-const loginUserId = loginUser.user_id;
 
 /*--------if user does not login yet, redirect back to login page-------*/
 
@@ -16,6 +15,7 @@ if (!token && !user) {
   location.href = "../home/index.html";
 }
 
+const loginUserId = loginUser.user_id;
 /*--------Display logIn user avatar and username-------*/
 
 if (token && user) {

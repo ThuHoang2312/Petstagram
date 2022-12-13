@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   margin-top: 15rem;
+  padding-bottom: 5rem;
 }
 /* -------------------------------- */
 /* ----------SIDEBAR---------- */
@@ -140,14 +141,6 @@ header {
 /* -------------------------------- */
 /* ----------MAIN CONTENT---------- */
 /* -------------------------------- */
-
-/* .main-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 11rem; */
-/* } */
 
 .middle-col {
   display: flex;
