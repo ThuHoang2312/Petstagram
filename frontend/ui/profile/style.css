@@ -1,7 +1,4 @@
-/* ==============FONT IMPORT Inter ==============*/
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 /* -------------------------------- */
 /* ----------GENERAL---------- */
 /* -------------------------------- */
@@ -12,10 +9,7 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style-type: none;
-  font-family: "Inter", sans-serif;
-  /* font-size: 10px; */
-  /* 10px / 16px = 0.625 = 62.5% */
-  /* Percentage of user's browser font-size setting */
+  font-family: "Ubuntu", sans-serif;
   font-size: 62.5%;
   color: #283618;
 }
@@ -96,8 +90,10 @@
 
 .main-container {
   margin-left: 300px;
-  width: calc(100%-300px);
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  margin-top: 11rem;
 }
 
 .right-container {
@@ -114,6 +110,7 @@ header {
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.97);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  padding-right: 5rem;
 }
 
 .dashboard {
@@ -144,21 +141,26 @@ header {
 /* ----------MAIN CONTENT---------- */
 /* -------------------------------- */
 
-.main-container {
+/* .main-container {
   width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-top: 11rem;
-}
+  margin-top: 11rem; */
+/* } */
 
 .middle-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  padding-left: 10rem;
+  padding-right: 10rem;
 }
 
+.photo-lib h2{
+  font-size: 5rem;
+}
 .user-info {
   width: 100%;
   display: grid;
@@ -403,8 +405,12 @@ header {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2rem;
+  align-items: center;
 }
-
+.single-image{
+  display: flex;
+  justify-content: center;
+}
 .single-image img {
   border-radius: 5px;
 }

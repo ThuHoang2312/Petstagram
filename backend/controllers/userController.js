@@ -9,7 +9,6 @@ const getUsers = async (req, res) => {
 
 // Uses the data from userModel to display a user
 const getUser = async (req, res) => {
-  //console.log("test", req.params.userId);
   // placeholder, userId will be gotten from the jwt.
   const user = await userModel.getUserById(res, req.params.userId)
   if (user) {
@@ -31,7 +30,6 @@ const getTrendingUsers = async (req, res) => {
 // Uses the data from userModel to modify the user
 const modifyUserGeneral = async (req, res) => {
   const user = req.body
-  console.log('test', req.file)
   if (req.params.userId) {
     user.id = req.params.userId
     user.avatar = req.file.filename
@@ -57,18 +55,6 @@ const modifyUserPassword = async (req, res) => {
   }
 }
 
-// const follow = async (req, res) => {
-//   const followedId = req.params.userId // get the id of the person you want to follow from parameters
-//   const followerId = req.user.user_id // get your id from the token
-
-//   const result = await userModel.startFollowing(followerId, followedId)
-//   if (result) {
-//     res.json({ follower_id: followerId, followee_id: followedId })
-//   } else {
-//     res.status(404).json({ message: "couldn't follow" })
-//   }
-// }
-
 const checkToken = (req, res) => {
   delete req.user.password
   res.json({ user: req.user })
@@ -80,6 +66,5 @@ module.exports = {
   getTrendingUsers,
   modifyUserGeneral,
   modifyUserPassword,
-  // follow,
   checkToken
 }

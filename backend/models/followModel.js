@@ -11,7 +11,6 @@ const addFollow = async (followerId, followeeId, res) => {
     return result
   } catch (e) {
     res.status(500).send(e.message)
-    console.error('error', e.message)
   }
 }
 
@@ -24,10 +23,10 @@ const removeFollow = async (followerId, followeeId, res) => {
     return rows
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
   }
 }
 
+// Get follow status, is this user follow another user
 const getFollowStatus = async (followerId, followeeId, res) => {
   try {
     const sql =
@@ -37,38 +36,12 @@ const getFollowStatus = async (followerId, followeeId, res) => {
     return rows
   } catch (e) {
     res.status(404).send(e.message)
-    console.error('error', e.message)
   }
 }
 
-const countFollowersByUser = async (userId, res) => {
-  try {
-    const sql = 'SELECT * FROM follows WHERE followee_id = ?'
-    const value = [userId]
-    const [rows] = await promisePool.query(sql, value)
-    return rows
-  } catch (e) {
-    res.status(404).send(e.message)
-    console.error('error', e.message)
-  }
-}
-
-const countFollowingByUser = async (userId, res) => {
-  try {
-    const sql = 'SELECT * FROM follows WHERE follower_id = ?'
-    const value = [userId]
-    const [rows] = await promisePool.query(sql, value)
-    return rows
-  } catch (e) {
-    res.status(404).send(e.message)
-    console.error('error', e.message)
-  }
-}
 
 module.exports = {
   getFollowStatus,
   addFollow,
-  removeFollow,
-  countFollowersByUser,
-  countFollowingByUser
+  removeFollow
 }

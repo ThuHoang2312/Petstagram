@@ -1,7 +1,5 @@
-/* ==============FONT IMPORT Inter ==============*/
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 /* -------------------------------- */
 /* ----------GENERAL---------- */
 /* -------------------------------- */
@@ -12,11 +10,12 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style-type: none;
-  font-family: "Inter", sans-serif;
-  /* font-size: 10px; */
-  /* 10px / 16px = 0.625 = 62.5% */
-  /* Percentage of user's browser font-size setting */
+  font-family: "Ubuntu", sans-serif;
   font-size: 62.5%;
+}
+
+main{
+  padding-bottom: 5rem;
 }
 
 *:focus {
@@ -96,7 +95,8 @@ header {
   width: calc(100% - 300px);
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.97);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  padding-right: 5rem;
 }
 
 .dashboard {
@@ -129,10 +129,11 @@ header {
 .content-container {
   width: calc(100%-300px);
   display: flex;
+  flex-direction: column;
   margin-top: 10rem;
-} 
+}
 
-.left-section{
+.left-section {
   display: flex;
   flex-direction: column;
 }
@@ -146,8 +147,8 @@ header {
 
 #image {
   display: flex;
-  flex-direction: column;
-  height: auto;
+  /* flex-direction: column; */
+  height: fit-content;
   background: #fff;
   border: 1px solid #f2e2d3;
   padding: 1rem;
@@ -155,23 +156,24 @@ header {
   margin-top: 1rem;
 }
 
-#image img{
+#image img {
   width: 100%;
+  object-fit:cover;
 }
 
-#info{
+#info {
   margin-top: 5rem;
   display: flex;
   flex-direction: column;
   font-size: 3rem;
   margin-left: 3rem;
 }
-#info div{
+#info div {
   display: flex;
   font-size: 5rem;
 }
 
-#info div span{
+#info div span {
   font-weight: 600;
   margin-right: 2rem;
   margin-bottom: 1.5rem;
@@ -183,13 +185,25 @@ header {
   margin: 0 auto;
 }
 
-#reaction{
+#map {
+  width: 150rem;
+  height: 50rem;
+  padding-left: 30rem;
+}
+
+.map-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#reaction {
   width: 100%;
   display: flex;
   font-size: 5rem;
 }
 
-#comment{
+#comment {
   display: flex;
   font-size: 3rem;
 }
@@ -197,10 +211,10 @@ header {
 .likeReaction {
   display: flex;
   justify-content: space-between;
-  margin:3rem
+  margin: 3rem;
 }
 
-.likeReaction p{
+.likeReaction p {
   font-size: 3rem;
 }
 
@@ -217,9 +231,9 @@ header {
 
 #save {
   margin-left: 3%;
-} 
+}
 
- #comment {
+#comment {
   width: 100%;
   margin-top: 4rem;
   display: flex;
@@ -233,7 +247,7 @@ header {
   height: 5rem;
   border: 1px solid #bc6c25;
   border-radius: 50%;
-} 
+}
 
 #comment-input {
   font-size: 2rem;
@@ -242,7 +256,7 @@ header {
   padding: 1rem;
   border-radius: 9px;
   border: 1px solid var(--text-color);
-} 
+}
 
 #delete {
   display: flex;
@@ -256,13 +270,13 @@ header {
   margin-right: 5rem;
 }
 
-#delete i{
+#delete i {
   margin-right: 1rem;
 }
 
 .allComments {
   margin: 5rem;
-  font-size:5rem;
+  font-size: 5rem;
 }
 
 .commentBox {
@@ -312,19 +326,17 @@ header {
   margin-top: 5rem;
 }
 
-#comment img{
+#comment img {
   width: 5rem;
   height: 5rem;
   margin-right: 3rem;
 }
 
-#comment-input{
+#comment-input {
   font-size: 3rem;
   width: 90%;
   border: 1px solid #ab6909;
 }
-
-
 
 /* ----------MENU TOGGLE---------- */
 

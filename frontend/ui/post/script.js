@@ -9,6 +9,11 @@ const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
 const loginUserId = loginUser.user_id;
 
+//if user does not login yet, redirect back to login page
+if (!token && !user) {
+  location.href = "../home/index.html";
+}
+
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 if (token && user) {
@@ -18,7 +23,7 @@ if (token && user) {
   if (loginUser.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
-    img.src = url + "/" + user.avatar;
+    img.src = url + "/" + loginUser.avatar;
   }
   img.alt = loginUser.username;
 
@@ -50,7 +55,6 @@ const getPhoto = async (id) => {
     };
     const response = await fetch(url + "/photo/" + id, fetchOptions);
     const photo = await response.json();
-    addMarker(JSON.parse(photo.coords));
     createPhotoCard(photo);
   } catch (e) {
     console.log(e.message);
@@ -92,6 +96,8 @@ const createPhotoCard = (photo) => {
   infoDiv.appendChild(imgDate);
   postDetail.appendChild(imgDiv);
   postDetail.appendChild(infoDiv);
+
+  addMarker(JSON.parse(photo.coords))
 
   if (token && user && (photo.role === 0 || loginUserId === photo.user_id)) {
     deleteBtn.style.display = "flex";
@@ -243,7 +249,7 @@ const displayComments = (allComments) => {
     if (comment.avatar == null) {
       avatar.src = "../../assets/user_icon.png";
     } else {
-      avatar.src = comment.avatar;
+      avatar.src = url + "/" + comment.avatar;
     }
     const commentContent = document.createElement("div");
     const name = document.createElement("p");

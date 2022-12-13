@@ -6,7 +6,6 @@ const {
   getUsers,
   getUser,
   modifyUserGeneral,
-  // follow,
   checkToken,
   getTrendingUsers
 } = require('../controllers/userController')
@@ -28,7 +27,6 @@ router
   .get('/token', checkToken)
   .get('/profile/:userId', getUser)
   .get('/trend', getTrendingUsers)
-  // .post('/follow/:userId', follow)
   .put('/:userId', upload.single('avatar'), modifyUserGeneral)
 
 module.exports = router

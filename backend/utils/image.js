@@ -45,7 +45,7 @@ const gpsToDecimal = (gpsData, hem) => {
 
 const makeThumbnail = async (file, thumbname) => {
   await sharp(file)
-    .resize(300, 300)
+    .resize(500, 500)
     .png()
     .toFile('./thumbnails/' + thumbname)
 }
