@@ -61,11 +61,11 @@ main {
 }
 
 .sidebar-menu {
-  margin-top: 10rem;
+  margin-top: 6rem;
 }
 .sidebar-menu li {
   width: 100%;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   padding-left: 2rem;
 }
 
@@ -450,6 +450,10 @@ header {
     margin-left: 0;
   }
 
+  .sidebar {
+    display: none;
+  }
+
   .menu-toggle {
     display: block;
   }
@@ -461,5 +465,19 @@ header {
 
   .sidebar-menu ul li span {
     display: inline-flex;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    line-height: 4rem;
+  }
+
+  .description span {
+    color: #bc6c25;
   }
 }

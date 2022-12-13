@@ -65,11 +65,12 @@ main {
 }
 
 .sidebar-menu {
-  margin-top: 10rem;
+  margin-top: 6rem;
 }
+
 .sidebar-menu li {
   width: 100%;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   padding-left: 2rem;
 }
 
@@ -465,5 +466,18 @@ main {
   .passwordOverlay {
     width: 100%;
     left: 0;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-menu {
+    margin-top: 3rem;
+  }
+
+  .setting-menu-list {
+    font-size: 3rem;
+    justify-content: space-between;
   }
 }

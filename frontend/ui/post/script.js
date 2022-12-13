@@ -1,7 +1,9 @@
 "use strict";
-
 import logOut from "../logout.js";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
+
+const url = "http://localhost:3000";
+//const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+
 // get user data
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
@@ -13,7 +15,7 @@ if (!token && !user) {
 }
 
 const loginUserId = loginUser.user_id;
-
+console.log(loginUserId);
 /*-- Display username and avatar of log In user--*/
 
 (async function displayUser() {
@@ -82,6 +84,14 @@ const postDetail = document.querySelector(".image-wrapper");
 const deleteBtn = document.querySelector("#delete");
 
 const createPhotoCard = (photo) => {
+  //Delete button show for photo owner and admin
+  if (loginUser.role == 0 || loginUserId == photo.user_id) {
+    console.log(loginUser);
+    deleteBtn.style.display = "flex";
+  } else {
+    deleteBtn.style.display = "none";
+  }
+
   const imgDiv = document.getElementById("image");
   const infoDiv = document.getElementById("info");
 
@@ -111,11 +121,6 @@ const createPhotoCard = (photo) => {
   postDetail.appendChild(infoDiv);
 
   addMarker(JSON.parse(photo.coords));
-
-  //Delete button show for photo owner and admin
-  if (!(loginUser.role === 0 || loginUserId === photo.user_id)) {
-    deleteBtn.style.display = "none";
-  }
 };
 
 //Delete image

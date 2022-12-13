@@ -58,11 +58,12 @@ main {
 }
 
 .sidebar-menu {
-  margin-top: 10rem;
+  margin-top: 6rem;
 }
+
 .sidebar-menu li {
   width: 100%;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   padding-left: 2rem;
 }
 
@@ -414,6 +415,7 @@ header {
   .sidebar {
     max-width: 100px;
   }
+
   .sidebar-menu ul li span {
     display: none;
   }
@@ -440,12 +442,19 @@ header {
 
 /* ----------Below 600px (phones )---------- */
 @media (max-width: 600px) {
-  .header .user-wrapper {
-    display: none;
+  * {
+    font-size: 100%;
   }
 
-  .dashboard span {
-    font-size: 50%;
+  .image-wrapper {
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .header .user-wrapper {
+    display: none;
   }
 
   .header {
@@ -463,13 +472,9 @@ header {
     margin-left: 0;
   }
 
-  .menu-toggle {
-    display: block;
-  }
-
   .sidebar.is-active {
     display: flex;
-    max-width: 200px;
+    max-width: 20rem;
   }
 
   .sidebar-menu ul li span {
@@ -480,6 +485,7 @@ header {
     width: 100%;
     left: 0;
   }
+
   .passwordOverlay {
     width: 100%;
     left: 0;
