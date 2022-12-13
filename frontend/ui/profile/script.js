@@ -14,9 +14,10 @@ if (!token && !user) {
 }
 
 /*-- Display username and avatar of log In user--*/
+
 //Select existing html elements
 const userInfo = document.querySelector(".user-wrapper");
-if (token && user) {
+if (token & user) {
   const h4 = document.querySelector("h4");
   h4.innerHTML = userData.username;
   const img = document.querySelector(".user-wrapper img");
@@ -33,7 +34,9 @@ if (token && user) {
 }
 
 /*---------Display user's profile------------*/
+
 //get Id from param
+
 const getQParam = (param) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -48,6 +51,7 @@ if (getQParam("id") == null) {
 console.log("getQParam: ", getQParam("id"));
 
 /*-- Get user by user Id --*/
+
 const getUser = async (id) => {
   try {
     const fetchOptions = {
@@ -66,6 +70,7 @@ const getUser = async (id) => {
 getUser(userId);
 
 // Get follow status of the user
+
 async function getFollowOfUser() {
   try {
     const fetchOptions = {
@@ -88,6 +93,7 @@ async function getFollowOfUser() {
 getFollowOfUser();
 
 //update UI of heart Icon
+
 function updateFollow(follow) {
   if (follow == true) {
     buttonFollow.innerHTML = "Following";
@@ -129,9 +135,8 @@ buttonFollow.addEventListener("click", async (event) => {
   }
 });
 
-//console.log("getUser result: ", getUser(userId));
-
 /*-- Create user profile section --*/
+
 const profile = document.querySelector(".user-info");
 const createProfile = (userProfile) => {
   const avatar = document.createElement("div");
@@ -163,8 +168,8 @@ const createProfile = (userProfile) => {
   avatar.appendChild(img);
   userDetail.appendChild(description);
 
+  /*-- Create follow button --*/
   const followDiv = document.querySelector(".follow");
-  console.log(followDiv);
 
   if (!(userData.user_id == userId)) {
     followDiv.style.display = "flex";
@@ -232,63 +237,6 @@ postPhoto.addEventListener("submit", async (evt) => {
   alert(json.message);
 });
 
-// const ul = document.querySelector("ul"),
-//   tagInput = ul.querySelector("input"),
-//   countTag = querySelector(".details span");
-// let maxTags = 5,
-//   tags = [];
-// countTag();
-
-// function countTag() {
-//   countNumb.innerText = maxTags - tags.length;
-// }
-
-// function createTag() {
-//   ul.querySelectorAll("li").forEach((li) => li.remove());
-//   tags
-//     .slice()
-//     .reverse()
-//     .forEach((tag) => {
-//       let liTag = `<li>${tag}<i class="bx bx-x" onclick = remove(this, ${tag})></i></li>`;
-//       ul.insertAdjacentHTML("afterbegin", liTag);
-//     });
-//   countTag();
-// }
-
-// function remove(item, tag) {
-//   let index = tags.indexOf(tag);
-//   tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
-//   item.parentElement.remove();
-//   countTag();
-// }
-
-// function addTag(e) {
-//   if (e.key == "Enter") {
-//     let tag = e.target.value.replace(/\s+/g, ""); //remove unwanted spaces from user tags
-//     console.log(tag);
-//     //If there is more than 1 tag and the tag is not exist already
-//     if (tag.length > 1 && !tags.includes(tag)) {
-//       if (tags.length < 5) {
-//         tag.split(",").forEach((tag) => {
-//           //split the tags by comma
-
-//           //adding each tag to arrays
-//           tags.push(tag);
-//           createTag();
-//         });
-//       }
-//       e.target.value = "";
-//     }
-//   }
-
-//   tagInput.addEventListener("keyup", addTag);
-
-//   const removeTagBtn = document.querySelector(".details button");
-//   removeTagBtn.addEventListener("click", () => {
-//     tags.length = 0;
-//     ul.querySelectorAll("li").forEach((li) => li.remove());
-//   });
-
 /*---------Display the photo upload by user------------*/
 
 //get photo by user id
@@ -337,6 +285,16 @@ const createCard = (images) => {
     });
   }
 };
+
+/*-- Hambuger menu --*/
+
+const menu_toggle = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+menu_toggle.addEventListener("click", () => {
+  menu_toggle.classList.toggle("is-active");
+  sidebar.classList.toggle("is-active");
+});
 
 /*---------Log out------------*/
 

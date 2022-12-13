@@ -10,6 +10,12 @@ const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
 const loginUserId = loginUser.user_id;
 
+/*--------if user does not login yet, redirect back to login page-------*/
+
+if (!token && !user) {
+  location.href = "../home/index.html";
+}
+
 /*--------Display logIn user avatar and username-------*/
 
 if (token && user) {
@@ -37,7 +43,7 @@ const closeUpdateOverlay = document.querySelector("#edit");
 
 generalBtn.addEventListener("click", () => {
   updateOverlay.classList.add("overlay-open");
-  updateProfile()
+  updateProfile();
 });
 closeUpdateOverlay.addEventListener("click", () => {
   updateOverlay.classList.remove("overlay-open");
@@ -185,6 +191,16 @@ const handleDeleteForm = async () => {
     }
   });
 };
+
+/*-- Hambuger menu --*/
+
+const menu_toggle = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+menu_toggle.addEventListener("click", () => {
+  menu_toggle.classList.toggle("is-active");
+  sidebar.classList.toggle("is-active");
+});
 
 /*--------handle logout button clicked--------*/
 

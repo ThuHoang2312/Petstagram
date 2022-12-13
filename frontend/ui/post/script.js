@@ -97,9 +97,14 @@ const createPhotoCard = (photo) => {
   postDetail.appendChild(imgDiv);
   postDetail.appendChild(infoDiv);
 
-  addMarker(JSON.parse(photo.coords))
+  addMarker(JSON.parse(photo.coords));
 
-  if (token && user && (photo.role === 0 || loginUserId === photo.user_id)) {
+  //Delete button show for photo owner and admin
+  if (
+    token &&
+    user &&
+    (loginUserId.role === 0 || loginUserId === photo.user_id)
+  ) {
     deleteBtn.style.display = "flex";
   }
 };
@@ -266,6 +271,7 @@ const displayComments = (allComments) => {
     commentContainer.appendChild(commentContent);
     console.log("comment container: ", commentContainer);
 
+    // Allow delete for admin and comment owner
     if (
       token &&
       user &&

@@ -22,6 +22,7 @@ if (!token && !user) {
 }
 
 /*-- Display username --*/
+
 //Select existing html elements
 if (token && user) {
   const img = document.querySelector(".user-wrapper img");
@@ -39,6 +40,7 @@ if (token && user) {
 }
 
 /*-- Display search photo result --*/
+
 const createPhotoCards = (photos) => {
   //clear ui
   search.innerHTML = "";
@@ -72,6 +74,7 @@ const createPhotoCards = (photos) => {
 };
 
 /*-- Display search user result --*/
+
 const createUserCards = (users) => {
   //clear ui
   search.innerHTML = "";
@@ -143,7 +146,7 @@ form.addEventListener("submit", async (evt) => {
       }
     };
     getUserByUsername();
-  } else if (option.value == "photoDescription") {
+  } else if (option.value == "photo") {
     getPhotoByTag = async () => {
       try {
         const fetchOptions = {
@@ -170,6 +173,16 @@ form.addEventListener("submit", async (evt) => {
     };
     getPhotoByTag();
   }
+});
+
+/*-- Hambuger menu --*/
+
+const menu_toggle = document.querySelector(".menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+
+menu_toggle.addEventListener("click", () => {
+  menu_toggle.classList.toggle("is-active");
+  sidebar.classList.toggle("is-active");
 });
 
 /*-- Log out --*/

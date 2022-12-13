@@ -82,8 +82,9 @@ const createPost = (photos) => {
 
     const buttonDiv = document.createElement("div");
     userInfo.appendChild(buttonDiv);
-    //delete button is add when admin or photo owner
-    if (photo.role == 0 || loginUserId === photo.user_id) {
+
+    //delete button is add when login user'role admin or photo owner
+    if (loginUserId == 0 || loginUserId === photo.user_id) {
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = "Delete";
       deleteButton.className = "btn-delete";
@@ -174,7 +175,7 @@ const createPost = (photos) => {
   });
 };
 
-//Get all image with id
+//Get all photo of following account
 const getFollowingPhotos = async () => {
   try {
     const fetchOptions = {
@@ -186,6 +187,8 @@ const getFollowingPhotos = async () => {
     const response = await fetch(url + "/photo", fetchOptions);
     const photos = await response.json();
     console.log(photos);
+
+    //If there is no following account's photo, return random generate photo
     if (!(photos.length == 0)) {
       createPost(photos);
     } else {
