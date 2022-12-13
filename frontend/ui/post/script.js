@@ -16,38 +16,37 @@ if (!token && !user) {
 
 const loginUserId = loginUser.user_id;
 console.log(loginUserId);
-  /*-- Display username and avatar of log In user--*/
+/*-- Display username and avatar of log In user--*/
 
-  async function displayUser() {
-    try {
-      const fetchOptions = {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(
-        url + "/user/profile/" + loginUserId,
-        fetchOptions
-      );
-      const userProfile = await response.json();
-      const img = document.querySelector(".user-wrapper img");
-      if (userProfile.avatar == null) {
-        img.src = "../../assets/user_icon.png";
-      } else {
-        img.src = url + "/" + userProfile.avatar;
-      }
-      const h4 = document.querySelector(".user-wrapper h4");
-      h4.innerHTML = userProfile.username;
-
-      img.addEventListener("click", () => {
-        location.href = `../profile/profile.html?id=${userProfile.user_id}`;
-      });
-    } catch (e) {
-      console.log(e.message);
+(async function displayUser() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(
+      url + "/user/profile/" + loginUserId,
+      fetchOptions
+    );
+    const userProfile = await response.json();
+    const img = document.querySelector(".user-wrapper img");
+    if (userProfile.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/" + userProfile.avatar;
     }
+    const h4 = document.querySelector(".user-wrapper h4");
+    h4.innerHTML = userProfile.username;
+
+    img.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${userProfile.user_id}`;
+    });
+  } catch (e) {
+    console.log(e.message);
   }
-)();
+})();
 
 /*-- Get param id on url --*/
 
@@ -85,6 +84,14 @@ const postDetail = document.querySelector(".image-wrapper");
 const deleteBtn = document.querySelector("#delete");
 
 const createPhotoCard = (photo) => {
+  //Delete button show for photo owner and admin
+  if (loginUser.role == 0 || loginUserId == photo.user_id) {
+    console.log(loginUser);
+    deleteBtn.style.display = "flex";
+  } else {
+    deleteBtn.style.display = "none";
+  }
+
   const imgDiv = document.getElementById("image");
   const infoDiv = document.getElementById("info");
 
@@ -114,14 +121,6 @@ const createPhotoCard = (photo) => {
   postDetail.appendChild(infoDiv);
 
   addMarker(JSON.parse(photo.coords));
-
-  //Delete button show for photo owner and admin
-  if (loginUser.role == 0 || loginUserId == photo.user_id) {
-    console.log(loginUser);
-    deleteBtn.style.display = "flex";
-  } else {
-    deleteBtn.style.display = "none";
-  }
 };
 
 //Delete image
