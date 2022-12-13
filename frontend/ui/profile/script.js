@@ -14,22 +14,37 @@ if (!token && !user) {
 }
 
 /*-- Display username and avatar of log In user--*/
+const loginUserId = userData.user_id;
+(async function displayUser() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(
+      url + "/user/profile/" + loginUserId,
+      fetchOptions
+    );
+    const userProfile = await response.json();
+    console.log(userProfile);
+    const img = document.querySelector(".user-wrapper img");
+    if (userProfile.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/" + userProfile.avatar;
+    }
+    const h4 = document.querySelector(".user-wrapper h4");
+    h4.innerHTML = userProfile.username;
 
-//Select existing html elements
-if (token && user) {
-  const img = document.querySelector(".user-wrapper img");
-  if (userData.avatar == null) {
-    img.src = "../../assets/user_icon.png";
-  } else {
-    img.src = url + "/" + userData.avatar;
+    img.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${userProfile.user_id}`;
+    });
+  } catch (e) {
+    console.log(e.message);
   }
-  const h4 = document.querySelector(".user-wrapper h4");
-  h4.innerHTML = userData.username;
-
-  img.addEventListener("click", () => {
-    location.href = `../profile/profile.html?id=${userData.user_id}`;
-  });
-}
+})();
 
 /*---------Display user's profile------------*/
 

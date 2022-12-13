@@ -19,20 +19,53 @@ const loginUserId = loginUser.user_id;
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 
-if (token && logInUser) {
-  const img = document.querySelector(".user-wrapper img");
-  if (loginUser.avatar == null) {
-    img.src = "../../assets/user_icon.png";
-  } else {
-    img.src = url + "/" + loginUser.avatar;
-  }
-  const h4 = document.querySelector(".user-wrapper h4");
-  h4.innerHTML = loginUser.username;
+/*-- Get user by user Id --*/
 
-  img.addEventListener("click", () => {
-    location.href = `../profile/profile.html?id=${loginUserId}`;
-  });
-}
+(async function displayUser() {
+  try {
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(
+      url + "/user/profile/" + loginUserId,
+      fetchOptions
+    );
+    const userProfile = await response.json();
+    console.log(userProfile);
+    const img = document.querySelector(".user-wrapper img");
+    if (userProfile.avatar == null) {
+      img.src = "../../assets/user_icon.png";
+    } else {
+      img.src = url + "/" + userProfile.avatar;
+    }
+    const h4 = document.querySelector(".user-wrapper h4");
+    h4.innerHTML = userProfile.username;
+
+    img.addEventListener("click", () => {
+      location.href = `../profile/profile.html?id=${userProfile.user_id}`;
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+})();
+
+// if (token && logInUser) {
+//   const img = document.querySelector(".user-wrapper img");
+//   if (loginUser.avatar == null) {
+//     img.src = "../../assets/user_icon.png";
+//   } else {
+//     img.src = url + "/" + loginUser.avatar;
+//   }
+//   const h4 = document.querySelector(".user-wrapper h4");
+//   h4.innerHTML = loginUser.username;
+
+//   img.addEventListener("click", () => {
+//     location.href = `../profile/profile.html?id=${loginUserId}`;
+//   });
+// }
 
 /*-- Create post content --*/
 
