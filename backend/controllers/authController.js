@@ -6,7 +6,9 @@ const { addUser, getAllUsers } = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const config = require('../config/config')
 
+// Logs in the user and creates a token
 const login = (req, res) => {
+  // uses the logic from passport.js file to validate the logging in
   passport.authenticate('local', { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).json({
@@ -26,6 +28,7 @@ const login = (req, res) => {
   })(req, res)
 }
 
+// Add a new user to the database
 const register = async (req, res) => {
   const newUser = req.body
   // When registering, check if an email and/or username is already in use.
@@ -58,12 +61,13 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(newUser.password, salt)
     newUser.password = passwordHash
     const result = await addUser(newUser, res)
-    res.status(201).json({ message: 'user created', userId: result })
+    res.status(201).json({ message: 'User created', userId: result })
   } else {
-    console.log('req.body', req.body)
+    res.status(404).json({ message: 'Registering failed' })
   }
 }
 
+// Display a message to the user when logging out
 const logout = (req, res) => {
   res.json({ message: 'logged out' })
 }
