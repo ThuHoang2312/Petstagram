@@ -52,10 +52,10 @@ Create a new username - after creation redirect to login. Email duplication is c
 ## Screenshot of the deployed app
 
 Homepage:
-(pic here)
+![Screenshot 2022-12-13 at 13 00 32](https://user-images.githubusercontent.com/89455223/207300404-92efbe32-cce4-44fc-9281-548af91e680f.png)
 
 Front page:
-(pic here)
+![Screenshot 2022-12-13 at 12 59 18](https://user-images.githubusercontent.com/89455223/207300231-aab2131c-cbf7-4c25-b80b-2f9fd8add5fa.png)
 
 ## Stack
 
@@ -115,3 +115,4 @@ Contact contributors for help if neccessary.
 ## License
 
 Apache License 2.0
+
