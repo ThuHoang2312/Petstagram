@@ -8,6 +8,11 @@ const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
 
+//if user does not login yet, redirect back to login page
+if (!token && !user) {
+  location.href = "../home/index.html";
+}
+
 const query = document.querySelector("#query");
 const option = document.querySelector("#search_selector");
 const search = document.querySelector("#search_list");
@@ -15,11 +20,6 @@ const form = document.querySelector("#search_form");
 
 let getPhotoByTag;
 let getUserByUsername;
-
-//if user does not login yet, redirect back to login page
-if (!token && !user) {
-  location.href = "../home/index.html";
-}
 
 /*-- Display username --*/
 
@@ -146,7 +146,7 @@ form.addEventListener("submit", async (evt) => {
       }
     };
     getUserByUsername();
-  } else if (option.value == "photo") {
+  } else if (option.value == "photoDescription") {
     getPhotoByTag = async () => {
       try {
         const fetchOptions = {
@@ -162,7 +162,7 @@ form.addEventListener("submit", async (evt) => {
         console.log(photos);
         if (photos.length == 0) {
           alert(
-            `Sorry, there is no photo available with ${query.value} tag at this moment. Please try to search for another topic. Good luck.`
+            `Sorry, there is no photo available with "${query.value}" description at this moment. Please try to search for another topic. Good luck.`
           );
           return;
         }

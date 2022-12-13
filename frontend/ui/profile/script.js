@@ -16,19 +16,17 @@ if (!token && !user) {
 /*-- Display username and avatar of log In user--*/
 
 //Select existing html elements
-const userInfo = document.querySelector(".user-wrapper");
-if (token & user) {
-  const h4 = document.querySelector("h4");
-  h4.innerHTML = userData.username;
+if (token && user) {
   const img = document.querySelector(".user-wrapper img");
   if (userData.avatar == null) {
     img.src = "../../assets/user_icon.png";
   } else {
     img.src = url + "/" + userData.avatar;
   }
-  img.alt = userData.username;
+  const h4 = document.querySelector(".user-wrapper h4");
+  h4.innerHTML = userData.username;
 
-  userInfo.addEventListener("click", () => {
+  img.addEventListener("click", () => {
     location.href = `../profile/profile.html?id=${userData.user_id}`;
   });
 }
@@ -161,10 +159,10 @@ const createProfile = (userProfile) => {
   h2.innerHTML = userProfile.username;
 
   const description = document.createElement("p");
-  if (user.description == null) {
+  if (userProfile.description == null) {
     description.innerHTML = "No description available";
   } else {
-    description.innerHTML = user.description;
+    description.innerHTML = userProfile.description;
   }
   avatar.appendChild(img);
   userDetail.appendChild(description);

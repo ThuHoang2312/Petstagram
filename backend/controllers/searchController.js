@@ -8,7 +8,7 @@ const getUsernameForSearch = async (req, res) => {
   res.json(data)
 }
 
-// Get username for searching
+// Get photos for searching
 const getPhotoForSearch = async (req, res) => {
   const searchQuery = req.params.query
   const data = await searchModel.getPhotoDataForSearch(searchQuery, res)

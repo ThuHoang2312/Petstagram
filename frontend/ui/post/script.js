@@ -7,12 +7,13 @@ const url = "http://localhost:3000";
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
-const loginUserId = loginUser.user_id;
 
-//if user does not login yet, redirect back to login page
+//if user does not login yet, redirect back to front page
 if (!token && !user) {
   location.href = "../home/index.html";
 }
+
+const loginUserId = loginUser.user_id;
 
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
