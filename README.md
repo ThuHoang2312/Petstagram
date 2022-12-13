@@ -99,7 +99,10 @@ To run front-end: You can open the ui/home/index.html on VSCode. For VSCode, you
 
 1. Relation Schema
 
-(Pic here)
+![WhatsApp Image 2022-12-13 at 1 23 17 PM](https://user-images.githubusercontent.com/89455223/207312482-50351c5d-0209-4e1a-820d-6d96b36868f5.jpeg)
+![WhatsApp Image 2022-12-13 at 2 02 57 PM](https://user-images.githubusercontent.com/89455223/207313043-7e8b9c58-f768-41ae-8d34-12355f0c94b2.jpeg)
+
+
 
 2. Project database SQL:
    Link here
