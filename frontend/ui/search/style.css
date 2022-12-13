@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
 /* -------------------------------- */
 /* ----------GENERAL---------- */
@@ -138,6 +138,7 @@ header {
 main {
   width: 100%;
 }
+
 .content-container {
   width: 100%;
   display: flex;
@@ -230,7 +231,7 @@ main {
   object-fit: cover;
 }
 
-.photo_lib p{
+.photo_lib p {
   font-size: 3rem;
   padding-left: 0.5rem;
 }
@@ -309,51 +310,150 @@ main {
   font-weight: 500;
 }
 
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 99px;
+  background-color: #283618;
+  cursor: pointer;
+}
+
+.hamburger {
+  position: relative;
+  top: 2.5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+}
+
+.hamburger > span,
+.hamburger > span::before,
+.hamburger > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 99px;
+  background-color: #f8f0e9;
+  transition-duration: 0.25s;
+}
+
+.hamburger > span::before {
+  content: "";
+  top: -8px;
+}
+
+.hamburger > span::after {
+  content: "";
+  top: 8px;
+}
+
+.menu-toggle.is-active .hamburger > span {
+  transform: rotate(45deg);
+}
+.menu-toggle.is-active .hamburger > span::before {
+  top: 0;
+  transform: rotate(0deg);
+}
+
+.menu-toggle.is-active .hamburger > span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
 /* ----------Below 1200px (small desktop and laptop)---------- */
-@media (max-width: 75em) {
-  html {
-    font-size: 60%;
+@media (max-width: 1200) {
+  .sidebar {
+    max-width: 20rem;
+  }
+
+  .main-container {
+    width: calc(100%-200px);
+    margin-left: 200px;
+  }
+
+  .header {
+    width: calc(100% - 200px);
   }
 }
 
-/* ----------Below 960px (tablets)---------- */
-@media (max-width: 60em) {
-  .main-wrapper .middle-col {
-    width: 100%;
+/* ----------Below 900x (tablets)---------- */
+@media (max-width: 900px) {
+  .sidebar {
+    max-width: 100px;
   }
-
-  #query {
-    width: 50%;
-  }
-
-  .main-wrapper .right-col {
+  .sidebar-menu ul li span {
     display: none;
   }
-}
 
-/* ----------Below 550px (phones )---------- */
-@media (max-width: 34em) {
-  .main-wrapper {
+  .right-section-wrapper,
+  .right-section {
+    display: none;
+  }
+
+  .main-container {
+    width: calc(100%-100px);
+    margin-left: 100px;
+  }
+
+  .content-container {
     display: flex;
   }
 
   .header {
-    height: 7rem;
+    width: calc(100% - 100px);
   }
+}
 
-  .left-col {
-    width: 1rem;
-  }
-
-  .middle-col {
-    margin-left: 1rem;
-  }
-  .nav-items i {
-    font-size: 2rem;
-  }
-
-  .nav-items span {
+/* ----------Below 600px (phones )---------- */
+@media (max-width: 600px) {
+  .header .user-wrapper {
     display: none;
-    border: #bc6c25;
+  }
+
+  .dashboard span {
+    font-size: 50%;
+  }
+
+  .header {
+    width: 100%;
+    z-index: -1;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  #search_form {
+    padding-left: 0;
+  }
+
+  #search_selector {
+    margin-left: 2rem;
+  }
+
+  #search_button {
+    margin-right: 2rem;
+  }
+  .main-container {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar.is-active {
+    display: flex;
+    max-width: 200px;
+  }
+
+  .sidebar-menu ul li span {
+    display: inline-flex;
   }
 }
