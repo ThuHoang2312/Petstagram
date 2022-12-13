@@ -1,8 +1,8 @@
 "use strict";
 import logOut from "../logout.js";
 
-//const url = "http://localhost:3000";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+const url = "http://localhost:3000";
+//const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 // get user data
 const token = sessionStorage.getItem("token");
@@ -15,38 +15,39 @@ if (!token && !user) {
 }
 
 const loginUserId = loginUser.user_id;
+console.log(loginUserId);
+  /*-- Display username and avatar of log In user--*/
 
-/*-- Display username and avatar of log In user--*/
+  async function displayUser() {
+    try {
+      const fetchOptions = {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(
+        url + "/user/profile/" + loginUserId,
+        fetchOptions
+      );
+      const userProfile = await response.json();
+      const img = document.querySelector(".user-wrapper img");
+      if (userProfile.avatar == null) {
+        img.src = "../../assets/user_icon.png";
+      } else {
+        img.src = url + "/" + userProfile.avatar;
+      }
+      const h4 = document.querySelector(".user-wrapper h4");
+      h4.innerHTML = userProfile.username;
 
-(async function displayUser() {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(
-      url + "/user/profile/" + loginUserId,
-      fetchOptions
-    );
-    const userProfile = await response.json();
-    const img = document.querySelector(".user-wrapper img");
-    if (userProfile.avatar == null) {
-      img.src = "../../assets/user_icon.png";
-    } else {
-      img.src = url + "/" + userProfile.avatar;
+      img.addEventListener("click", () => {
+        location.href = `../profile/profile.html?id=${userProfile.user_id}`;
+      });
+    } catch (e) {
+      console.log(e.message);
     }
-    const h4 = document.querySelector(".user-wrapper h4");
-    h4.innerHTML = userProfile.username;
-
-    img.addEventListener("click", () => {
-      location.href = `../profile/profile.html?id=${userProfile.user_id}`;
-    });
-  } catch (e) {
-    console.log(e.message);
   }
-})();
+)();
 
 /*-- Get param id on url --*/
 
@@ -115,7 +116,10 @@ const createPhotoCard = (photo) => {
   addMarker(JSON.parse(photo.coords));
 
   //Delete button show for photo owner and admin
-  if (!(loginUser.role === 0 || loginUserId === photo.user_id)) {
+  if (loginUser.role == 0 || loginUserId == photo.user_id) {
+    console.log(loginUser);
+    deleteBtn.style.display = "flex";
+  } else {
     deleteBtn.style.display = "none";
   }
 };
