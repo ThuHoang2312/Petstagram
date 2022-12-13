@@ -580,10 +580,6 @@ header {
     padding: 0;
   }
 
-  .header {
-    display: none;
-  }
-
   .sidebar {
     display: none;
   }
@@ -615,5 +611,19 @@ header {
   .overlay {
     width: 100%;
     left: 0%;
+  }
+
+  .header {
+    width: 100%;
+    z-index: -1;
+    left: 0;
+  }
+
+  .user-wrapper {
+    display: none;
+  }
+
+  .dashboard span {
+    font-size: 3rem;
   }
 }
