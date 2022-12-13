@@ -45,15 +45,15 @@ const modifyUserGeneral = async (req, res) => {
   }
 }
 
+// Checks if the new password fields match before accessing the userModel
 // Uses the logic from userModel to change the password for the logged in user
 const modifyUserPassword = async (req, res) => {
   const user = req.body
   if (req.params.userId) {
     user.id = req.params.userId
   }
-  // Checks if the new password fields match before accessing the userModel
   if (user.new_password != user.checked_password) {
-    res.json({ message: "new password fields don't match" })
+    res.json({ message: "new password fields don't match"})
   } else {
     const result = await userModel.updateUserPassword(user, res)
     if (result.affectedRows > 0) {
