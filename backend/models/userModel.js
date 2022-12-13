@@ -110,6 +110,7 @@ const updateUserPassword = async (user, res) => {
   }
 }
 
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -117,5 +118,5 @@ module.exports = {
   getUsersByTrending,
   addUser,
   updateUserGeneral,
-  updateUserPassword
+  updateUserPassword,
 }

@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 import logOut from "../logout.js";
@@ -53,19 +53,19 @@ const loginUserId = loginUser.user_id;
 const generalBtn = document.querySelector(".general");
 const passwordBtn = document.querySelector(".password");
 
-const updateOverlay = document.querySelector(".updateOverlay");
-const closeUpdateOverlay = document.querySelector("#edit");
+const updateOverlay = document.querySelector(".updateOverlay")
+const closeUpdateOverlay = document.querySelector("#edit")
 
 generalBtn.addEventListener("click", () => {
   updateOverlay.classList.add("overlay-open");
   updateProfile();
 });
 closeUpdateOverlay.addEventListener("click", () => {
-  updateOverlay.classList.remove("overlay-open");
-});
+  updateOverlay.classList.remove("overlay-open")
+})
 
-const passwordOverlay = document.querySelector(".passwordOverlay");
-const closePassOverlay = document.querySelector("#update");
+const passwordOverlay = document.querySelector(".passwordOverlay")
+const closePassOverlay = document.querySelector("#update")
 
 passwordBtn.addEventListener("click", () => {
   passwordOverlay.classList.add("overlay-open");
@@ -73,33 +73,33 @@ passwordBtn.addEventListener("click", () => {
 });
 
 closePassOverlay.addEventListener("click", () => {
-  passwordOverlay.classList.remove("overlay-open");
-});
+  passwordOverlay.classList.remove("overlay-open")
+})
 
 /*--------Update profile form handler--------*/
 
 const updateProfile = async () => {
-  let submittedForm = document.querySelector("#updateInfoForm");
+  let submittedForm = document.querySelector("#updateInfoForm")
   submittedForm.addEventListener("submit", async (evt) => {
-    evt.preventDefault();
-    const data = new FormData(submittedForm);
+    evt.preventDefault()
+    const data = new FormData(submittedForm)
 
     //Check if form data is having all blank fields:
-    let isEmpty = true;
+    let isEmpty = true
     for (var pair of data.entries()) {
       if (pair[1] !== "" && pair[1].name !== "") {
-        isEmpty = false;
+        isEmpty = false
       }
     }
     //Fill the dummy data to form if the user leaves fields blank
     if (data.get("username") === "") {
-      data.set("username", loginUser.username);
+      data.set("username", loginUser.username)
     }
     if (data.get("avatar") === "") {
-      data.set("avatar", loginUser.avatar);
+      data.set("avatar", loginUser.avatar)
     }
     if (data.get("description") === "") {
-      data.set("description", loginUser.description);
+      data.set("description", loginUser.description)
     }
     const options = {
       method: "PUT",
@@ -107,38 +107,38 @@ const updateProfile = async () => {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
       body: data,
-    };
+    }
 
     const response = await fetch(url + `/user/${loginUserId}`, options);
     const json = await response.json();
 
     if (isEmpty) {
-      alert("You submitted a blank form");
+      alert("You submitted a blank form")
     } else if (!response.ok) {
-      alert("Error " + response.statusText + " occurred when updating profile");
+      alert("Error " + response.statusText + " occurred when updating profile")
     } else {
-      alert(json.message);
+      alert(json.message)
     }
     if (json.error) {
-      alert(json.error.message);
+      alert(json.error.message)
     }
 
-    location.href = "setting.html";
-  });
-};
+    location.href = "setting.html"
+  })
+}
 
 /*--------Password change form handler--------*/
 
 const changePassword = async () => {
-  const passwordForm = document.querySelector("#updatePasswordForm");
+  const passwordForm = document.querySelector("#updatePasswordForm")
   passwordForm.addEventListener("submit", async (evt) => {
-    evt.preventDefault();
-    const data = serializeJson(passwordForm);
+    evt.preventDefault()
+    const data = serializeJson(passwordForm)
 
     //Check if new password confirmation matching:
-    const matchingPassword = data["newPassword"] !== data["checkPassword"];
+    const matchingPassword = data["newPassword"] !== data["checkPassword"]
     if (matchingPassword) {
-      alert("New passwords must match");
+      alert("New passwords must match")
     } else {
       const options = {
         method: "PUT",
@@ -147,26 +147,26 @@ const changePassword = async () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      };
+      }
       const response = await fetch(
         url + `/user/${loginUserId}/passwordChange`,
         options
-      );
-      const json = await response.json();
+      )
+      const json = await response.json()
 
       if (!response.ok) {
-        alert("Error " + response.status + " occurred when updating password");
+        alert("Error " + response.status + " occurred when updating password")
       } else {
-        alert(json.message);
+        alert(json.message)
       }
       if (json.error) {
-        alert(json.error.message);
+        alert(json.error.message)
       }
 
-      location.href = "setting.html";
+      location.href = "setting.html"
     }
-  });
-};
+  })
+}
 
 /*-- Hambuger menu --*/
 
@@ -180,7 +180,7 @@ menu_toggle.addEventListener("click", () => {
 
 /*--------handle logout button clicked--------*/
 
-const logout = document.querySelector("#logout");
+const logout = document.querySelector("#logout")
 logout.addEventListener("click", () => {
-  logOut();
-});
+  logOut()
+})
