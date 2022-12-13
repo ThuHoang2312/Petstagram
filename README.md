@@ -95,6 +95,15 @@ npm run dev
 
 To run front-end: You can open the ui/home/index.html on VSCode. For VSCode, you can click the Go Live on the bottom bar to open the web on your default browser.
 
+## Database structures
+
+1. Relation Schema
+
+(Pic here)
+
+2. Project database SQL:
+   Link here
+
 ## Contributors
 
 [Chi Nguyen](https://github.com/chinguyen202)<br>
