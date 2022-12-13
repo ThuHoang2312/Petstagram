@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- FAVICON -->
+  <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon" />
+
+  <!-- BOXICONS -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- STYLESHEET -->
+  <link rel="stylesheet" href="./style.css" />
+
+
+  <!-- TITLE -->
+  <title>Petstagram &mdash; Setting</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="menu-toggle">
+      <div class="hamburger">
+        <span></span>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="../../assets/logo-dark.png" alt="Petstagram logo" />
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="../front/index.html" class="nav-items">
+              <i class="bx bx-home-alt-2"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-items">
+              <i class="bx bx-search-alt-2"></i>
+              <span>Search</span>
+            </a>
+          </li>
+          <li>
+            <a href="../profile/profile.html" class="nav-items">
+              <i class="bx bx-user-circle"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="../setting/setting.html" class="nav-items is-active">
+              <i class="bx bx-cog"></i>
+              <span>Setting</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="nav-items" id="logout">
+              <i class="bx bx-log-out-circle"></i>
+              <span>Log out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="main-container">
+      <header class="header">
+        <div class="dashboard">
+          <span>Petstagram</span>
+        </div>
+        <div class="user-wrapper">
+          <img src="../../assets/user_icon.png" alt="" />
+          <h4>John Doe</h4>
+        </div>
+      </header>
+
+      <main>
+        <div class="content-container">
+          <div class="middle-col">
+            <div class="setting-menu">
+              <ul class="setting-menu-list">
+                <li class="setting-item general" id="general">
+                  General
+                  <span class="arrow">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </span>
+                </li>
+                <li class="setting-item password">
+                  Password
+                  <span class="arrow">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="updateOverlay">
+              <div class="overlay-header-wrapper"> 
+                <i class="bx bx-window-close" id="edit"></i>
+                <h4>Update Profile</h4>
+              </div>
+              <form class="update-info" id="updateInfoForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" autocomplete="name" /><br />
+                <h4 id="uploadImage">Avatar</h4>
+                <label class="imageLabel" for="imagePosting">
+                  <i class="bx bx-cloud-upload"></i>
+                  <input type="file" name="avatar" accept="image/*" id="imagePosting" required />
+                </label><br />
+                <label for="description">Description</label>
+                <input type="text" id="updateDescription" name="description"/>
+                <button class="update" type="submit">Update</button>
+              </form>
+            </div>
+
+            <div class="passwordOverlay">
+              <i class="bx bx-window-close" id="update"></i>
+              <h4>Change password</h4>
+              <form class="update-info" id="updatePasswordForm">
+                <label for="current-password">Current password</label>
+                <input type="password" id="password" name="current_password" required /><br />
+                <label for="new-password">New password</label>
+                <input type="password" id="new_password" name="new_password" required /><br />
+                <label for="checked-password">Re-type new password</label>
+                <input type="password" id="checked_password" name="checked_password" required /><br />
+                <button class="update" type="submit">Update</button>
+              </form>
+            </div>
+          </div>
+      </main>
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="../login/serialize.js"></script>
+    <script type="module" src="script.js"></script>
+  </div>
+</body>
+
+</html>
