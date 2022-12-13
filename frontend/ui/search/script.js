@@ -16,6 +16,11 @@ const form = document.querySelector("#search_form");
 let getPhotoByTag;
 let getUserByUsername;
 
+//if user does not login yet, redirect back to login page
+if (!token && !user) {
+  location.href = "../home/index.html";
+}
+
 /*-- Display username --*/
 //Select existing html elements
 if (token && user) {
@@ -49,7 +54,7 @@ const createPhotoCards = (photos) => {
       return;
     }
     const div = document.createElement("div");
-    div.classList.add = "result";
+    div.classList.add("photo_lib");
     const img = document.createElement("img");
     img.src = url + "/" + photo.filename;
     img.alt = photo.description;
@@ -61,7 +66,7 @@ const createPhotoCards = (photos) => {
     div.appendChild(p);
     search.appendChild(div);
     div.addEventListener("click", () => {
-      location.href = `single.html?id=${photo.photo_id}`;
+      location.href = `../post/single.html?id=${photo.photo_id}`;
     });
   });
 };
@@ -138,7 +143,7 @@ form.addEventListener("submit", async (evt) => {
       }
     };
     getUserByUsername();
-  } else if (option.value == "tag") {
+  } else if (option.value == "photoDescription") {
     getPhotoByTag = async () => {
       try {
         const fetchOptions = {
@@ -147,7 +152,7 @@ form.addEventListener("submit", async (evt) => {
           },
         };
         const response = await fetch(
-          url + "/photo/tag/" + query.value,
+          url + "/search/photo/" + query.value,
           fetchOptions
         );
         const photos = await response.json();

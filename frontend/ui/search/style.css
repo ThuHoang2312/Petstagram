@@ -168,15 +168,13 @@ main {
 }
 
 #query {
-  width: 80%;
+  width: 100%;
   background: #f8f0e9;
   border: 5px solid #bc6c25;
   border-radius: 5px 0 0 5px;
   text-align: center;
   font-size: 3rem;
   height: 8rem;
-  /* margin-right: 0.5rem; */
-  /* margin-top: 6rem; */
 }
 
 #search_form {
@@ -198,6 +196,7 @@ main {
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 20px;
+  margin-right: 10rem;
 }
 
 #search_selector {
@@ -216,10 +215,23 @@ main {
 
 #search_list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-left: 10rem;
-  /* align-items: center; */
+  margin-left: 2rem;
+}
+
+.photo_lib img {
+  width: 50rem;
+  left: 0;
+  margin: 1rem;
+  height: 50rem;
+  object-fit: cover;
+}
+
+.photo_lib p{
+  font-size: 3rem;
+  padding-left: 0.5rem;
 }
 
 #search_list h2 {

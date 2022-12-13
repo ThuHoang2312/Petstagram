@@ -14,9 +14,9 @@ const getUsernameDataForSearch = async (username, res) => {
 }
 
 // Get tag from database that contains the user's searching characters
-const getTagDataForSearch = async (tagName, res) => {
+const getPhotoDataForSearch = async (description, res) => {
   try {
-    const sql = `SELECT * FROM tags WHERE tag_name LIKE '%${tagName}%' `
+    const sql = `SELECT * FROM photos WHERE description LIKE '%${description}%' `
     const [result] = await promisePool.query(sql)
     return result
   } catch (error) {
@@ -24,4 +24,4 @@ const getTagDataForSearch = async (tagName, res) => {
   }
 }
 
-module.exports = { getUsernameDataForSearch, getTagDataForSearch }
+module.exports = { getUsernameDataForSearch, getPhotoDataForSearch }

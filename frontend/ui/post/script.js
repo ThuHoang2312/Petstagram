@@ -9,6 +9,11 @@ const user = sessionStorage.getItem("user");
 const loginUser = JSON.parse(user);
 const loginUserId = loginUser.user_id;
 
+//if user does not login yet, redirect back to login page
+if (!token && !user) {
+  location.href = "../home/index.html";
+}
+
 /*-- Display username and avatar of log In user--*/
 //Select existing html elements
 if (token && user) {
