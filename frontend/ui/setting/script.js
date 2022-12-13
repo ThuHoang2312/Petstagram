@@ -1,7 +1,6 @@
 "use strict";
 
-//import { url } from "../config.js";
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 import logOut from "../logout.js";
 
 //Get data from session storage
@@ -32,7 +31,7 @@ const loginUserId = loginUser.user_id;
       fetchOptions
     );
     const userProfile = await response.json();
-    console.log(userProfile);
+
     const img = document.querySelector(".user-wrapper img");
     if (userProfile.avatar == null) {
       img.src = "../../assets/user_icon.png";
@@ -112,7 +111,6 @@ const updateProfile = async () => {
 
     const response = await fetch(url + `/user/${loginUserId}`, options);
     const json = await response.json();
-    console.log(json);
 
     if (isEmpty) {
       alert("You submitted a blank form");
@@ -177,7 +175,6 @@ const handleDeleteForm = async () => {
   deleteForm.addEventListener("submit", async (evt) => {
     evt.preventDefault();
     const data = serializeJson(deleteForm);
-    console.log(data);
 
     if (data["email"] === "") {
       alert("Please confirm");
@@ -201,7 +198,6 @@ const handleDeleteForm = async () => {
       if (json.error) {
         alert(json.error.message);
       }
-      console.log("deletion confirmed");
       location.href = "login.html";
     } else {
       alert("Please type your email to confirm");

@@ -1,7 +1,6 @@
 "use strict";
 
-//import { url } from "../config.js";
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 import logOut from "../logout.js";
 
 const token = sessionStorage.getItem("token");
@@ -38,7 +37,6 @@ const loginUserId = loginUser.user_id;
       fetchOptions
     );
     const userProfile = await response.json();
-    console.log(userProfile);
     const img = document.querySelector(".user-wrapper img");
     if (userProfile.avatar == null) {
       img.src = "../../assets/user_icon.png";
@@ -62,14 +60,12 @@ const createPhotoCards = (photos) => {
   //clear ui
   search.innerHTML = "";
   if (photos.length < 1) {
-    console.log("no photos");
     return;
   }
 
   photos.forEach((photo) => {
     //Create li with DOM
     if (photo < 1) {
-      console.log("no photos");
       return;
     }
     const div = document.createElement("div");
@@ -96,7 +92,6 @@ const createUserCards = (users) => {
   //clear ui
   search.innerHTML = "";
   if (users.length < 1) {
-    console.log("no users found");
     const h2 = document.createElement("h2");
     h2.innerHTML = "No result found. Please try another one!";
     search.appendChild(h2);
@@ -105,7 +100,6 @@ const createUserCards = (users) => {
 
   users.forEach((user) => {
     if (user < 1) {
-      console.log("user not exist");
       return;
     }
 
@@ -136,8 +130,6 @@ const createUserCards = (users) => {
 //Search form
 form.addEventListener("submit", async (evt) => {
   evt.preventDefault();
-  console.log("value is: ", option.value);
-  console.log("query is: ", query.value);
 
   if (option.value == "user") {
     getUserByUsername = async () => {
@@ -152,7 +144,6 @@ form.addEventListener("submit", async (evt) => {
           fetchOptions
         );
         const users = await response.json();
-        console.log(users);
         if (users.message) {
           alert(`Sorry, there is no ${query.value} available at this moment.`);
           return;
@@ -176,7 +167,6 @@ form.addEventListener("submit", async (evt) => {
           fetchOptions
         );
         const photos = await response.json();
-        console.log(photos);
         if (photos.length == 0) {
           alert(
             `Sorry, there is no photo available with "${query.value}" description at this moment. Please try to search for another topic. Good luck.`

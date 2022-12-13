@@ -1,8 +1,7 @@
 "use strict";
 
 import logOut from "../logout.js";
-//import { url } from "../config.js";
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 // get user data
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
@@ -30,7 +29,6 @@ const loginUserId = loginUser.user_id;
       fetchOptions
     );
     const userProfile = await response.json();
-    console.log(userProfile);
     const img = document.querySelector(".user-wrapper img");
     if (userProfile.avatar == null) {
       img.src = "../../assets/user_icon.png";
@@ -56,7 +54,6 @@ const getQParam = (param) => {
   return urlParams.get(param);
 };
 const photoId = getQParam("id");
-console.log(photoId);
 
 /*-- Get photo by photo Id --*/
 
@@ -83,7 +80,6 @@ getPhoto(photoId);
 const postDetail = document.querySelector(".image-wrapper");
 /*-- Delete button for admin and post owner --*/
 const deleteBtn = document.querySelector("#delete");
-console.log(deleteBtn);
 
 const createPhotoCard = (photo) => {
   const imgDiv = document.getElementById("image");
@@ -135,7 +131,6 @@ deleteBtn.addEventListener("click", async () => {
       };
       const response = await fetch(url + `/photo/${photoId}`, fetchOptions);
       const json = await response.json();
-      console.log("delete front", json);
       alert(json.message);
       //Redirection to home page
       location.href = `../front/index.html?id=${loginUserId}`;
@@ -176,7 +171,6 @@ async function getLikeOfUser() {
     const response = await fetch(url + "/like/user/" + photoId, fetchOptions);
     const like = await response.json();
     updateIcon(like.message);
-    console.log("like status", like.message);
   } catch (error) {
     alert(error.message);
   }
@@ -247,14 +241,12 @@ async function getAllComments() {
     const response = await fetch(url + `/comment/${photoId}`, fetchOptions);
     const allComments = await response.json();
     displayComments(allComments);
-    console.log(allComments);
   } catch (error) {
     alert(error.message);
   }
 }
 
 getAllComments(photoId);
-console.log("getAllComments(photoId");
 
 //Display comment
 const displayComments = (allComments) => {
@@ -282,7 +274,6 @@ const displayComments = (allComments) => {
     commentContent.appendChild(name);
     commentContent.appendChild(userComment);
     commentContainer.appendChild(commentContent);
-    console.log("comment container: ", commentContainer);
 
     // Allow delete for admin and comment owner
     if (
@@ -304,7 +295,6 @@ const displayComments = (allComments) => {
     commentContent.className = "commentContent";
     commentContainer.className = "commentBox";
     allCommentsContainer.appendChild(commentContainer);
-    console.log(allCommentsContainer);
   });
 };
 

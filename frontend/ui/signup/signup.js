@@ -1,7 +1,6 @@
 "use strict";
 
-// import { url } from "../config.js";
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 // select existing html elements
 const signupForm = document.querySelector("#signup-form");
 
@@ -19,7 +18,6 @@ signupForm.addEventListener("submit", async (evt) => {
   const json = await response.json();
   //alert errors from backend
   alert(json.message);
-  console.log("signup response: ", json);
 
   if (!response.ok) {
     //alert("Error " + response.statusText + " occurred when register profile!");

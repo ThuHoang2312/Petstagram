@@ -1,5 +1,5 @@
 // For checking if user is logged in or not
-import { url } from "../config.js";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 
 (async () => {
   "use strict";

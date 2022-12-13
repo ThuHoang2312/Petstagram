@@ -1,7 +1,7 @@
 "use strict";
-//import { url } from "../config.js";
+
 import logOut from "../logout.js";
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 
 const token = sessionStorage.getItem("token");
 const user = sessionStorage.getItem("user");
@@ -28,7 +28,6 @@ const loginUserId = userData.user_id;
       fetchOptions
     );
     const userProfile = await response.json();
-    console.log(userProfile);
     const img = document.querySelector(".user-wrapper img");
     if (userProfile.avatar == null) {
       img.src = "../../assets/user_icon.png";
@@ -61,7 +60,6 @@ if (getQParam("id") == null) {
 } else {
   userId = getQParam("id");
 }
-console.log("getQParam: ", getQParam("id"));
 
 /*-- Get user by user Id --*/
 
@@ -75,7 +73,6 @@ const getUser = async (id) => {
     };
     const response = await fetch(url + "/user/profile/" + id, fetchOptions);
     const userProfile = await response.json();
-    console.log(userProfile);
     createProfile(userProfile);
   } catch (e) {
     console.log(e.message);
@@ -99,7 +96,6 @@ async function getFollowOfUser() {
     );
     const follow = await response.json();
     updateFollow(follow.message);
-    console.log("follow status", follow.message);
   } catch (error) {
     alert(error.message);
   }
@@ -117,10 +113,8 @@ function updateFollow(follow) {
 }
 
 const buttonFollow = document.getElementById("btn-follow");
-console.log("button Follow: ", buttonFollow);
 buttonFollow.addEventListener("click", async (event) => {
   event.preventDefault();
-  console.log("button follow click");
   const fetchOptions =
     buttonFollow.innerHTML === "Follow"
       ? {
@@ -165,7 +159,6 @@ const createProfile = (userProfile) => {
 
   const userDetail = document.createElement("div");
   userDetail.className = "user-detail";
-  console.log(userDetail);
 
   const userFollow = document.createElement("div");
   userFollow.className = "user-follow";
@@ -246,7 +239,6 @@ postPhoto.addEventListener("submit", async (evt) => {
   };
 
   const response = await fetch(url + "/photo", fetchOptions);
-  console.log(response);
   const json = await response.json();
   alert(json.message);
 });
@@ -265,7 +257,6 @@ const getPhotosByUser = async (id) => {
     };
     const response = await fetch(url + "/photo/user/" + id, fetchOptions);
     const images = await response.json();
-    console.log(images);
     createCard(images);
   } catch (e) {
     console.log(e.message);

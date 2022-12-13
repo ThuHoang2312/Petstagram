@@ -1,10 +1,9 @@
 "use strict";
 
-// import { url } from "../config"
 
 //select existing html element
 const loginForm = document.querySelector("#login-form");
-const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 // login
 loginForm.addEventListener("submit", async (evt) => {
   evt.preventDefault();

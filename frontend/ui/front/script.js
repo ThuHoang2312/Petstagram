@@ -1,7 +1,7 @@
 "use strict";
 
-//import { url } from "../config.js";
-const url = "http://localhost:3000";
+// const url = "http://localhost:3000"; 
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
 import logOut from "../logout.js";
 
 // get user data
@@ -11,7 +11,6 @@ const loginUser = logInUser && JSON.parse(logInUser);
 
 //if user does not login yet, redirect back to front page
 if (!token) {
-  console.log("redirect");
   location.href = "../home/index.html";
 }
 
@@ -34,7 +33,6 @@ const loginUserId = loginUser.user_id;
       fetchOptions
     );
     const userProfile = await response.json();
-    console.log(userProfile);
     const img = document.querySelector(".user-wrapper img");
     if (userProfile.avatar == null) {
       img.src = "../../assets/user_icon.png";
@@ -52,21 +50,6 @@ const loginUserId = loginUser.user_id;
   }
 })();
 
-// if (token && logInUser) {
-//   const img = document.querySelector(".user-wrapper img");
-//   if (loginUser.avatar == null) {
-//     img.src = "../../assets/user_icon.png";
-//   } else {
-//     img.src = url + "/" + loginUser.avatar;
-//   }
-//   const h4 = document.querySelector(".user-wrapper h4");
-//   h4.innerHTML = loginUser.username;
-
-//   img.addEventListener("click", () => {
-//     location.href = `../profile/profile.html?id=${loginUserId}`;
-//   });
-// }
-
 /*-- Create post content --*/
 
 const getFollowStatus = async (id) => {
@@ -82,7 +65,6 @@ const getFollowStatus = async (id) => {
       fetchOptions
     );
     const follow = await response.json();
-    console.log("Follow status: ", follow.message);
   } catch (error) {
     alert(error.message);
   }
@@ -139,7 +121,6 @@ const createPost = (photos) => {
               fetchOptions
             );
             const json = await response.json();
-            console.log("delete photo", json);
           } catch (e) {
             console.log(e.message);
           }
@@ -197,7 +178,6 @@ const createPost = (photos) => {
     postContent.appendChild(date);
     post.appendChild(postContent);
     post.appendChild(line);
-    console.log(post);
 
     userInfo.addEventListener("click", () => {
       location.href = `../profile/profile.html?id=${photo.user_id}`;
@@ -219,9 +199,7 @@ const getFollowingPhotos = async () => {
       },
     };
     const response = await fetch(url + "/photo", fetchOptions);
-    console.log(response)
     const photos = await response.json();
-    console.log(photos);
 
     //If there is no following account's photo, return random generate photo
     if (!(photos.length == 0)) {
@@ -245,7 +223,6 @@ const getRandom = async () => {
     };
     const response = await fetch(url + "/photo/explore", fetchOptions);
     const photos = await response.json();
-    console.log(photos);
     createPost(photos);
   } catch (e) {
     console.log(e.message);
@@ -286,7 +263,6 @@ const getTrend = async () => {
     };
     const response = await fetch(url + "/user/trend", options);
     const topUsers = await response.json();
-    console.log("getTrend: ", topUsers);
     createTrend(topUsers);
   } catch (e) {
     console.log(e.message);
@@ -307,6 +283,5 @@ menu_toggle.addEventListener("click", () => {
 /*-- Log out --*/
 const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
-  console.log("click logout");
   logOut();
 });
