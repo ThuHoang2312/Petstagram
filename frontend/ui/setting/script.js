@@ -93,12 +93,12 @@ const updateProfile = async () => {
       }
     }
     //Fill the dummy data to form if the user leaves fields blank
-    if (data.get("username") === "") {
-      data.set("username", loginUser.username);
-    }
-    if (data.get("avatar") === "") {
-      data.set("avatar", loginUser.avatar);
-    }
+    // if (data.get("username") === "") {
+    //   data.set("username", loginUser.username);
+    // }
+    // if (data.get("avatar") === "") {
+    //   data.set("avatar", loginUser.avatar);
+    // }
     if (data.get("description") === "") {
       data.set("description", loginUser.description);
     }

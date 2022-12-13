@@ -460,11 +460,11 @@ header {
 
   .sidebar.is-active {
     display: flex;
-    max-width: 200px;
+    max-width: 100px;
   }
 
   .sidebar-menu ul li span {
-    display: inline-flex;
+    display: none;
   }
 
   .sidebar-menu li {

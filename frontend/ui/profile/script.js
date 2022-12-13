@@ -169,8 +169,9 @@ const createProfile = (userProfile) => {
   h2.innerHTML = userProfile.username;
 
   const description = document.createElement("p");
-  if (userProfile.description == null) {
-    description.innerHTML = "No description available";
+
+  if (userProfile.description === null) {
+    description.textContent = "No description available";
   } else {
     description.innerHTML = userProfile.description;
   }

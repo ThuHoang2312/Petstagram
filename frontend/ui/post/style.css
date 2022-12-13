@@ -344,8 +344,8 @@ header {
   position: fixed;
   top: 2rem;
   right: 2rem;
-  width: 60px;
-  height: 60px;
+  width: 6rem;
+  height: 6rem;
   border-radius: 99px;
   background-color: #283618;
   cursor: pointer;
@@ -395,7 +395,7 @@ header {
 }
 
 /* ----------Below 1200px (small desktop and laptop)---------- */
-@media (max-width: 1200) {
+@media (max-width: 1200px) {
   .sidebar {
     max-width: 20rem;
   }
@@ -407,6 +407,7 @@ header {
 
   .header {
     width: calc(100% - 200px);
+    left: 200px;
   }
 }
 
@@ -438,15 +439,35 @@ header {
     width: calc(100% - 100px);
     left: 100px;
   }
+
+  .header span {
+    font-size: 4rem;
+  }
+
+  #map {
+    width: 90%;
+  }
+
+  #comment {
+    width: 90%;
+  }
 }
 
 /* ----------Below 600px (phones )---------- */
 @media (max-width: 600px) {
-  * {
-    font-size: 100%;
+  .main-container {
+    margin-left: 0;
+    width: 100%;
   }
 
-  .image-wrapper {
+  #delete {
+    height: 5rem;
+    font-size: 3rem;
+    margin-left: 30rem;
+  }
+
+  #comment {
+    width: fit-content;
   }
 
   .menu-toggle {
@@ -463,22 +484,42 @@ header {
     left: 0;
   }
 
+  .header span {
+    font-size: 3rem;
+  }
+
+  #info div {
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+  }
+
+  #info div span {
+    color: #bc6c25;
+  }
+
+  .date {
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  #reaction-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .likeReaction i,
+  .likeReaction p {
+    font-size: 2rem;
+  }
+
   .sidebar {
     display: none;
   }
 
-  .main-container {
-    width: 100%;
-    margin-left: 0;
-  }
-
   .sidebar.is-active {
     display: flex;
-    max-width: 20rem;
-  }
-
-  .sidebar-menu ul li span {
-    display: inline-flex;
+    max-width: 10rem;
   }
 
   .updateOverlay {
@@ -489,5 +530,16 @@ header {
   .passwordOverlay {
     width: 100%;
     left: 0;
+  }
+
+  #image img {
+    max-width: fit-content;
+    height: auto;
+  }
+
+  #map {
+    width: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

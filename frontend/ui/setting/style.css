@@ -429,7 +429,7 @@ main {
   }
 
   .dashboard span {
-    font-size: 50%;
+    font-size: 3rem;
   }
 
   .header {
@@ -452,11 +452,11 @@ main {
 
   .sidebar.is-active {
     display: flex;
-    max-width: 200px;
+    max-width: 10rem;
   }
 
   .sidebar-menu ul li span {
-    display: inline-flex;
+    display: none;
   }
 
   .updateOverlay {
