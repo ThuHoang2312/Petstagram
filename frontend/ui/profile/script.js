@@ -62,6 +62,7 @@ const getUser = async (id) => {
     };
     const response = await fetch(url + "/user/profile/" + id, fetchOptions);
     const userProfile = await response.json();
+    console.log(userProfile);
     createProfile(userProfile);
   } catch (e) {
     console.log(e.message);
