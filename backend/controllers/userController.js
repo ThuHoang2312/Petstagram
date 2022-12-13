@@ -27,9 +27,10 @@ const getTrendingUsers = async (req, res) => {
   }
 }
 
-// Uses the data from userModel to modify the user
+// Uses the logic from userModel to modify the user
 const modifyUserGeneral = async (req, res) => {
   const user = req.body
+  console.log('test', req.file)
   if (req.params.userId) {
     user.id = req.params.userId
     user.avatar = req.file.filename
@@ -37,21 +38,31 @@ const modifyUserGeneral = async (req, res) => {
   const result = await userModel.updateUserGeneral(user, res)
   if (result.affectedRows > 0) {
     res.json({ message: 'user updated: ' + user.id })
+  } else if (!result) {
+    res.json({ message: "Username already in use" })
   } else {
     res.status(404).json({ message: 'nothing was changed' })
   }
 }
 
+// Uses the logic from userModel to change the password for the logged in user
 const modifyUserPassword = async (req, res) => {
   const user = req.body
   if (req.params.userId) {
     user.id = req.params.userId
   }
-  const result = await userModel.updateUserPassword(user, res)
-  if (result.affectedRows > 0) {
-    res.json({ message: 'user updated: ' + user.id })
+  // Checks if the new password fields match before accessing the userModel
+  if (user.new_password != user.checked_password) {
+    res.json({ message: "new password fields don't match" })
   } else {
-    res.status(404).json({ message: 'nothing was changed' })
+    const result = await userModel.updateUserPassword(user, res)
+    if (result.affectedRows > 0) {
+      res.json({ message: 'user updated: ' + user.id })
+    } else if (!result) {
+      res.json({ message: "Current password incorrect" })
+    } else {
+      res.status(404).json({ message: 'nothing was changed' })
+    }
   }
 }
 

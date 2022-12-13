@@ -1,5 +1,6 @@
 'use strict'
 const pool = require("../database/db")
+const bcrypt = require('bcrypt')
 const promisePool = pool.promise()
 
 // Get all users from the database
@@ -58,27 +59,53 @@ const addUser = async (user, res) => {
   }
 }
 
-// Modifying a specific user
+// Modifying the logged in user
 const updateUserGeneral = async (user, res) => {
   try {
-    const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
-      "WHERE user_id = ?"
-    const values = [user.username, user.avatar, user.description, user.id]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    let noDuplicateUsernames = true
+    const userList = await getAllUsers()
+    // Make sure there are no duplicate usernames before updating the user
+    for (let i = 1; i <= userList.length; i++) {
+      if (userList[i - 1].username == user.username) {
+        noDuplicateUsernames = false
+        break
+      }
+    }
+    if (noDuplicateUsernames) {
+      const sql = "UPDATE users SET username = ?, avatar = ?, description = ?" +
+        "WHERE user_id = ?"
+      const values = [user.username, user.avatar, user.description, user.id]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    } else {
+      return false
+    }
   } catch (e) {
+    console.error("error while updating the user's username, avatar and description:", e.message)
     res.status(500).json({ "error": e.message })
   }
 }
 
+// Change the logged in user's password
 const updateUserPassword = async (user, res) => {
   try {
-    console.log("password modification user:", user)
-    const sql = "UPDATE users SET password = ? WHERE user_id = ?"
-    const values = [user.password, user.id]
-    const [rows] = await promisePool.query(sql, values)
-    return rows
+    // Checks if the given "current password" matches the user's password
+    const [result] = await promisePool.query("SELECT password FROM users WHERE user_id = ?", user.id)
+    const userPassword = result[0].password
+    const correctPassword = await bcrypt.compare(user.current_password, userPassword)
+    if (!correctPassword) {
+      return false
+    } else {
+      // Crypt the new password and add salt to it
+      const salt = await bcrypt.genSalt()
+      const HashedPassword = await bcrypt.hash(user.new_password, salt)
+      const sql = "UPDATE users SET password = ? WHERE user_id = ?"
+      const values = [HashedPassword, user.id]
+      const [rows] = await promisePool.query(sql, values)
+      return rows
+    }
   } catch (e) {
+    console.error("error while updating a specific user's password:", e.message)
     res.status(500).json({ "error": e.message })
   }
 }

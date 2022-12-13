@@ -52,7 +52,6 @@ const loginUserId = loginUser.user_id;
 /*--------Overlay form handler--------*/
 const generalBtn = document.querySelector(".general");
 const passwordBtn = document.querySelector(".password");
-const deleteBtn = document.querySelector(".delete");
 
 const updateOverlay = document.querySelector(".updateOverlay");
 const closeUpdateOverlay = document.querySelector("#edit");
@@ -70,6 +69,7 @@ const closePassOverlay = document.querySelector("#update");
 
 passwordBtn.addEventListener("click", () => {
   passwordOverlay.classList.add("overlay-open");
+  changePassword()
 });
 
 closePassOverlay.addEventListener("click", () => {
@@ -164,43 +164,6 @@ const changePassword = async () => {
       }
 
       location.href = "setting.html";
-    }
-  });
-};
-
-/*--------Delete account form handler--------*/
-
-const handleDeleteForm = async () => {
-  const deleteForm = document.querySelector("#deleteForm");
-  deleteForm.addEventListener("submit", async (evt) => {
-    evt.preventDefault();
-    const data = serializeJson(deleteForm);
-
-    if (data["email"] === "") {
-      alert("Please confirm");
-    } else if (data["email"] === loggedInUser.email) {
-      const options = {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-      const response = await fetch(url + `/user/${loginUserId}`, options);
-      const json = await response.json();
-
-      if (!response.ok) {
-        alert("Error " + response.status + " occurred when updating password");
-      } else {
-        alert(json.message);
-      }
-      if (json.error) {
-        alert(json.error.message);
-      }
-      location.href = "login.html";
-    } else {
-      alert("Please type your email to confirm");
     }
   });
 };
