@@ -219,6 +219,7 @@ const getFollowingPhotos = async () => {
       },
     };
     const response = await fetch(url + "/photo", fetchOptions);
+    console.log(response)
     const photos = await response.json();
     console.log(photos);
 

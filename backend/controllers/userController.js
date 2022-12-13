@@ -36,15 +36,6 @@ const modifyUserGeneral = async (req, res) => {
   }
   const result = await userModel.updateUserGeneral(user, res)
   if (result.affectedRows > 0) {
-    // req.login(user, { session: false }, (err) => {
-    //   if (err) {
-    //     res.send(err)
-    //   }
-    //   // generate a signed son web token with the contents of user object and return it in the response
-    //   delete user.password
-    //   const token = jwt.sign(user, config.KEY)
-    //   return res.json({ user, token })
-    // })
     res.json({ message: 'user updated: ' + user.id })
   } else {
     res.status(404).json({ message: 'nothing was changed' })

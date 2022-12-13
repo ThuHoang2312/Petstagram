@@ -67,11 +67,7 @@ const deletePhoto = async (req, res) => {
 // Get photos by user's followers
 const getPhotoByUserFollower = async (req, res) => {
   const photo = await photoModel.getPhotoByFollower(req.user.user_id, res)
-  if (photo.length < 1) {
-    res.json(photo)
-  } else {
-    res.sendStatus(404)
-  }
+  res.json(photo)
 }
 
 module.exports = {
