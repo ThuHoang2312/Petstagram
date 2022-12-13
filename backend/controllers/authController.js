@@ -6,7 +6,9 @@ const { addUser, getAllUsers } = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const config = require('../config/config')
 
+// Logs in the user and creates a token
 const login = (req, res) => {
+  // uses the logic from passport.js file to validate the logging in
   passport.authenticate('local', { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).json({
@@ -21,20 +23,18 @@ const login = (req, res) => {
       // generate a signed son web token with the contents of user object and return it in the response
       delete user.password
       const token = jwt.sign(user, config.KEY)
-      console.log('token:', token, 'user:', user)
       return res.json({ user, token })
     })
   })(req, res)
 }
 
+// Add a new user to the database
 const register = async (req, res) => {
-  console.log('Creating a new user: ', req.body)
   const newUser = req.body
   if (!newUser.role) {
     // default user role
     newUser.role = 1
   }
-  //console.log(req.body.email)
   // When registering, check if an email and/or username is already in use.
   // Display the message on screen for the user
   const user = await getAllUsers()
@@ -59,22 +59,20 @@ const register = async (req, res) => {
     }
   }
   const errors = validationResult(req)
-  console.log('validation errors: ' + errors)
   if (errors.isEmpty() && validation) {
     // Encrypt the password when registering a new user before adding it to the database
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(newUser.password, salt)
     newUser.password = passwordHash
     const result = await addUser(newUser, res)
-    //console.log("resulttest", result)
-    res.status(201).json({ message: 'user created', userId: result })
+    res.status(201).json({ message: 'User created', userId: result })
   } else {
-    console.log('req.body', req.body)
+    res.status(404).json({ message: 'Registering failed' })
   }
 }
 
+// Display a message to the user when logging out
 const logout = (req, res) => {
-  console.log('some user logged out')
   res.json({ message: 'logged out' })
 }
 

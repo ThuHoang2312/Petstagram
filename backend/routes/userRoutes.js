@@ -6,13 +6,12 @@ const {
   getUsers,
   getUser,
   modifyUserGeneral,
-  // follow,
   checkToken,
   getTrendingUsers,
   modifyUserPassword,
-  deleteUser
 } = require('../controllers/userController')
 
+// Accept only images with certain file types
 const fileFilter = (req, file, cb) => {
   const acceptedTypes = ['image/jpeg', 'image/png']
   if (acceptedTypes.includes(file.mimetype)) {
@@ -30,9 +29,7 @@ router
   .get('/token', checkToken)
   .get('/profile/:userId', getUser)
   .get('/trend', getTrendingUsers)
-  // .post('/follow/:userId', follow)
   .put('/:userId', upload.single('avatar'), modifyUserGeneral)
   .put('/:userId/passwordChange', modifyUserPassword)
-  .delete('/:userId', deleteUser)
 
 module.exports = router
