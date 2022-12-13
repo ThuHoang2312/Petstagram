@@ -1,9 +1,10 @@
 "use strict";
-
+//const url = "http://localhost:3000";
+const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 //select existing html element
 const loginForm = document.querySelector("#login-form");
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
+
 // login
 loginForm.addEventListener("submit", async (evt) => {
   evt.preventDefault();

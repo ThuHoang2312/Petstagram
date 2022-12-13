@@ -64,11 +64,12 @@
 }
 
 .sidebar-menu {
-  margin-top: 10rem;
+  margin-top: 6rem;
 }
+
 .sidebar-menu li {
   width: 100%;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   padding-left: 2rem;
 }
 
@@ -574,6 +575,16 @@ header {
 
 /* ----------Below 600px (phones )---------- */
 @media (max-width: 600px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .header {
+    width: 100%;
+    z-index: -1;
+    left: 0;
+  }
+
   .content-container {
     width: 100%;
     margin-left: 0;
@@ -589,10 +600,6 @@ header {
     margin-left: 0;
   }
 
-  .menu-toggle {
-    display: block;
-  }
-
   .sidebar.is-active {
     display: flex;
     max-width: 200px;
@@ -600,6 +607,10 @@ header {
 
   .sidebar-menu ul li span {
     display: inline-flex;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 2rem;
   }
 
   .photo-lib {
@@ -613,17 +624,26 @@ header {
     left: 0%;
   }
 
-  .header {
-    width: 100%;
-    z-index: -1;
-    left: 0;
-  }
-
   .user-wrapper {
     display: none;
   }
 
   .dashboard span {
     font-size: 3rem;
+  }
+
+  .user-info {
+    margin-left: 5rem;
+    margin-right: 5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .imageLabel {
+    font-size: 15rem;
+  }
+
+  .overlay {
+    left: 20%;
   }
 }
