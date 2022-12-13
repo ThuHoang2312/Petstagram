@@ -1,7 +1,7 @@
 "use strict";
 
-//const url = "http://localhost:3000";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+const url = "http://localhost:3000";
+//const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 // select existing html elements
 const signupForm = document.querySelector("#signup-form");

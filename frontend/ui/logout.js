@@ -1,6 +1,6 @@
 "use strict";
-//const url = "http://localhost:3000";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+const url = "http://localhost:3000";
+//const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 export default async function logOut() {
   try {

@@ -1,8 +1,8 @@
 "use strict";
 import logOut from "../logout.js";
 
-//const url = "http://localhost:3000";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+const url = "http://localhost:3000";
+//const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 //Get data from session storage
 const token = sessionStorage.getItem("token");
