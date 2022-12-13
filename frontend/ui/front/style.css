@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
 /* -------------------------------- */
 /* ----------GENERAL---------- */
@@ -384,74 +384,74 @@ header {
 }
 
 /* ----------Below 1200px (small desktop and laptop)---------- */
-@media (max-width: 75em) {
+@media (max-width: 1200) {
   .sidebar {
     max-width: 20rem;
   }
-}
 
-/* ----------Below 800x (tablets)---------- */
-@media (max-width: 50em) {
-  .menu-toggle {
-    display: block;
-  }
-  .main-content {
-    padding-top: 8rem;
-  }
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    height: 100vh;
-    width: 100%;
-    max-width: 300px;
-    transition: 0.2s linear;
+  .main-container {
+    width: calc(100%-200px);
+    margin-left: 200px;
   }
 
   .header {
-    display: none;
-  }
-  .sidebar.is-active {
-    left: 0;
-  }
-
-  .main-wrapper .middle-col {
-    width: 100%;
-  }
-
-  #query {
-    width: 50%;
-  }
-
-  .main-wrapper .right-col {
-    display: none;
+    width: calc(100% - 200px);
   }
 }
 
-/* ----------Below 550px (phones )---------- */
-@media (max-width: 34em) {
-  .main-wrapper {
+/* ----------Below 900x (tablets)---------- */
+@media (max-width: 900px) {
+  .sidebar {
+    max-width: 100px;
+  }
+  .sidebar-menu ul li span {
+    display: none;
+  }
+
+  .right-section-wrapper,
+  .right-section {
+    display: none;
+  }
+
+  .main-container {
+    width: calc(100%-100px);
+    margin-left: 100px;
+  }
+
+  .content-container {
     display: flex;
   }
 
   .header {
-    height: 7rem;
+    width: calc(100% - 100px);
   }
+}
 
-  .left-col {
-    width: 1rem;
-  }
-
-  .middle-col {
-    margin-left: 1rem;
-  }
-  .nav-items i {
-    font-size: 2rem;
-  }
-
-  .nav-items span {
+/* ----------Below 600px (phones )---------- */
+@media (max-width: 600px) {
+  .header {
     display: none;
-    border: #bc6c25;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-container {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar.is-active {
+    display: flex;
+    max-width: 200px;
+  }
+
+  .sidebar-menu ul li span {
+    display: inline-flex;
   }
 }

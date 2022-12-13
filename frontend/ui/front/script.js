@@ -11,7 +11,7 @@ const loginUser = logInUser && JSON.parse(logInUser);
 const loginUserId = loginUser.user_id;
 
 //if user does not login yet, redirect back to login page
-if (!token && !logInUser) {
+if (!token && !loginUser) {
   location.href = "../home/index.html";
 }
 
