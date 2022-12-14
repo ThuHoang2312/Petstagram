@@ -33,7 +33,6 @@ const getUserLogin = async (email) => {
     return rows
   } catch (e) {
     console.log("error", e.message)
-    res.status(500).json({ "message": e.message })
   }
 }
 
