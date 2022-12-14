@@ -4,7 +4,7 @@
 
 Petstagram is where pet owners and pet lovers share their precious moments with their pets to each other. Our desire is to connect pet lovers for form relationships, meet new friends, find comfort and help in moments of need. In future, we hope this is where animal shelters can post infos about those who are in need of adoption.
 
-[Live demo](Link here)
+https://petstagram.northeurope.cloudapp.azure.com/frontend/ui/home/index.html
 
 ## Features:
 
@@ -52,10 +52,10 @@ Create a new username - after creation redirect to login. Email duplication is c
 ## Screenshot of the deployed app
 
 Homepage:
-![Screenshot 2022-12-13 at 13 00 32](https://user-images.githubusercontent.com/89455223/207300404-92efbe32-cce4-44fc-9281-548af91e680f.png)
+![Screenshot 2022-12-14 at 11 24 28](https://user-images.githubusercontent.com/89455223/207557276-44013903-23ac-4e42-a58d-3bec4f786c87.png)
 
 Front page:
-![Screenshot 2022-12-13 at 12 59 18](https://user-images.githubusercontent.com/89455223/207300231-aab2131c-cbf7-4c25-b80b-2f9fd8add5fa.png)
+![Screenshot 2022-12-14 at 11 26 00](https://user-images.githubusercontent.com/89455223/207557520-0b8402c4-26f0-4c76-a673-7f119d6e17d5.png)
 
 ## Stack
 
