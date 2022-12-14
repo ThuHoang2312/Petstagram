@@ -1,8 +1,8 @@
 "use strict";
 import logOut from "../logout.js";
 
-// const url = "http://localhost:3000";
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
+const url = "http://localhost:3000";
+// const url = "https://petstagram.northeurope.cloudapp.azure.com/app";
 
 // get user data
 const token = sessionStorage.getItem("token");
@@ -51,24 +51,6 @@ const loginUserId = loginUser.user_id;
 })();
 
 /*-- Create post content --*/
-
-const getFollowStatus = async (id) => {
-  try {
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(
-      url + "/follow/followStatus/" + id,
-      fetchOptions
-    );
-    const follow = await response.json();
-  } catch (error) {
-    alert(error.message);
-  }
-};
 
 const post = document.querySelector(".post");
 const createPost = (photos) => {
@@ -128,20 +110,6 @@ const createPost = (photos) => {
           alert("You cancelled the action");
         }
       });
-    }
-
-    //Create follow button
-    if (!(loginUserId == photo.user_id)) {
-      const followButton = document.createElement("button");
-      followButton.innerHTML = "Follow";
-      followButton.className = "btn-follow";
-      buttonDiv.appendChild(followButton);
-      const followStatus = getFollowStatus(photo.user_id);
-      if (followStatus) {
-        followButton.innerHTML = "Following";
-      } else {
-        followButton.innerHTML = "Follow";
-      }
     }
 
     post.appendChild(userInfo);

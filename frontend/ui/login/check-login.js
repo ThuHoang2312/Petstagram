@@ -1,5 +1,7 @@
 // For checking if user is logged in or not
-const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
+// const url = "https://petstagram.northeurope.cloudapp.azure.com/app"
+const url = "http://localhost:3000";
+
 
 (async () => {
   "use strict";

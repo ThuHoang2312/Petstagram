@@ -467,6 +467,15 @@ header {
   transform: rotate(90deg);
 }
 
+/* ----------Below 1550px (small desktop and laptop)---------- */
+
+@media (max-width: 1550px) {
+  .photo-lib{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
 /* ----------Below 1200px (small desktop and laptop)---------- */
 @media (max-width: 1200px) {
   .sidebar {
