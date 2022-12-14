@@ -18,7 +18,7 @@ Create a new username - after creation redirect to login. Email duplication is c
 
 3. Profile page
 
-- View user's profile information
+- View user's profile information.
 - View photos that user have uploaded.
 - Upload photo together with description.
 - There is follow button so you can decide to follow the profile user.
@@ -33,19 +33,19 @@ Create a new username - after creation redirect to login. Email duplication is c
 
 5. Search page
 
-- Search user
-- Click on the result will link to the profile of the user.
+- Search username for finding user. Click on the result will link to the profile of the user.
+- Search for photo by filtering photo description. Click on the result will link to the photo post.
 
 7. Single post page
 
-- Single photo display
+- Single photo display.
 - Comment, like and number of like on the photo are displayed.
-- If the photo has exif data, click on the photo will display a map.
+- If the photo has exif data, the location will show in the map.
 
 8. Account settings page
 
-- User can edit general information as in side menu in user page
-- User can change password
+- User can edit general information such as username, description, avatar. 
+- User can change password.
 
 9. Secure with HTTPS redirection
 
@@ -63,6 +63,23 @@ Front page:
 - Back-end: NodeJS and Express
 - Database: MariaDB
 - The app is deployed on Azure.
+
+## Dependencies
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "exif": "^0.6.0",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "sharp": "^0.31.2"
 
 ## Installation
 
@@ -82,7 +99,8 @@ npm install
 Create and .env file with the following content:
 
 ```
-DB_HOST="127.1.0.0"
+PORT=<your-port-number>
+DB_HOST=<your-localhost>
 DB_USER=<your-db-user>
 DB_PASS=<your-db-user_password>
 DB_NAME=<your-db-name>
@@ -106,13 +124,14 @@ To run front-end: You can open the ui/home/index.html on VSCode. For VSCode, you
 
 
 2. Project database SQL:
-   Link here
+
+   https://github.com/ThuHoang2312/Petstagram/blob/main/backend/petstagram-dump.sql
 
 ## Contributors
 
 [Chi Nguyen](https://github.com/chinguyen202)<br>
 [Thu Hoang](https://github.com/ThuHoang2312)<br>
-[Tuomas Heikkila](https://github.com/Tuomas01)<br>
+[Tuomas Heikkilä](https://github.com/Tuomas01)<br>
 
 Contact contributors for help if neccessary.
 
