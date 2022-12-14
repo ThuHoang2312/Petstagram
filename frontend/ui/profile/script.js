@@ -169,10 +169,12 @@ const createProfile = (userProfile) => {
   h2.innerHTML = userProfile.username;
 
   const description = document.createElement("p");
-  if (userProfile.description == null) {
-    description.innerHTML = "No description available";
-  } else {
+  console.log(userProfile.description);
+
+  if (!(userProfile.description == null)) {
     description.innerHTML = userProfile.description;
+  } else {
+    description.innerHTML = "No description available";
   }
   avatar.appendChild(img);
   userDetail.appendChild(description);

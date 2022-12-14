@@ -460,11 +460,23 @@ header {
 
   .sidebar.is-active {
     display: flex;
-    max-width: 200px;
+    max-width: 100px;
   }
 
   .sidebar-menu ul li span {
-    display: inline-flex;
+    display: none;
+  }
+
+  .info {
+    padding: 0;
+  }
+
+  .user p {
+    font-size: 2rem;
+  }
+
+  .post-content {
+    padding: 1rem;
   }
 
   .sidebar-menu li {
@@ -474,10 +486,31 @@ header {
   .description {
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
     line-height: 4rem;
   }
 
   .description span {
     color: #bc6c25;
+  }
+
+  .description p {
+    font-size: 2rem;
+  }
+
+  .post-time {
+    font-style: italic;
+    font-size: 2rem;
+  }
+
+  .btn-delete {
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+  }
+
+  .btn-follow {
+    font-size: 1.6rem;
+    margin-left: 3rem;
   }
 }

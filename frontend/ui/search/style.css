@@ -411,6 +411,10 @@ main {
     display: none;
   }
 
+  .header span {
+    font-size: 3rem;
+  }
+
   .dashboard span {
     font-size: 50%;
   }
@@ -418,6 +422,7 @@ main {
   .header {
     width: 100%;
     z-index: -1;
+    padding-right: 0;
   }
 
   .sidebar {
@@ -457,12 +462,11 @@ main {
 
   .sidebar.is-active {
     display: flex;
-    max-width: 200px;
+    max-width: 10rem;
   }
 
   .sidebar-menu ul li span {
-    display: inline-flex;
-    font-size: 3rem;
+    display: none;
   }
 
   .sidebar-menu {
@@ -476,5 +480,24 @@ main {
   .sidebar-menu ul li {
     font-size: 2rem;
     margin-bottom: 2rem;
+  }
+
+  .photo_lib {
+    margin-bottom: 5rem;
+    border: thick double #283618;
+    border-radius: 5px;
+  }
+
+  .photo_lib img {
+    width: 100%;
+    height: auto;
+  }
+
+  .photo_lib p {
+    font-size: 2rem;
+  }
+
+  #search_list {
+    margin-left: 0;
   }
 }

@@ -102,6 +102,7 @@ const updateProfile = async () => {
     if (data.get("description") === "") {
       data.set("description", loginUser.description);
     }
+
     const options = {
       method: "PUT",
       headers: {
