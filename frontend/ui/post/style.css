@@ -464,10 +464,36 @@ header {
     height: 5rem;
     font-size: 3rem;
     margin-left: 30rem;
+    margin-right: 10rem;
+  }
+
+  .allComments {
+    margin: 1rem;
+  }
+
+  .commentBox {
+    height: auto;
+    margin: 1rem 0;
+    padding: 1rem;
   }
 
   #comment {
-    width: fit-content;
+    width: 80%;
+    height: auto;
+  }
+
+  .commentUser {
+    font-size: 2rem;
+    color: #bc6c25;
+  }
+
+  #comment-input {
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .commentContent p {
+    font-size: 2rem;
   }
 
   .menu-toggle {
@@ -482,6 +508,7 @@ header {
     width: 100%;
     z-index: -1;
     left: 0;
+    padding: 0;
   }
 
   .header span {
@@ -538,8 +565,8 @@ header {
   }
 
   #map {
-    width: 80%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 }
