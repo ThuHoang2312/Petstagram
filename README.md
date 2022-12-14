@@ -5,6 +5,7 @@
 Petstagram is where pet owners and pet lovers share their precious moments with their pets to each other. Our desire is to connect pet lovers for form relationships, meet new friends, find comfort and help in moments of need. In future, we hope this is where animal shelters can post infos about those who are in need of adoption.
 
 https://petstagram.northeurope.cloudapp.azure.com/frontend/ui/home/index.html
+Demo video: https://youtu.be/XI2kuakv_PU
 
 ## Features:
 
