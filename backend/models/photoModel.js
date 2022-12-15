@@ -90,7 +90,7 @@ const deletePhotosById = async (photoId, user, res) => {
 const getPhotoByFollower = async (userId, res) => {
   try {
     const [rows] = await promisePool.query(
-      'SELECT * FROM photos JOIN follows ON photos.user_id = follower_id JOIN users ON users.user_id = photos.user_id WHERE followee_id = ?',
+      'SELECT * FROM photos JOIN follows ON photos.user_id = followee_id JOIN users ON users.user_id = photos.user_id WHERE follower_id = ?',
       [userId]
     )
     return rows
